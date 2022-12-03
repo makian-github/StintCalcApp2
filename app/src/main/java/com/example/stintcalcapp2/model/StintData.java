@@ -170,8 +170,8 @@ public class StintData {
     /**
      * Stint数よりも先のデータを初期化
      */
-    public void clearRaceData(){
-        for (int i = stintCnt; i < maxStintCount; i++) {
+    public void clearRaceData(int stint){
+        for (int i = stint; i < maxStintCount; i++) {
             /**スティントの終了時間*/
             stintData[i][0] = "00:00";
             /**走行時間*/
