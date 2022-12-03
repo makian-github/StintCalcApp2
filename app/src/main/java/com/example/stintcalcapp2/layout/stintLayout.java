@@ -23,7 +23,7 @@ public class stintLayout extends AppCompatActivity {
     private static String TAG = "stintLayout";
 
     /**
-     *CommonUI01Test.
+     *StintLayout.
      *Layout Template.<br>
      *[LayoutAbout]<br>
      *[CheckBox] [Stint] [StartTime] [EndTime] [Runtime] [driverName] [KartNo]
