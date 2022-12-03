@@ -183,10 +183,15 @@ public class StintData {
         }
     }
 
+    /**
+     * 引数で渡されたドライバーの合計Stint数を返す
+     * @param driverName ドライバー名
+     * @return 指定されたドライバーの合計Stint数
+     */
     public int getCntStintPerDriver(String driverName){
         int cntStintPerDriver = 0;
         for (int i = 0; i < stintData.length; i++) {
-            if(stintData[i][3].equals(driverName)){
+            if(stintData[i][2].equals(driverName)){
                 cntStintPerDriver++;
             }
         }
