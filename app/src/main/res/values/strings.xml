@@ -33,4 +33,8 @@
     <string name="saved">Saved</string>
     <string name="read_error">Read file error !</string>
     <string name="read_comp">Read Completed !</string>
+    <string name="tab_now_run_time">now</string>
+    <string name="tab_stint">stint</string>
+    <string name="tab_set">set</string>
+    <string name="tab_data">data</string>
 </resources>

@@ -1,262 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#def"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".view.MainActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
+    <ScrollView
+        android:layout_width="500px"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="@dimen/chk_box_width"
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="flag"
-                android:textAlignment="center" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="@dimen/stint_textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/stintText"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/chk_box_width"
+                    android:layout_height="wrap_content"
+                    android:text="flag"
+                    android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="@dimen/textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/startTimeTxt"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/stint_textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/stintText"
+                    android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="@dimen/textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/endTimeTxt"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/startTimeTxt"
+                    android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="@dimen/textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/runTimeText"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/endTimeTxt"
+                    android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="@dimen/textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/driverNameText"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/runTimeText"
+                    android:textAlignment="center" />
 
-            <TextView
-                android:layout_width="@dimen/textView_width"
-                android:layout_height="@dimen/textView_height"
-                android:text="@string/KartNoText"
-                android:textAlignment="center" />
+                <TextView
+                    android:layout_width="@dimen/textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/driverNameText"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:layout_width="@dimen/textView_width"
+                    android:layout_height="@dimen/textView_height"
+                    android:text="@string/KartNoText"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+
+
+            <include
+                android:id="@+id/stint_layout0"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout1"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout2"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout3"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout4"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout5"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout6"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout7"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout8"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout9"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout10"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout11"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout12"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout13"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout14"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout15"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout16"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout17"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout18"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout19"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout20"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout21"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout22"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout23"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout24"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout25"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout26"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout27"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout28"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout29"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout30"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout31"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout32"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout33"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout34"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout35"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout36"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout37"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout38"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout39"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout40"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout41"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout42"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout43"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout44"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout45"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout46"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout47"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout48"
+                layout="@layout/stint_layout" />
+
+            <include
+                android:id="@+id/stint_layout49"
+                layout="@layout/stint_layout" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="380px"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="@dimen/tab_btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:text="@string/tab_set" />
+
+            <Button
+                android:layout_width="@dimen/tab_btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10px"
+                android:text="@string/tab_data" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="@dimen/tab_btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:text="@string/tab_now_run_time" />
+
+            <Button
+                android:layout_width="@dimen/tab_btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10px"
+                android:text="@string/tab_stint" />
 
         </LinearLayout>
 
 
-        <include
-            android:id="@+id/stint_layout0"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout1"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout2"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout3"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout4"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout5"
-            layout="@layout/stint_layout" />
-        <include
-            android:id="@+id/stint_layout6"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout7"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout8"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout9"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout10"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout11"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout12"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout13"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout14"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout15"
-            layout="@layout/stint_layout" />
-        <include
-            android:id="@+id/stint_layout16"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout17"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout18"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout19"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout20"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout21"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout22"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout23"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout24"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout25"
-            layout="@layout/stint_layout" />
-        <include
-            android:id="@+id/stint_layout26"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout27"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout28"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout29"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout30"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout31"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout32"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout33"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout34"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout35"
-            layout="@layout/stint_layout" />
-        <include
-            android:id="@+id/stint_layout36"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout37"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout38"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout39"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout40"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout41"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout42"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout43"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout44"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout45"
-            layout="@layout/stint_layout" />
-        <include
-            android:id="@+id/stint_layout46"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout47"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout48"
-            layout="@layout/stint_layout" />
-
-        <include
-            android:id="@+id/stint_layout49"
-            layout="@layout/stint_layout" />
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
