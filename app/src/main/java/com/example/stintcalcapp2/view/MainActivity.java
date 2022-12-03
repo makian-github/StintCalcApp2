@@ -36,8 +36,12 @@ public class MainActivity extends AppCompatActivity {
         refreshDisplay();
     }
 
+    /**
+     * stintData,raceDataから取得した情報をもとに表示を更新
+     */
     private void refreshDisplay(){
         for (int i = 0; i < stintLayouts.length; i++) {
+            //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
             if (i == 0){
                 stintLayouts[i].setStartTimeText(raceData.getStartTime());
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(raceData.getStartTime(),stintData.getEndTime(i))));
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Stint毎にLayoutを定義していて量が多いため
+     * メソッドを分けて実装
+     */
     private void defineLayout(){
 
         view = new View[50];
@@ -160,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         stintLayouts[48] = new StintLayout(view[48]);
         stintLayouts[49] = new StintLayout(view[49]);
 
+        //Stintを上から1～50で表示を行なう
         for (int i = 0; i < stintLayouts.length; i++) {
             Log.i(TAG,"i = " + i + ", i+1:" + Integer.toString(i+1));
             stintLayouts[i].setStintText(Integer.toString(i+1));
