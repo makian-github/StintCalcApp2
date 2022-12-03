@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stintcalcapp2.R;
 
-public class stintLayout extends AppCompatActivity {
+public class StintLayout extends AppCompatActivity {
 
     private CheckBox FlagCheckBox = null;
     private TextView stintTextView = null;
@@ -29,7 +29,7 @@ public class stintLayout extends AppCompatActivity {
      *[CheckBox] [Stint] [StartTime] [EndTime] [Runtime] [driverName] [KartNo]
      * @param view
      */
-    public stintLayout(View view) {
+    public StintLayout(View view) {
         Log.i(TAG,"const IN");
         this.view = view;
         FlagCheckBox = view.findViewById(R.id.checkbox);

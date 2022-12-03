@@ -1,5 +1,36 @@
 <resources>
     <string name="app_name">StintCalcApp2</string>
+    <string name="main">StintCalcApp</string>
+    <string name="Set">Set</string>
+    <string name="no_data">"No Data"</string>
+    <string name="pick_time">Pick Time</string>
+    <string name="startTime">StartTimeSet</string>
+    <string name="endTime">EndTimeSet</string>
     <string name="def_time">00:00</string>
+    <string name="startTimeTxt">開始時間</string>
+    <string name="endTimeTxt">終了時間</string>
+    <string name="runTimeText">走行時間</string>
+    <string name="stintText">Stint</string>
+    <string name="driverNameText">Driver</string>
+    <string name="KartNoText">Kart No.</string>
     <string name="def_driver">-</string>
+    <string name="driverBtn">DriverSet</string>
+    <string name="startRaceBtn">StartTime</string>
+    <string name="KartNoBtn">KartNoSet</string>
+    <string name="perStintTxt">1Stint＝</string>
+    <string name="minute">min</string>
+    <string name="calcBtn">Calc</string>
+    <string name="raceTimeText">レース時間= </string>
+    <string name="refresh">refresh</string>
+    <string name="uniformity">均等割り</string>
+    <string name="check_item_text">選択項目にセット</string>
+    <string name="all_check_text">All Check</string>
+    <string name="all_uncheck_text">All Uncheck</string>
+    <string name="check_revers_text">rev Check</string>
+    <string name="save_text">Save</string>
+    <string name="read_text">Read</string>
+    <string name="no_text">"No text !"</string>
+    <string name="saved">Saved</string>
+    <string name="read_error">Read file error !</string>
+    <string name="read_comp">Read Completed !</string>
 </resources>
