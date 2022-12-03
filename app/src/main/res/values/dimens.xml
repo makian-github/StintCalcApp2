@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="textView_height">20dp</dimen>
+    <dimen name="textView_width">60dp</dimen>
+    <dimen name="stint_textView_width">40dp</dimen>
+    <dimen name="driver_textView_width">40dp</dimen>
+    <dimen name="btn_height">40dp</dimen>
+    <dimen name="chk_box_width">30dp</dimen>
+    <dimen name="btn_width_set">58dp</dimen>
+    <dimen name="driverBtn_width_set">50dp</dimen>
+</resources>

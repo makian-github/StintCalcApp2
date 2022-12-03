@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">StintCalcApp2</string>
+    <string name="def_time">00:00</string>
+    <string name="def_driver">-</string>
 </resources>
