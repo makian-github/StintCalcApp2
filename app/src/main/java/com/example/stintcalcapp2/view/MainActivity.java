@@ -3,23 +3,54 @@ package com.example.stintcalcapp2.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.stintcalcapp2.R;
+import com.example.stintcalcapp2.controller.TimeCalc;
 import com.example.stintcalcapp2.layout.StintLayout;
+import com.example.stintcalcapp2.model.RaceData;
+import com.example.stintcalcapp2.model.StintData;
 
 public class MainActivity extends AppCompatActivity {
 
     StintLayout stintLayouts[];
     View view[];
 
+    public StintData stintData;
+    private RaceData raceData;
+    private TimeCalc timeCalc;
+
+    private String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        stintData = new StintData();
+        raceData = new RaceData();
+        timeCalc = new TimeCalc();
+
         defineLayout();
+        refreshDisplay();
     }
+
+    private void refreshDisplay(){
+        for (int i = 0; i < stintLayouts.length; i++) {
+            if (i == 0){
+                stintLayouts[i].setStartTimeText(raceData.getStartTime());
+                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(raceData.getStartTime(),stintData.getEndTime(i))));
+            }else{
+                stintLayouts[i].setStartTimeText(stintData.getEndTime(i-1));
+                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
+            }
+            stintLayouts[i].setEndTimeText(stintData.getEndTime(i));
+            stintLayouts[i].setDriverText(stintData.getDriverName(i));
+            stintLayouts[i].setKartText(stintData.getKartNo(i));
+        }
+    }
+
 
     private void defineLayout(){
 
@@ -46,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         view[17] = findViewById(R.id.stint_layout17);
         view[18] = findViewById(R.id.stint_layout18);
         view[19] = findViewById(R.id.stint_layout19);
-        view[10] = findViewById(R.id.stint_layout20);
+        view[20] = findViewById(R.id.stint_layout20);
         view[21] = findViewById(R.id.stint_layout21);
         view[22] = findViewById(R.id.stint_layout22);
         view[23] = findViewById(R.id.stint_layout23);
@@ -56,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         view[27] = findViewById(R.id.stint_layout27);
         view[28] = findViewById(R.id.stint_layout28);
         view[29] = findViewById(R.id.stint_layout29);
-        view[20] = findViewById(R.id.stint_layout30);
+        view[30] = findViewById(R.id.stint_layout30);
         view[31] = findViewById(R.id.stint_layout31);
         view[32] = findViewById(R.id.stint_layout32);
         view[33] = findViewById(R.id.stint_layout33);
@@ -66,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         view[37] = findViewById(R.id.stint_layout37);
         view[38] = findViewById(R.id.stint_layout38);
         view[39] = findViewById(R.id.stint_layout39);
-        view[30] = findViewById(R.id.stint_layout40);
+        view[40] = findViewById(R.id.stint_layout40);
         view[41] = findViewById(R.id.stint_layout41);
         view[42] = findViewById(R.id.stint_layout42);
         view[43] = findViewById(R.id.stint_layout43);
@@ -98,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         stintLayouts[17] = new StintLayout(view[17]);
         stintLayouts[18] = new StintLayout(view[18]);
         stintLayouts[19] = new StintLayout(view[19]);
-        stintLayouts[20] = new StintLayout(view[10]);
+        stintLayouts[20] = new StintLayout(view[20]);
         stintLayouts[21] = new StintLayout(view[21]);
         stintLayouts[22] = new StintLayout(view[22]);
         stintLayouts[23] = new StintLayout(view[23]);
@@ -108,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         stintLayouts[27] = new StintLayout(view[27]);
         stintLayouts[28] = new StintLayout(view[28]);
         stintLayouts[29] = new StintLayout(view[29]);
-        stintLayouts[30] = new StintLayout(view[20]);
+        stintLayouts[30] = new StintLayout(view[30]);
         stintLayouts[31] = new StintLayout(view[31]);
         stintLayouts[32] = new StintLayout(view[32]);
         stintLayouts[33] = new StintLayout(view[33]);
@@ -118,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         stintLayouts[37] = new StintLayout(view[37]);
         stintLayouts[38] = new StintLayout(view[38]);
         stintLayouts[39] = new StintLayout(view[39]);
-        stintLayouts[40] = new StintLayout(view[30]);
+        stintLayouts[40] = new StintLayout(view[40]);
         stintLayouts[41] = new StintLayout(view[41]);
         stintLayouts[42] = new StintLayout(view[42]);
         stintLayouts[43] = new StintLayout(view[43]);
@@ -129,6 +160,9 @@ public class MainActivity extends AppCompatActivity {
         stintLayouts[48] = new StintLayout(view[48]);
         stintLayouts[49] = new StintLayout(view[49]);
 
-
+        for (int i = 0; i < stintLayouts.length; i++) {
+            Log.i(TAG,"i = " + i + ", i+1:" + Integer.toString(i+1));
+            stintLayouts[i].setStintText(Integer.toString(i+1));
+        }
     }
 }

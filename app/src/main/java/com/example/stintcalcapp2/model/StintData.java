@@ -11,9 +11,9 @@ import static android.content.ContentValues.TAG;
 public class StintData {
 
     private String driverName = "default";
-    private int maxStintCount = 45;
+    private int maxStintCount = 50;
     private int perStintTime = 0;
-    private int stintCnt = 45;
+    private int stintCnt = 50;
     private int driverCnt = 9;
     private int pauseCnt = 0;
     private int kartNo = 0;
