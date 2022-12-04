@@ -2,9 +2,12 @@ package com.example.stintcalcapp2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.TimeCalc;
@@ -14,12 +17,23 @@ import com.example.stintcalcapp2.model.StintData;
 
 public class MainActivity extends AppCompatActivity {
 
-    StintLayout stintLayouts[];
-    View view[];
+    private StintLayout stintLayouts[];
+    private View view[];
+    private Button setBtn;
+    private Button setRaceDataBtn;
+    private Button nowBtn;
+    private Button showStintBtn;
 
-    public StintData stintData;
+    private Button openStintSetting;
+
+
+    private StintData stintData;
     private RaceData raceData;
     private TimeCalc timeCalc;
+
+    //Tab Layout
+    private LinearLayout raceDataLayout;
+    private LinearLayout setStintData;
 
     private String TAG = "MainActivity";
 
@@ -34,6 +48,60 @@ public class MainActivity extends AppCompatActivity {
 
         defineLayout();
         refreshDisplay();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        raceDataLayout.setVisibility(View.GONE);
+        setStintData.setVisibility(View.VISIBLE);
+
+
+        setBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                raceDataLayout.setVisibility(View.GONE);
+                setStintData.setVisibility(View.VISIBLE);
+            }
+        });
+
+        setRaceDataBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.VISIBLE);
+            }
+        });
+
+        nowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.GONE);
+
+            }
+        });
+
+        showStintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.GONE);
+
+            }
+        });
+
+        openStintSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+                intent.putExtra("Stint", 1);//第一引数key、第二引数渡したい値
+                intent.putExtra("stintData",stintData);
+                intent.putExtra("raceData", raceData);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -61,6 +129,19 @@ public class MainActivity extends AppCompatActivity {
      * メソッドを分けて実装
      */
     private void defineLayout(){
+
+        //Layout
+        raceDataLayout = findViewById(R.id.raceDataLayout);
+        setStintData = findViewById(R.id.setStintData);
+
+        //Tabボタン
+        setBtn = findViewById(R.id.setBtn);
+        setRaceDataBtn = findViewById(R.id.setRaceDataBtn);
+        nowBtn = findViewById(R.id.nowBtn);
+        showStintBtn = findViewById(R.id.showStintBtn);
+
+        //stintタブ内のボタン
+        openStintSetting = findViewById(R.id.openStintSetting);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];

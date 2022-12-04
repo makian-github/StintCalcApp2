@@ -70,4 +70,7 @@ public class StintLayout extends AppCompatActivity {
         this.kartTextView.setText(kartNo);
     }
 
+    public CheckBox getFlagCheckBox() {
+        return FlagCheckBox;
+    }
 }

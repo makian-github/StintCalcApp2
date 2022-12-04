@@ -1,6 +1,8 @@
 package com.example.stintcalcapp2.model;
 
-public class RaceData {
+import java.io.Serializable;
+
+public class RaceData implements Serializable {
 
     private int raceTime = 0;
     private int stint = 0;

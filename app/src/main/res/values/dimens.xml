@@ -9,4 +9,5 @@
     <dimen name="btn_width_set">58dp</dimen>
     <dimen name="driverBtn_width_set">50dp</dimen>
     <dimen name="tab_btn_width">105dp</dimen>
+    <dimen name="line_margin">5px</dimen>
 </resources>

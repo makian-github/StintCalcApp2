@@ -36,5 +36,52 @@
     <string name="tab_now_run_time">now</string>
     <string name="tab_stint">stint</string>
     <string name="tab_set">set</string>
-    <string name="tab_data">data</string>
+    <string name="tab_data">RaceData</string>
+    <string name="tab_title">表示する項目を選択</string>
+    <string name="stintsText">Stint数=</string>
+    <string name="stintSetText">チェックが入っている\n項目の設定画面を開く</string>
+
+    <string-array name="kartNoList">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+    </string-array>
+
+    <string-array name="driverList">
+        <item>-</item>
+        <item>中断</item>
+        <item>秋間</item>
+        <item>豊口</item>
+        <item>吉戒</item>
+        <item>ルーク</item>
+        <item>横田</item>
+        <item>坪井</item>
+        <item>新田</item>
+        <item>X</item>
+    </string-array>
 </resources>

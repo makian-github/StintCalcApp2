@@ -94,4 +94,34 @@ public class TimeCalc {
         Log.d("TimeCalc calcDiffMin InputForm", "diffMin:" + diffMin);
         return diffMin;
     }
+
+    /**
+     * 引数で渡された時刻の時刻差を計算
+     * @param startTime
+     * @param endTime
+     * @return startTimeとendTimeの時間差(書式は00:00)
+     */
+    private String runTimeCalc(String startTime,String endTime){
+        String runtime;
+
+        int startHour = hourExtraction(startTime);
+        int startMin = minutesExtraction(startTime);
+        int endHour = hourExtraction(endTime);
+        int endMin = minutesExtraction(endTime);
+
+        int start = startHour*60 + startMin;
+        int end = endHour*60 + endMin;
+        int runtimeInt;
+
+        if (start <= end){
+            runtimeInt = end - start;
+        }else{
+            runtimeInt = end + 24*60 -start;
+        }
+
+        //00:00の書式でreturn
+        runtime = String.format("%d:%02d",runtimeInt/60,runtimeInt%60);
+
+        return runtime;
+    }
 }

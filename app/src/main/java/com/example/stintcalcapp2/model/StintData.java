@@ -6,9 +6,11 @@ import android.util.Log;
 
 import com.example.stintcalcapp2.R;
 
+import java.io.Serializable;
+
 import static android.content.ContentValues.TAG;
 
-public class StintData {
+public class StintData implements Serializable {
 
     private String driverName = "default";
     private int maxStintCount = 50;
