@@ -1,14 +1,19 @@
 package com.example.stintcalcapp2.model;
 
+import android.app.Application;
+
 import java.io.Serializable;
 
-public class RaceData implements Serializable {
+public class RaceData extends Application implements Serializable {
 
     private int raceTime = 0;
     private int stint = 0;
     private String startTime = "00:00";
 
-    public RaceData() {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
 
     public int getRaceTime() {

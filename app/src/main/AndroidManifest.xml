@@ -3,6 +3,7 @@
     package="com.example.stintcalcapp2">
 
     <application
+        android:name=".model.StintData"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,5 +19,6 @@
         </activity>
         <activity android:name=".view.InputForm"></activity>
     </application>
+
 
 </manifest>

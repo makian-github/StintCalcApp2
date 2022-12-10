@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.stintcalcapp2.R;
+import com.example.stintcalcapp2.controller.CheckboxController;
 import com.example.stintcalcapp2.controller.TimeCalc;
 import com.example.stintcalcapp2.layout.StintLayout;
 import com.example.stintcalcapp2.model.RaceData;
@@ -24,12 +27,19 @@ public class MainActivity extends AppCompatActivity {
     private Button nowBtn;
     private Button showStintBtn;
 
+    /*Setタブ*/
     private Button openStintSetting;
 
+    /*RaceDataタブ*/
+    private EditText raceTimeEditText;
+    private EditText allStintEditText;
+    private Button startTimeSetBtn;
+    private TextView startTimeSetText;
+    private Button confirmBtn;
 
     private StintData stintData;
-    private RaceData raceData;
     private TimeCalc timeCalc;
+    private CheckboxController checkboxController;
 
     //Tab Layout
     private LinearLayout raceDataLayout;
@@ -37,32 +47,70 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = "MainActivity";
 
+    private int displayTab = 0;
+
+    private static final int SET_TAB_NUM = 0;
+    private static final int RACE_DATA_TAB_NUM = 1;
+    private static final int NOW_TAB_NUM = 2;
+    private static final int STINT_TAB_NUM = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        stintData = new StintData();
-        raceData = new RaceData();
-        timeCalc = new TimeCalc();
+    private void testData(){
+        stintData.setRaceTime(300);
+        stintData.setStint(20);
+        stintData.setStartTime("10:00");
 
-        defineLayout();
-        refreshDisplay();
+        Log.v(TAG,"testData raceData.getStint=" + stintData.getStint());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        raceDataLayout.setVisibility(View.GONE);
-        setStintData.setVisibility(View.VISIBLE);
+        stintData = (StintData) this.getApplication();
+        timeCalc = new TimeCalc();
+        checkboxController = new CheckboxController();
 
+        //Todo
+        //testData();
+
+        defineLayout();
+
+        Log.v(TAG,"displayTab=" + displayTab);
+
+        if (displayTab == RACE_DATA_TAB_NUM){
+            setStintData.setVisibility(View.GONE);
+            raceDataLayout.setVisibility(View.VISIBLE);
+        }
+
+//        switch (displayTab){
+//            case SET_TAB_NUM:
+//                setStintData.setVisibility(View.VISIBLE);
+//                raceDataLayout.setVisibility(View.GONE);
+//            case RACE_DATA_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.VISIBLE);
+//            case NOW_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.GONE);
+//            case STINT_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.GONE);
+//        }
+
+        refreshDisplay();
 
         setBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
+                displayTab = SET_TAB_NUM;
             }
         });
 
@@ -71,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
+                displayTab = RACE_DATA_TAB_NUM;
             }
         });
 
@@ -79,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
+                displayTab = NOW_TAB_NUM;
 
             }
         });
@@ -88,18 +138,60 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
-
+                displayTab = STINT_TAB_NUM;
             }
         });
 
+        /** Stintタブ */
         openStintSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), InputForm.class);
-                intent.putExtra("Stint", 1);//第一引数key、第二引数渡したい値
-                intent.putExtra("stintData",stintData);
-                intent.putExtra("raceData", raceData);
+
+                for (int i = 0; i < 40; i++) {
+                    Log.i(TAG,"CheckBox[" + i + "]=" + stintLayouts[i].getFlagCheckBox().isChecked());
+                }
+
+                intent.putExtra("Stint", checkboxController.firstCheckBox(stintLayouts,stintData));//第一引数key、第二引数渡したい値
+
+                Log.v(TAG,"Stint:" + checkboxController.firstCheckBox(stintLayouts,stintData) + ",stintData:" + stintData + "raceData:" + stintData );
+
                 startActivity(intent);
+            }
+        });
+
+        /** RaceDataタブ */
+        startTimeSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+                intent.putExtra("Stint", 999);
+                startActivity(intent);
+            }
+        });
+
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (null != raceTimeEditText.getText()){
+                    try {
+                        stintData.setRaceTime(Integer.parseInt(raceTimeEditText.getText().toString()));
+                    }catch (Exception e){
+                        e.getStackTrace();
+                        stintData.setRaceTime(0);
+                        //Todo エラーを表示
+                    }
+                }
+                if (null != allStintEditText.getText()){
+                    try {
+                        stintData.setStint(Integer.parseInt(allStintEditText.getText().toString()));
+                    }catch ( Exception e){
+                        e.getStackTrace();
+                        stintData.setStint(0);
+                        //Todo エラーを表示
+                    }
+                }
+                refreshDisplay();
             }
         });
     }
@@ -108,11 +200,13 @@ public class MainActivity extends AppCompatActivity {
      * stintData,raceDataから取得した情報をもとに表示を更新
      */
     private void refreshDisplay(){
+        Log.v(TAG,"in refreshDisplay()");
         for (int i = 0; i < stintLayouts.length; i++) {
             //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
+            Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
             if (i == 0){
-                stintLayouts[i].setStartTimeText(raceData.getStartTime());
-                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(raceData.getStartTime(),stintData.getEndTime(i))));
+                stintLayouts[i].setStartTimeText(stintData.getStartTime());
+                stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
             }else{
                 stintLayouts[i].setStartTimeText(stintData.getEndTime(i-1));
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
@@ -121,6 +215,19 @@ public class MainActivity extends AppCompatActivity {
             stintLayouts[i].setDriverText(stintData.getDriverName(i));
             stintLayouts[i].setKartText(stintData.getKartNo(i));
         }
+
+        //RaceDataタブ
+        startTimeSetText.setText(stintData.getStartTime());
+
+        //Stint数以降を非表示にする
+        for (int i = 0; i < stintData.getMaxStintCount(); i++) {
+            if (i < stintData.getStint()){
+                stintLayouts[i].setFlagValid(true);
+            }else {
+                stintLayouts[i].setFlagValid(false);
+            }
+        }
+        Log.v(TAG,"out refreshDisplay()");
     }
 
 
@@ -142,6 +249,13 @@ public class MainActivity extends AppCompatActivity {
 
         //stintタブ内のボタン
         openStintSetting = findViewById(R.id.openStintSetting);
+
+        //RaceDataタブ内の項目
+        raceTimeEditText = findViewById(R.id.raceTimeEditText);
+        allStintEditText = findViewById(R.id.allStintEditText);
+        startTimeSetBtn = findViewById(R.id.startTimeSetBtn);
+        startTimeSetText = findViewById(R.id.startTimeSetText);
+        confirmBtn = findViewById(R.id.confirmBtn);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];

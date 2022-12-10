@@ -29,7 +29,6 @@ import java.util.Locale;
 public class InputForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
 
     private StintData stintData;
-    private RaceData raceData;
     private TextView startTimeText;
     private TextView endTimeText;
     private EditText driverNameText;
@@ -45,10 +44,14 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private static int START_TIME_NUM = 999;
     private TimeCalc timeCalc;
 
+    private static final String TAG = "InputForm";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_form_activity);
+
+        stintData = (StintData) this.getApplication();
 
         endTimeSetLayout = findViewById(R.id.endTimeSetLayout);
         driverSetLayout = findViewById(R.id.driverSetLayout);
@@ -60,12 +63,11 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         kartNoSpinner = findViewById(R.id.kartNoSpinner);
         kartNoSetBtn = findViewById(R.id.kartNoSetBtn);
 
-        Intent intent = getIntent();
-        stintNum = intent.getIntExtra("Stint",0);//設定したkeyで取り出す
-        stintData = (StintData) getIntent().getSerializableExtra("stintData");
-        raceData = (RaceData) getIntent().getSerializableExtra("raceData");
         startTimeText = findViewById(R.id.startTimeText);
         endTimeText = findViewById(R.id.endTimeText);
+
+        Intent intent = getIntent();
+        stintNum = intent.getIntExtra("Stint",0);//設定したkeyで取り出す
 
         timeCalc = new TimeCalc();
 
@@ -74,9 +76,13 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             endTimeSetLayout.setVisibility(View.GONE);
             driverSetLayout.setVisibility(View.GONE);
             kartNoSetLayout.setVisibility(View.GONE);
-            startTimeText.setText(raceData.getStartTime());
+            startTimeText.setText(stintData.getStartTime());
         }else{
-            startTimeText.setText(stintData.getEndTime(stintNum-1));
+            if (stintNum != 0) {
+                startTimeText.setText(stintData.getEndTime(stintNum - 1));
+            }else {
+                startTimeText.setText(stintData.getStartTime());
+            }
             endTimeText.setText(stintData.getEndTime(stintNum));
 
             //この画面を表示した際に、設定された値を取得して表示する
@@ -84,6 +90,8 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             //driverSpinner.setSelection(Integer.parseInt(stintData.getDriverName(stintNum)));
             kartNoSpinner.setSelection(Integer.parseInt(stintData.getKartNo(stintNum)));
         }
+
+        Log.v(TAG,"stintNum:" + stintNum + ",startTimeText:" + startTimeText.getText() + ",endTime:" + endTimeText.getText());
 
 
         driverSetBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,12 +115,15 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Log.v(TAG,"in onTimeSet()");
         String str = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
         if (Button == 0){
             startTimeText.setText( str );
             //前のStintの終了時間(=このStintの開始時間)をセットする
             stintData.setEndTime(stintNum-1,str);
         }else if(Button == 2){
+            startTimeText.setText( str );
+            stintData.setStartTime( str );
 //            //TODO
 //            //スタート時間をセット
 //            //上記値をもとに他の時間をずらす処理を考える
@@ -135,20 +146,18 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 //                //Log.v("InputForm","["+i+"] start:"+timeCalc.calcPlusTime(stintData.getRaceData()[i][1].toString(),diffMin) + ",end:" + timeCalc.calcPlusTime(stintData.getRaceData()[i][2].toString(),diffMin));
 //                Log.v("InputForm","["+i+"] start:"+timeCalc.calcPlusTime(stintData.getRaceData()[i][1].toString(),diffMin) + ",end:" + timeCalc.calcPlusTime(stintData.getRaceData()[i][2].toString(),diffMin));
 //            }
-//
-//            stintData.setStartTime(0,str);
-//            Log.v("InputForm","InputForm onTimeSet raceStartTimeSet");
         }else{
             endTimeText.setText( str );
             stintData.setEndTime(stintNum,str);
         }
-
+        Log.v(TAG,"out onTimeSet()");
     }
 
     public void showTimePickerDialog(View v) {
+        Log.v(TAG,"in showTimePickerDialog()");
         String[] times;
         if(stintNum == START_TIME_NUM){
-            times = raceData.getStartTime().toString().split(":");
+            times = stintData.getStartTime().toString().split(":");
             Button = 2;
             Log.v("InputForm","showTimePickerDialog Button = 2");
         }else{
@@ -165,9 +174,15 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         DialogFragment newFragment = new TimePick();
         newFragment.show(getSupportFragmentManager(), startTime);
 
+        if (stintNum != START_TIME_NUM) {
+            Log.v(TAG, "stintData.getDriverName(stintNum):" + stintData.getDriverName(stintNum) + ",stintData.getEndTime(stintNum):" + stintData.getEndTime(stintNum));
+        }
+
+        Log.v(TAG,"out showTimePickerDialog()");
     }
 
     public void showTimePickerDialog1(View v) {
+        Log.v(TAG,"in showTimePickerDialog1()");
         String[] times = stintData.getEndTime(stintNum).toString().split(":");
         int hour = Integer.parseInt(times[0]);
         int minute = Integer.parseInt(times[1]);
@@ -177,6 +192,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         DialogFragment newFragment1 = new TimePick();
         newFragment1.show(getSupportFragmentManager(), endTime);
         Button = 1;
+        Log.v(TAG,"out showTimePickerDialog1()");
     }
 
     /**

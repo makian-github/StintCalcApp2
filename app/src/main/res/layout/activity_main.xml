@@ -397,6 +397,7 @@
                     android:text="@string/startTimeTxt" />
 
                 <TextView
+                    android:id="@+id/startTimeSetText"
                     android:layout_marginLeft="10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -407,9 +408,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text="Set"
+                    android:text="@string/setString"
                     />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/confirmBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10px"
+                android:text="@string/confirmBtn"
+                />
 
         </LinearLayout>
 

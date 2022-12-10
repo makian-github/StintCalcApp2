@@ -40,6 +40,8 @@
     <string name="tab_title">表示する項目を選択</string>
     <string name="stintsText">Stint数=</string>
     <string name="stintSetText">チェックが入っている\n項目の設定画面を開く</string>
+    <string name="confirmBtn">↑の値で設定する</string>
+    <string name="setString">設定</string>
 
     <string-array name="kartNoList">
         <item>0</item>

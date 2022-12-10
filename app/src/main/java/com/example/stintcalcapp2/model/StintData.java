@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import static android.content.ContentValues.TAG;
 
-public class StintData implements Serializable {
+public class StintData extends Application{
 
     private String driverName = "default";
     private int maxStintCount = 50;
@@ -19,8 +19,11 @@ public class StintData implements Serializable {
     private int driverCnt = 9;
     private int pauseCnt = 0;
     private int kartNo = 0;
-//    private String driverNames[] = {"","","","","","",""};
     private String driverNames[] = {"", "", "", "", "", "", ""};
+
+    private int raceTime = 0;
+    private int stint = 0;
+    private String startTime = "00:00";
 
     /**
      * [スティント数][データ数]
@@ -31,7 +34,9 @@ public class StintData implements Serializable {
      */
     private String stintData[][] = new String[maxStintCount][4];
 
-    public StintData() {
+    @Override
+    public void onCreate() {
+        super.onCreate();
         for (int i = 0; i < stintData.length; i++) {
             /**スティントの終了時間*/
             stintData[i][0] = "00:00";
@@ -42,9 +47,6 @@ public class StintData implements Serializable {
             /**号車*/
             stintData[i][3] = "0";
         }
-
-        //Todo 設定したドライバー名を入れる
-        //driverNames = ;
     }
 
     /**
@@ -166,6 +168,30 @@ public class StintData implements Serializable {
 
     public void setPauseCnt(int pauseCnt) {
         this.pauseCnt = pauseCnt;
+    }
+
+    public int getRaceTime() {
+        return raceTime;
+    }
+
+    public void setRaceTime(int raceTime) {
+        this.raceTime = raceTime;
+    }
+
+    public int getStint() {
+        return stint;
+    }
+
+    public void setStint(int stint) {
+        this.stint = stint;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
 

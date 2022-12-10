@@ -73,4 +73,13 @@ public class StintLayout extends AppCompatActivity {
     public CheckBox getFlagCheckBox() {
         return FlagCheckBox;
     }
+
+    public void setFlagValid(boolean valid){
+        if (valid){
+            FlagCheckBox.setVisibility(View.VISIBLE);
+        }else {
+            FlagCheckBox.setVisibility(View.INVISIBLE);
+        }
+
+    }
 }
