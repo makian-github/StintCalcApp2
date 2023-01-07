@@ -124,4 +124,13 @@ public class TimeCalc {
 
         return runtime;
     }
+
+    /**
+     * レース時間とスティント数から
+     * 1スティントあたりの走行時間を算出
+     */
+    public int  perStintTimeCalc(int raceTime, int stint) {
+        int perStint = Math.round(raceTime / stint);
+        return perStint;
+    }
 }

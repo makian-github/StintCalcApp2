@@ -271,7 +271,7 @@
     </ScrollView>
 
     <View
-        android:layout_width="1px"
+        android:layout_width="5px"
         android:layout_height="5000px"
         android:background="@color/black" />
 
@@ -328,7 +328,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
+            android:layout_height="5px"
             android:background="@color/black" />
 
         <LinearLayout
@@ -430,7 +430,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="150px">
+                android:layout_height="80px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -446,6 +446,81 @@
                     />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="100px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/perStintSetText" />
+                <Button
+                    android:layout_marginTop="10px"
+                    android:id="@+id/perStintSetBtn"
+                    android:layout_width="80px"
+                    android:layout_height="@dimen/btn_height"
+                    android:layout_marginLeft="10px"
+                    android:text=">>"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/perStintTxt" />
+
+                <TextView
+                    android:id="@+id/perStintText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minute" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="80px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkPerStintSetText" />
+                <Button
+                    android:layout_marginTop="10px"
+                    android:id="@+id/checkPerStintSetText"
+                    android:layout_width="80px"
+                    android:layout_height="@dimen/btn_height"
+                    android:layout_marginLeft="10px"
+                    android:text=">>"
+                    />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
         </LinearLayout>
     </LinearLayout>
 

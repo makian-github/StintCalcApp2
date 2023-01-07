@@ -22,8 +22,10 @@ public class StintData extends Application{
     private String driverNames[] = {"", "", "", "", "", "", ""};
 
     private int raceTime = 0;
-    private int stint = 0;
+    private int allStint = 0;
     private String startTime = "00:00";
+
+    public static final int STINT_UPPER_LIMIT = 50;
 
     /**
      * [スティント数][データ数]
@@ -178,12 +180,12 @@ public class StintData extends Application{
         this.raceTime = raceTime;
     }
 
-    public int getStint() {
-        return stint;
+    public int getAllStint() {
+        return allStint;
     }
 
-    public void setStint(int stint) {
-        this.stint = stint;
+    public void setAllStint(int stint) {
+        this.allStint = stint;
     }
 
     public String getStartTime() {

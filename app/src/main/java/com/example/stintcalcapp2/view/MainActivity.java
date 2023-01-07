@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     /*Setタブ*/
     private Button openStintSetting;
+    private Button perStintSetBtn;
+    private TextView perStintText;
 
     /*RaceDataタブ*/
     private EditText raceTimeEditText;
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     private int displayTab = 0;
 
+    //レース時間と全Stintから均等割りした時間
+    private int perStintTime = 0;
+
     private static final int SET_TAB_NUM = 0;
     private static final int RACE_DATA_TAB_NUM = 1;
     private static final int NOW_TAB_NUM = 2;
@@ -62,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void testData(){
         stintData.setRaceTime(300);
-        stintData.setStint(20);
+        stintData.setAllStint(20);
         stintData.setStartTime("10:00");
 
-        Log.v(TAG,"testData raceData.getStint=" + stintData.getStint());
+        Log.v(TAG,"testData raceData.getStint=" + stintData.getAllStint());
     }
 
     @Override
@@ -80,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         //testData();
 
         defineLayout();
+
+        btnActive(setBtn);
+        btnActive(setRaceDataBtn);
+        btnActive(nowBtn);
+        btnActive(showStintBtn);
 
         Log.v(TAG,"displayTab=" + displayTab);
 
@@ -111,6 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
                 displayTab = SET_TAB_NUM;
+
+                tabBtnStateChange(setBtn);
+
+                //均等割りした時間を算出して表示を更新
+                if (stintData.getAllStint() > 0 && stintData.getAllStint() <= stintData.getStintCnt()) {
+                    stintData.setPerStintTime(timeCalc.perStintTimeCalc(stintData.getRaceTime(),stintData.getAllStint()));
+                    perStintText.setText(String.valueOf(stintData.getPerStintTime()));
+                }
+
             }
         });
 
@@ -120,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 displayTab = RACE_DATA_TAB_NUM;
+
+                tabBtnStateChange(setRaceDataBtn);
             }
         });
 
@@ -130,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 raceDataLayout.setVisibility(View.GONE);
                 displayTab = NOW_TAB_NUM;
 
+                tabBtnStateChange(nowBtn);
             }
         });
 
@@ -139,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 displayTab = STINT_TAB_NUM;
+
+                tabBtnStateChange(showStintBtn);
             }
         });
 
@@ -157,6 +181,27 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(TAG,"Stint:" + checkboxController.firstCheckBox(stintLayouts,stintData) + ",stintData:" + stintData + "raceData:" + stintData );
 
                 startActivity(intent);
+            }
+        });
+
+        perStintSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (stintData.getPerStintTime() != 0) {
+                    for (int i = 0; i < stintData.getAllStint(); i++) {
+                        if (i == stintData.getAllStint() - 1) {
+                            //1Stint目はレーススタート時間に均等割りした時間を足す
+                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
+                        } else if (i == 0) {
+                            //最終Stintはレーススタート時間にレース時間を足したもの
+                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getPerStintTime()));
+                        } else {
+                            //上記以外は、前走者の走行終了時間に均等割りした時間を足す
+                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getEndTime(i - 1), stintData.getPerStintTime()));
+                        }
+                    }
+                }
+                refreshDisplay();
             }
         });
 
@@ -184,16 +229,36 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (null != allStintEditText.getText()){
                     try {
-                        stintData.setStint(Integer.parseInt(allStintEditText.getText().toString()));
+                        stintData.setAllStint(Integer.parseInt(allStintEditText.getText().toString()));
                     }catch ( Exception e){
                         e.getStackTrace();
-                        stintData.setStint(0);
+                        stintData.setAllStint(0);
                         //Todo エラーを表示
                     }
                 }
                 refreshDisplay();
             }
         });
+    }
+
+    private void btnInactive(Button btn){
+        btn.setBackgroundColor(android.R.color.darker_gray);
+        btn.setTextColor(R.color.black);
+    }
+
+    private void btnActive(Button btn){
+        btn.setBackgroundColor(R.color.purple_700);
+        btn.setTextColor(R.color.white);
+    }
+
+    private void tabBtnStateChange(Button btn){
+
+        btnActive(setBtn);
+        btnActive(setRaceDataBtn);
+        btnActive(nowBtn);
+        btnActive(showStintBtn);
+
+        btnInactive(btn);
     }
 
     /**
@@ -204,10 +269,12 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < stintLayouts.length; i++) {
             //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
             Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
-            if (i == 0){
+            if (i == 0){ //最初のStintはレーススタート時間と走行時間を設定する
                 stintLayouts[i].setStartTimeText(stintData.getStartTime());
                 stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
-            }else{
+            }else if(i==stintData.getAllStint()){ //最終Stintの場合は自身の走行終了時間を設定する
+                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
+            }else{ //上記以外の場合は、スタート時間に前走者の走行終了時間を設定と、自身の走行終了時間を設定する
                 stintLayouts[i].setStartTimeText(stintData.getEndTime(i-1));
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
             }
@@ -221,12 +288,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Stint数以降を非表示にする
         for (int i = 0; i < stintData.getMaxStintCount(); i++) {
-            if (i < stintData.getStint()){
+            if (i < stintData.getAllStint()){
                 stintLayouts[i].setFlagValid(true);
             }else {
                 stintLayouts[i].setFlagValid(false);
             }
         }
+
+        stintData.clearRaceData(stintData.getAllStint());
         Log.v(TAG,"out refreshDisplay()");
     }
 
@@ -247,8 +316,10 @@ public class MainActivity extends AppCompatActivity {
         nowBtn = findViewById(R.id.nowBtn);
         showStintBtn = findViewById(R.id.showStintBtn);
 
-        //stintタブ内のボタン
+        //setタブ内のボタン
         openStintSetting = findViewById(R.id.openStintSetting);
+        perStintSetBtn = findViewById(R.id.perStintSetBtn);
+        perStintText = findViewById(R.id.perStintText);
 
         //RaceDataタブ内の項目
         raceTimeEditText = findViewById(R.id.raceTimeEditText);

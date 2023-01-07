@@ -15,7 +15,7 @@ public class CheckboxController {
      */
     public int lastCheckBox(StintLayout[] stintLayouts, StintData stintData){
         int lastChkBox = 0;
-        for (int i = stintData.getStint()-1; i >= 0; i--) {
+        for (int i = stintData.getAllStint()-1; i >= 0; i--) {
             Log.v(TAG,"[" + i + "]" + stintLayouts[i].getFlagCheckBox().isChecked());
             if (stintLayouts[i].getFlagCheckBox().isChecked()){
                 lastChkBox = i;
@@ -32,9 +32,9 @@ public class CheckboxController {
      * @return チェックのついている最初のチェックボックスの番号
      */
     public int firstCheckBox(StintLayout[] stintLayouts, StintData stintData){
-        Log.v(TAG,"raceData.getStint=" + stintData.getStint());
+        Log.v(TAG,"raceData.getStint=" + stintData.getAllStint());
         int firstChkBox = 0;
-        for (int i = 0; i <= stintData.getStint(); i++) {
+        for (int i = 0; i <= stintData.getAllStint(); i++) {
             Log.v(TAG,"[" + i + "]" + stintLayouts[i].getFlagCheckBox().isChecked());
             if (stintLayouts[i].getFlagCheckBox().isChecked()){
                 firstChkBox = i;
@@ -51,7 +51,7 @@ public class CheckboxController {
      */
     public int checkedBoxesCnt(StintLayout[] stintLayouts, StintData stintData){
         int checkedBoxesCnt=0;
-        for (int i = 0; i <= stintData.getStint(); i++) {
+        for (int i = 0; i <= stintData.getAllStint(); i++) {
             if (stintLayouts[i].getFlagCheckBox().isChecked()){
                 checkedBoxesCnt++;
             }
