@@ -508,7 +508,7 @@
                     android:text="@string/checkPerStintSetText" />
                 <Button
                     android:layout_marginTop="10px"
-                    android:id="@+id/checkPerStintSetText"
+                    android:id="@+id/checkPerStintSetBtn"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"

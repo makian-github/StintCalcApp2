@@ -101,7 +101,7 @@ public class TimeCalc {
      * @param endTime
      * @return startTimeとendTimeの時間差(書式は00:00)
      */
-    private String runTimeCalc(String startTime,String endTime){
+    public String runTimeCalc(String startTime,String endTime){
         String runtime;
 
         int startHour = hourExtraction(startTime);
