@@ -27,6 +27,9 @@ public class StintData extends Application{
 
     public static final int STINT_UPPER_LIMIT = 50;
 
+    //120%ルール用の係数
+    public final double COEF = 1.2;
+
     /**
      * [スティント数][データ数]
      * データ0 = スティントの終了時間
@@ -226,5 +229,16 @@ public class StintData extends Application{
             }
         }
         return cntStintPerDriver;
+    }
+
+    public int getDrivingTimeOfDriver(String driverName){
+        int totalRunTime = 0;
+        for (int i = 0; i < stintData.length; i++) {
+            if(stintData[i][2].equals(driverName)){
+                totalRunTime += Integer.parseInt(stintData[i][1]);
+            }
+        }
+        Log.d(TAG,"totalRunTime=" + totalRunTime);
+        return totalRunTime;
     }
 }

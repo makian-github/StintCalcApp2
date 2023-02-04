@@ -522,6 +522,330 @@
                 android:background="@color/black" />
 
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/showStintData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameAkima"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver0SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver0StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameToyoguchi"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver1SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver1StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameYoshikai"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver2SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver2StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameLuke"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver3SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver3StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameYokota"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver4SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver4StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameTuboi"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver5SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver5StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameNitta"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver6SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver6StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameX"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver7SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver7StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameNone"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver8SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver8StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driverNameInterruption"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:id="@+id/driver9SumTime"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/driver9StintCnt"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00 stint" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/maxRunTimeText"
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/upperLimit"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/maxRunTimeTextView"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

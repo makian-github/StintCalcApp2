@@ -3,6 +3,7 @@ package com.example.stintcalcapp2.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,10 +44,15 @@ public class MainActivity extends AppCompatActivity {
     private TimeCalc timeCalc;
     private CheckboxController checkboxController;
 
+    /*Stintタブ*/
+    private TextView[] runSumTimeTextView;
+    private TextView maxRunTimeTextView;
+    private TextView[] stintCntTextView;
+
     //Tab Layout
     private LinearLayout raceDataLayout;
     private LinearLayout setStintData;
-
+    private LinearLayout showStintData;
     private String TAG = "MainActivity";
 
     private int displayTab = 0;
@@ -81,6 +87,11 @@ public class MainActivity extends AppCompatActivity {
         timeCalc = new TimeCalc();
         checkboxController = new CheckboxController();
 
+        for (int i = 0; i < getResources().getStringArray(R.array.driverList).length; i++) {
+            //stintData.setDriverName(i,getResources().getStringArray(R.array.driverList)[i]);
+            Log.i(TAG,"DriverName:" + getResources().getStringArray(R.array.driverList)[i]);
+        }
+
         //Todo
         //testData();
 
@@ -90,25 +101,28 @@ public class MainActivity extends AppCompatActivity {
 
         Log.v(TAG,"displayTab=" + displayTab);
 
-        if (displayTab == RACE_DATA_TAB_NUM){
-            setStintData.setVisibility(View.GONE);
-            raceDataLayout.setVisibility(View.VISIBLE);
-        }
+        setStintData.setVisibility(View.VISIBLE);
+        raceDataLayout.setVisibility(View.GONE);
+        showStintData.setVisibility(View.GONE);
 
-        switch (displayTab){
-            case SET_TAB_NUM:
-                setStintData.setVisibility(View.VISIBLE);
-                raceDataLayout.setVisibility(View.GONE);
-            case RACE_DATA_TAB_NUM:
-                setStintData.setVisibility(View.GONE);
-                raceDataLayout.setVisibility(View.VISIBLE);
-            case NOW_TAB_NUM:
-                setStintData.setVisibility(View.GONE);
-                raceDataLayout.setVisibility(View.GONE);
-            case STINT_TAB_NUM:
-                setStintData.setVisibility(View.GONE);
-                raceDataLayout.setVisibility(View.GONE);
-        }
+//        if (displayTab == RACE_DATA_TAB_NUM){
+//
+//        }
+//
+//        switch (displayTab){
+//            case SET_TAB_NUM:
+//                setStintData.setVisibility(View.VISIBLE);
+//                raceDataLayout.setVisibility(View.GONE);
+//            case RACE_DATA_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.VISIBLE);
+//            case NOW_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.GONE);
+//            case STINT_TAB_NUM:
+//                setStintData.setVisibility(View.GONE);
+//                raceDataLayout.setVisibility(View.GONE);
+//        }
 
 
         refreshDisplay();
@@ -118,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
+                showStintData.setVisibility(View.GONE);
                 displayTab = SET_TAB_NUM;
 
                 tabBtnStateChange(setBtn);
@@ -136,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
+                showStintData.setVisibility(View.GONE);
                 displayTab = RACE_DATA_TAB_NUM;
 
                 tabBtnStateChange(setRaceDataBtn);
@@ -147,18 +163,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.GONE);
                 displayTab = NOW_TAB_NUM;
 
                 tabBtnStateChange(nowBtn);
             }
         });
 
+        /** Showタブ*/
         showStintBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.VISIBLE);
                 displayTab = STINT_TAB_NUM;
+
+                setRuntimeSum();
 
                 tabBtnStateChange(showStintBtn);
             }
@@ -359,6 +380,58 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 規則上最長の走行時間を計算して返す
+     * @param driverCnt 参加ドライバー人数
+     * @return 均等割り＊COEF(120%ルール)の値を返す
+     */
+    private int maxRunTime(int driverCnt){
+        Log.d("maxRunTime","raceTime = " + stintData.getRaceTime() + ",COEF = " + stintData.COEF + ",driverCnt = " + driverCnt);
+        double maxTimeD = stintData.getRaceTime()/driverCnt*stintData.COEF;
+        Log.d("maxRunTime","maxTimeD(double) = " + maxTimeD);
+        int maxTimeI = (int)maxTimeD;
+        Log.d("maxRunTime","maxTimeI(int) = " + maxTimeI);
+        return maxTimeI;
+    }
+
+    private void setRuntimeSum(){
+        int[] runTime = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        runTime[0] = stintData.getDrivingTimeOfDriver("秋間");
+        runTime[1] = stintData.getDrivingTimeOfDriver("豊口");
+        runTime[2] = stintData.getDrivingTimeOfDriver("吉戒");
+        runTime[3] = stintData.getDrivingTimeOfDriver("ルーク");
+        runTime[4] = stintData.getDrivingTimeOfDriver("横田");
+        runTime[5] = stintData.getDrivingTimeOfDriver("坪井");
+        runTime[6] = stintData.getDrivingTimeOfDriver("新田");
+        runTime[7] = stintData.getDrivingTimeOfDriver("X");
+        runTime[9] = stintData.getDrivingTimeOfDriver("-");
+        runTime[9] = stintData.getDrivingTimeOfDriver("中断");
+
+        //走行時間が１分以上のドライバーの数を計算
+        int driverCnt = 0;
+        for (int i = 0; i < runTime.length-2; i++) {
+            if (runTime[i]>0){
+                driverCnt++;
+            }
+        }
+        if (driverCnt == 0){
+            driverCnt = runTime.length;
+        }
+
+        //規定走行時間以上の場合に赤文字で表示する
+        for (int i = 0; i < runTime.length; i++) {
+            //runSumTimeTextView[i].setText(timeCalc.timeFormatExtraction(runTime[i]));
+            runSumTimeTextView[i].setText(runTime[i] + "min");
+            if (runTime[i] >= maxRunTime(driverCnt)){
+                runSumTimeTextView[i].setTextColor(Color.RED);
+            }else{
+                runSumTimeTextView[i].setTextColor(Color.BLACK);
+            }
+        }
+        maxRunTimeTextView.setText(maxRunTime(driverCnt) + "min");
+    }
+
 
     /**
      * Stint毎にLayoutを定義していて量が多いため
@@ -369,6 +442,7 @@ public class MainActivity extends AppCompatActivity {
         //Layout
         raceDataLayout = findViewById(R.id.raceDataLayout);
         setStintData = findViewById(R.id.setStintData);
+        showStintData = findViewById(R.id.showStintData);
 
         //Tabボタン
         setBtn = findViewById(R.id.setBtn);
@@ -449,5 +523,32 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG,"i = " + i + ", i+1:" + Integer.toString(i+1));
             stintLayouts[i].setStintText(Integer.toString(i+1));
         }
+
+        runSumTimeTextView = new TextView[stintData.getDriverCnt()+1];
+        stintCntTextView = new TextView[stintData.getDriverCnt()+1];
+
+        runSumTimeTextView[0]  = findViewById(R.id.driver0SumTime);
+        runSumTimeTextView[1]  = findViewById(R.id.driver1SumTime);
+        runSumTimeTextView[2]  = findViewById(R.id.driver2SumTime);
+        runSumTimeTextView[3]  = findViewById(R.id.driver3SumTime);
+        runSumTimeTextView[4]  = findViewById(R.id.driver4SumTime);
+        runSumTimeTextView[5]  = findViewById(R.id.driver5SumTime);
+        runSumTimeTextView[6]  = findViewById(R.id.driver6SumTime);
+        runSumTimeTextView[7]  = findViewById(R.id.driver7SumTime);
+        runSumTimeTextView[8]  = findViewById(R.id.driver8SumTime);
+        runSumTimeTextView[9]  = findViewById(R.id.driver9SumTime);
+
+        stintCntTextView[0] = findViewById(R.id.driver0StintCnt);
+        stintCntTextView[1] = findViewById(R.id.driver1StintCnt);
+        stintCntTextView[2] = findViewById(R.id.driver2StintCnt);
+        stintCntTextView[3] = findViewById(R.id.driver3StintCnt);
+        stintCntTextView[4] = findViewById(R.id.driver4StintCnt);
+        stintCntTextView[5] = findViewById(R.id.driver5StintCnt);
+        stintCntTextView[6] = findViewById(R.id.driver6StintCnt);
+        stintCntTextView[7] = findViewById(R.id.driver7StintCnt);
+        stintCntTextView[8] = findViewById(R.id.driver8StintCnt);
+        stintCntTextView[9] = findViewById(R.id.driver9StintCnt);
+
+        maxRunTimeTextView = findViewById(R.id.maxRunTimeTextView);
     }
 }

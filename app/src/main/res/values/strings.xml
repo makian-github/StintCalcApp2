@@ -45,6 +45,18 @@
     <string name="confirmBtn">↑の値で設定する</string>
     <string name="setString">設定</string>
 
+    <string name="driverNameNone">-</string>
+    <string name="driverNameInterruption">中断</string>
+    <string name="driverNameAkima">秋間</string>
+    <string name="driverNameToyoguchi">豊口</string>
+    <string name="driverNameYoshikai">吉戒</string>
+    <string name="driverNameLuke">ルーク</string>
+    <string name="driverNameYokota">横田</string>
+    <string name="driverNameTuboi">坪井</string>
+    <string name="driverNameNitta">新田</string>
+    <string name="driverNameX">X</string>
+    <string name="upperLimit">上限</string>
+
     <string-array name="kartNoList">
         <item>0</item>
         <item>1</item>

@@ -203,6 +203,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        Log.v("InputForm","onKeyDown. stintNum=" + stintNum);
         if (stintNum == 999) {
             Log.v("InputForm","StartTimeSet. stintNum=999");
         }else{
