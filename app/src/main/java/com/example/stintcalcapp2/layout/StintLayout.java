@@ -74,6 +74,10 @@ public class StintLayout extends AppCompatActivity {
         return FlagCheckBox;
     }
 
+    /**
+     * 引数で渡されたbooleanをもとに対象のチェックボックスの表示非表示を設定する
+     * @param valid
+     */
     public void setFlagValid(boolean valid){
         if (valid){
             FlagCheckBox.setVisibility(View.VISIBLE);
@@ -81,5 +85,15 @@ public class StintLayout extends AppCompatActivity {
             FlagCheckBox.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    /**
+     * Stintのチェックボックスの状態を返す
+     * @return チェックボックスの状態
+     */
+    public boolean isCheckedBox(){
+        boolean isChecked = false;
+        isChecked = FlagCheckBox.isChecked();
+        return isChecked;
     }
 }

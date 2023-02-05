@@ -5,12 +5,15 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.stintcalcapp2.R;
+import com.example.stintcalcapp2.controller.TimeCalc;
 
 import java.io.Serializable;
 
 import static android.content.ContentValues.TAG;
 
 public class StintData extends Application{
+
+    private TimeCalc timeCalc = new TimeCalc();
 
     private String driverName = "default";
     private int maxStintCount = 50;
@@ -24,6 +27,7 @@ public class StintData extends Application{
     private int raceTime = 0;
     private int allStint = 0;
     private String startTime = "00:00";
+    private String raceEndTime = "00:00";
 
     public static final int STINT_UPPER_LIMIT = 50;
 
@@ -86,10 +90,28 @@ public class StintData extends Application{
      */
     public void setEndTime(int stint, String endTime) {
         this.stintData[stint][0] = endTime;
+        this.stintData[stint][1] = String.valueOf(timeCalc.calcDiffMin(getStintStartTime(stint),endTime));
+
+        for (int i = stint+1; i < allStint; i++) {
+            this.stintData[i][0] = timeCalc.calcPlusTime(getStintStartTime(i),Integer.parseInt(this.stintData[i][1]));
+            Log.d(TAG,"setEndTime stintData[" + i + "][0] = " + stintData[i][0]);
+
+        }
+    }
+
+    public String getStintStartTime(int stint){
+        String stintStartTime = "00:00";
+        if (stint == 0){
+            stintStartTime = String.valueOf(timeCalc.calcPlusTime(getStartTime(),Integer.valueOf(stintData[stint][1])));
+        }else{
+            stintStartTime = String.valueOf(timeCalc.calcPlusTime(stintData[stint-1][0],Integer.valueOf(stintData[stint][1])));
+        }
+        Log.d(TAG,"getStintStartTime stintStartTime = " + stintStartTime);
+        return stintStartTime;
     }
 
     /**
-     * 受け取ったStintに受け取った走行時間を設定
+     * 受け取ったStintに受け取った走行時間を返す
      * @param stint
      * @return
      */
@@ -102,10 +124,40 @@ public class StintData extends Application{
      * @param stint
      * @param runningTime
      */
-    public void getRunningTime(int stint,String runningTime){
-        this.stintData[stint][1] = runningTime;
-        //Todo 開始時間＋上で設定した値をendtimeに設定する
-        //this.stintData[stint][2] = ;
+    public void setRunningTime(int stint,int runningTime){
+        this.stintData[stint][1] = String.valueOf(runningTime);
+        setEndTime(stint, timeCalc.calcPlusTime(getStintRunningTime(stint),runningTime));
+        //走行時間を変更すると以降の走行終了時間に影響があるので更新を行う
+        //Todo 23/02/05 ここの処理がうまくいっていない
+        for (int i = stint; i < allStint; i++) {
+            if (i == 0){
+                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][1])));
+            }else{
+                if (i == allStint-1){
+                    setEndTime(i,getRaceEndTime());
+                }else{
+                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][1])));
+                }
+            }
+        }
+        //refreshEndTime();
+    }
+
+    /**
+     * 引数で渡されたStintの走行開始時間を返す
+     * 1Stint目の場合はレースの開始時間
+     * 2Stint目以降は前のStintの終了時間
+     * @param stint
+     * @return 引数で渡されたStintの走行開始時間
+     */
+    public String getStintRunningTime(int stint){
+        String runningStartTime = "00:00";
+        if (stint == 0) {
+            runningStartTime = getStartTime();
+        }else{
+            runningStartTime = getEndTime(stint-1);
+        }
+        return runningStartTime;
     }
 
     /**
@@ -199,6 +251,16 @@ public class StintData extends Application{
         this.startTime = startTime;
     }
 
+    /**
+     * レースの終了時間を返却
+     * レース開始時間にレース時間(分)を足して終了時間を計算
+     * @return レースの終了時間
+     */
+    public String getRaceEndTime(){
+        raceEndTime = timeCalc.calcPlusTime(getStartTime(),raceTime);
+        return raceEndTime;
+    }
+
 
     /**
      * Stint数よりも先のデータを初期化
@@ -240,5 +302,22 @@ public class StintData extends Application{
         }
         Log.d(TAG,"totalRunTime=" + totalRunTime);
         return totalRunTime;
+    }
+
+    /**
+     * 走行時間をもとに走行終了時間を更新する
+     */
+    public void refreshEndTime(){
+        for (int i = 0; i < allStint; i++) {
+            if (i == 0){
+                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][1])));
+            }else{
+                if (i == allStint-1){
+                    setEndTime(i,getRaceEndTime());
+                }else{
+                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][1])));
+                }
+            }
+        }
     }
 }

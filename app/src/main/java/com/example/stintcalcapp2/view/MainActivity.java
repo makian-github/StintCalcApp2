@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button perStintSetBtn;
     private TextView perStintText;
     private Button checkPerStintSetBtn;
+    private Button setMinBtn;
+    private EditText setMinEditText;
 
     /*RaceDataタブ*/
     private EditText raceTimeEditText;
@@ -211,15 +213,22 @@ public class MainActivity extends AppCompatActivity {
                 if (stintData.getPerStintTime() != 0) {
                     for (int i = 0; i < stintData.getAllStint(); i++) {
                         if (i == stintData.getAllStint() - 1) {
-                            //1Stint目はレーススタート時間に均等割りした時間を足す
-                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
-                        } else if (i == 0) {
                             //最終Stintはレーススタート時間にレース時間を足したもの
+                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
+                            stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getEndTime(i),stintData.getRaceEndTime()));
+                        } else if (i == 0) {
+                            //1Stint目はレーススタート時間に均等割りした時間を足す
                             stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getPerStintTime()));
+                            stintData.setRunningTime(i,stintData.getPerStintTime());
                         } else {
                             //上記以外は、前走者の走行終了時間に均等割りした時間を足す
                             stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getEndTime(i - 1), stintData.getPerStintTime()));
+                            stintData.setRunningTime(i,stintData.getPerStintTime());
                         }
+                        //Log.d(TAG,"onClick stintData.getStintStartTime(" + i + ") = " + stintData.getStintStartTime(i));
+                        //Log.d(TAG,"onClick stintData.getEndTime(" + i + ") = " + stintData.getEndTime(i));
+                        //stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getStintStartTime(i), stintData.getEndTime(i)));
+                        Log.d(TAG,"onClick stintData.setRunningTime runningTime:" + stintData.getRunningTime(i));
                     }
                 }
                 refreshDisplay();
@@ -246,6 +255,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                refreshDisplay();
+            }
+        });
+
+        setMinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    if (setMinEditText.getText() == null) {
+                        Log.d(TAG,"setMinEditText.getText() is Null");
+                    }else{
+                        flagItemSetMin(Integer.valueOf(setMinEditText.getText().toString()));
+                    }
+                }catch (Exception e){
+                    Log.e(TAG,"Exception = " + e);
+                }
                 refreshDisplay();
             }
         });
@@ -432,6 +457,19 @@ public class MainActivity extends AppCompatActivity {
         maxRunTimeTextView.setText(maxRunTime(driverCnt) + "min");
     }
 
+    /**
+     * FlagがTrueのStintに対してセットした走行時間に変更。
+     * FlagがFalseの項目に対してはセットした値を考慮した開始時間・終了時間に再セット
+     * @param runMin
+     */
+    private void flagItemSetMin(int runMin){
+        for (int i = 0; i < stintData.getAllStint(); i++) {
+            if (stintLayouts[i].isCheckedBox()){
+                stintData.setRunningTime(i,runMin);
+            }
+        }
+    }
+
 
     /**
      * Stint毎にLayoutを定義していて量が多いため
@@ -455,6 +493,8 @@ public class MainActivity extends AppCompatActivity {
         perStintSetBtn = findViewById(R.id.perStintSetBtn);
         perStintText = findViewById(R.id.perStintText);
         checkPerStintSetBtn = findViewById(R.id.checkPerStintSetBtn);
+        setMinBtn = findViewById(R.id.setMinBtn);
+        setMinEditText = findViewById(R.id.setMinEditText);
 
         //RaceDataタブ内の項目
         raceTimeEditText = findViewById(R.id.raceTimeEditText);
