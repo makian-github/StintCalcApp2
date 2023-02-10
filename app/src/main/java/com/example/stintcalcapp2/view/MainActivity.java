@@ -2,6 +2,7 @@ package com.example.stintcalcapp2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,14 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.CheckboxController;
 import com.example.stintcalcapp2.controller.TimeCalc;
+import com.example.stintcalcapp2.layout.InfoDialog;
 import com.example.stintcalcapp2.layout.StintLayout;
 import com.example.stintcalcapp2.model.StintData;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Context mContext;
 
     private StintLayout stintLayouts[];
     private View view[];
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private Button checkPerStintSetBtn;
     private Button setMinBtn;
     private EditText setMinEditText;
+
+    //Debug
+    private Button debugBtn;
+    private Button debugBtn2;
 
     /*RaceDataタブ*/
     private EditText raceTimeEditText;
@@ -70,13 +79,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this;
         setContentView(R.layout.activity_main);
     }
 
     private void testData(){
-        stintData.setRaceTime(300);
-        stintData.setAllStint(20);
-        stintData.setStartTime("10:00");
+        raceTimeEditText.setText("120");
+        allStintEditText.setText("12");
+//        stintData.setRaceTime(300);
+//        stintData.setAllStint(20);
+//        stintData.setStartTime("10:00");
 
         Log.v(TAG,"testData raceData.getStint=" + stintData.getAllStint());
     }
@@ -94,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG,"DriverName:" + getResources().getStringArray(R.array.driverList)[i]);
         }
 
-        //Todo
-        //testData();
-
         defineLayout();
+
+        //Todo
+        testData();
 
         tabBtnStateChange(setBtn);
 
@@ -235,30 +247,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //チェックが入っている項目から先を均等割りするボタン
         checkPerStintSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = stintData.STINT_UPPER_LIMIT-1; i >= 0; i--) {
-                    if (stintLayouts[i].getFlagCheckBox().isChecked()){
-                        String uniformityStartTime = "";
-                        if (0==i){
-                            uniformityStartTime = stintData.getStartTime();
-                        }else {
-                            uniformityStartTime = stintData.getEndTime(i - 1);
-                        }
-                        String uniformityEndTime = timeCalc.calcPlusTime(stintData.getStartTime(),stintData.getRaceTime());
-
-                        Log.d(TAG, "uniformityStartTime = " + uniformityStartTime);
-                        Log.d(TAG, "uniformityEndTime = " + uniformityEndTime);
-                        uniformitySet(uniformityStartTime,uniformityEndTime,i);
-                        break;
-                    }
-                }
-
+                setUniformityRunningTime();
                 refreshDisplay();
             }
         });
 
+        //チェックが入っている項目に設定値を設定するボタン
         setMinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -267,10 +265,27 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG,"setMinEditText.getText() is Null");
                     }else{
                         flagItemSetMin(Integer.valueOf(setMinEditText.getText().toString()));
+                        Log.d(TAG,"setMinEditText.getText() is Null");
                     }
                 }catch (Exception e){
                     Log.e(TAG,"Exception = " + e);
                 }
+
+
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    if (stintLayouts[i].getFlagCheckBox().isChecked()){
+                        String uniformityStartTime = stintData.getStintStartTime(i+1);
+                        String uniformityEndTime = stintData.getRaceEndTime();
+
+                        Log.d(TAG, "uniformityStartTime = " + uniformityStartTime);
+                        Log.d(TAG, "uniformityEndTime = " + uniformityEndTime);
+                        uniformitySet(uniformityStartTime,uniformityEndTime,i+1);
+                        break;
+                    }
+                }
+
+
+
                 refreshDisplay();
             }
         });
@@ -309,7 +324,54 @@ public class MainActivity extends AppCompatActivity {
                 refreshDisplay();
             }
         });
+
+        //Debug=================================================================================================
+        debugBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "======DebugLOG Start======");
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    Log.d(TAG,
+                            "stint:" + i
+                                    + ",開始時間：" + stintData.getStintStartTime(i)
+                                    + ",終了時間；" + stintData.getEndTime(i)
+                                    + ",走行時間：" + stintData.getRunningTime(i)
+                                    + ",ドライバー：" + stintData.getDriverName(i)
+                                    + ",KartNo：" + stintData.getKartNo(i));
+                }
+                Log.d(TAG, "======DebugLOG End======");
+
+            }
+        });
+
+        debugBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
+
+
+    private void setUniformityRunningTime(){
+        for (int i = stintData.STINT_UPPER_LIMIT-1; i >= 0; i--) {
+            if (stintLayouts[i].getFlagCheckBox().isChecked()){
+                String uniformityStartTime = "";
+                if (0==i){
+                    uniformityStartTime = stintData.getStartTime();
+                }else {
+                    uniformityStartTime = stintData.getEndTime(i - 1);
+                }
+                String uniformityEndTime = timeCalc.calcPlusTime(stintData.getStartTime(),stintData.getRaceTime());
+
+                Log.d(TAG, "uniformityStartTime = " + uniformityStartTime);
+                Log.d(TAG, "uniformityEndTime = " + uniformityEndTime);
+                uniformitySet(uniformityStartTime,uniformityEndTime,i);
+                break;
+            }
+        }
+    }
+
 
     private void btnInactive(Button btn){
         btn.setBackgroundColor(android.R.color.darker_gray);
@@ -462,11 +524,29 @@ public class MainActivity extends AppCompatActivity {
      * FlagがFalseの項目に対してはセットした値を考慮した開始時間・終了時間に再セット
      * @param runMin
      */
-    private void flagItemSetMin(int runMin){
+    private void flagItemSetMin(int runMin) {
+        int flagCount = 0;
+        int effectiveCheckBox = 99;
         for (int i = 0; i < stintData.getAllStint(); i++) {
-            if (stintLayouts[i].isCheckedBox()){
-                stintData.setRunningTime(i,runMin);
+            if (stintLayouts[i].isCheckedBox()) {
+                flagCount++;
+                effectiveCheckBox = i;
+                stintData.setRunningTime(i, runMin);
             }
+        }
+        InfoDialog dialog = new InfoDialog();
+        if (flagCount > 1) {
+            dialog.setTitleStr("Error");
+            dialog.setMessageStr("チェックが複数に入っていたので、" + effectiveCheckBox + 1 + "Stint目のみ更新しました。");
+            dialog.show(getSupportFragmentManager(), "");
+        } else if (flagCount == 0) {
+            dialog.setTitleStr("Error");
+            dialog.setMessageStr("チェックが入っていません");
+            dialog.show(getSupportFragmentManager(), "");
+        } else {
+            dialog.setTitleStr("Success");
+            dialog.setMessageStr(effectiveCheckBox + 1 + "Stint目の走行時間を更新しました。");
+            dialog.show(getSupportFragmentManager(), "");
         }
     }
 
@@ -476,6 +556,10 @@ public class MainActivity extends AppCompatActivity {
      * メソッドを分けて実装
      */
     private void defineLayout(){
+
+        //Debug用
+        debugBtn = findViewById(R.id.debugBtn);
+        debugBtn2 = findViewById(R.id.debugBtn2);
 
         //Layout
         raceDataLayout = findViewById(R.id.raceDataLayout);

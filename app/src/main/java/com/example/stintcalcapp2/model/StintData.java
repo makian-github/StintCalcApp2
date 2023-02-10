@@ -4,10 +4,7 @@ package com.example.stintcalcapp2.model;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.TimeCalc;
-
-import java.io.Serializable;
 
 import static android.content.ContentValues.TAG;
 
@@ -89,22 +86,17 @@ public class StintData extends Application{
      * @param endTime
      */
     public void setEndTime(int stint, String endTime) {
+        Log.d(TAG,"setEndTime in");
         this.stintData[stint][0] = endTime;
-        this.stintData[stint][1] = String.valueOf(timeCalc.calcDiffMin(getStintStartTime(stint),endTime));
-
-        for (int i = stint+1; i < allStint; i++) {
-            this.stintData[i][0] = timeCalc.calcPlusTime(getStintStartTime(i),Integer.parseInt(this.stintData[i][1]));
-            Log.d(TAG,"setEndTime stintData[" + i + "][0] = " + stintData[i][0]);
-
-        }
+        Log.d(TAG,"setEndTime out");
     }
 
     public String getStintStartTime(int stint){
         String stintStartTime = "00:00";
         if (stint == 0){
-            stintStartTime = String.valueOf(timeCalc.calcPlusTime(getStartTime(),Integer.valueOf(stintData[stint][1])));
+            stintStartTime = getStartTime();
         }else{
-            stintStartTime = String.valueOf(timeCalc.calcPlusTime(stintData[stint-1][0],Integer.valueOf(stintData[stint][1])));
+            stintStartTime = stintData[stint-1][0];
         }
         Log.d(TAG,"getStintStartTime stintStartTime = " + stintStartTime);
         return stintStartTime;
@@ -126,20 +118,25 @@ public class StintData extends Application{
      */
     public void setRunningTime(int stint,int runningTime){
         this.stintData[stint][1] = String.valueOf(runningTime);
-        setEndTime(stint, timeCalc.calcPlusTime(getStintRunningTime(stint),runningTime));
+        Log.d(TAG, "setRunningTime@@@:" + getRunningTime(stint));
+        setEndTime(stint, timeCalc.calcPlusTime(getStintStartRunningTime(stint),runningTime));
+        Log.d(TAG, "setRunningTime@:" + getRunningTime(stint));
+
+
+
         //走行時間を変更すると以降の走行終了時間に影響があるので更新を行う
         //Todo 23/02/05 ここの処理がうまくいっていない
-        for (int i = stint; i < allStint; i++) {
-            if (i == 0){
-                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][1])));
-            }else{
-                if (i == allStint-1){
-                    setEndTime(i,getRaceEndTime());
-                }else{
-                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][1])));
-                }
-            }
-        }
+//        for (int i = stint; i < allStint; i++) {
+//            if (i == 0){
+//                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][1])));
+//            }else{
+//                if (i == allStint-1){
+//                    setEndTime(i,getRaceEndTime());
+//                }else{
+//                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][1])));
+//                }
+//            }
+//        }
         //refreshEndTime();
     }
 
@@ -150,7 +147,7 @@ public class StintData extends Application{
      * @param stint
      * @return 引数で渡されたStintの走行開始時間
      */
-    public String getStintRunningTime(int stint){
+    public String getStintStartRunningTime(int stint){
         String runningStartTime = "00:00";
         if (stint == 0) {
             runningStartTime = getStartTime();
