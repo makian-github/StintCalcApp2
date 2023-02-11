@@ -28,6 +28,11 @@ public class StintData extends Application{
 
     public static final int STINT_UPPER_LIMIT = 50;
 
+    public static final int END_TIME = 0;
+    public static final int RUNNING_TIME = 1;
+    public static final int DRIVER_NAME = 2;
+    public static final int KART_NO = 3;
+
     //120%ルール用の係数
     public final double COEF = 1.2;
 
@@ -45,13 +50,13 @@ public class StintData extends Application{
         super.onCreate();
         for (int i = 0; i < stintData.length; i++) {
             /**スティントの終了時間*/
-            stintData[i][0] = "00:00";
+            stintData[i][END_TIME] = "00:00";
             /**走行時間*/
-            stintData[i][1] = "0";
+            stintData[i][RUNNING_TIME] = "0";
             /**ドライバー名*/
-            stintData[i][2] = "-";
+            stintData[i][DRIVER_NAME] = "-";
             /**号車*/
-            stintData[i][3] = "0";
+            stintData[i][KART_NO] = "0";
         }
     }
 
@@ -77,7 +82,7 @@ public class StintData extends Application{
      * @return
      */
     public String getEndTime(int stint) {
-        return this.stintData[stint][0];
+        return this.stintData[stint][END_TIME];
     }
 
     /**
@@ -87,7 +92,7 @@ public class StintData extends Application{
      */
     public void setEndTime(int stint, String endTime) {
         Log.d(TAG,"setEndTime in");
-        this.stintData[stint][0] = endTime;
+        this.stintData[stint][END_TIME] = endTime;
         Log.d(TAG,"setEndTime out");
     }
 
@@ -96,7 +101,7 @@ public class StintData extends Application{
         if (stint == 0){
             stintStartTime = getStartTime();
         }else{
-            stintStartTime = stintData[stint-1][0];
+            stintStartTime = stintData[stint-1][END_TIME];
         }
         Log.d(TAG,"getStintStartTime stintStartTime = " + stintStartTime);
         return stintStartTime;
@@ -108,7 +113,7 @@ public class StintData extends Application{
      * @return
      */
     public String getRunningTime(int stint){
-        return this.stintData[stint][1];
+        return this.stintData[stint][RUNNING_TIME];
     }
 
     /**
@@ -117,7 +122,7 @@ public class StintData extends Application{
      * @param runningTime
      */
     public void setRunningTime(int stint,int runningTime){
-        this.stintData[stint][1] = String.valueOf(runningTime);
+        this.stintData[stint][RUNNING_TIME] = String.valueOf(runningTime);
         Log.d(TAG, "setRunningTime@@@:" + getRunningTime(stint));
         setEndTime(stint, timeCalc.calcPlusTime(getStintStartRunningTime(stint),runningTime));
         Log.d(TAG, "setRunningTime@:" + getRunningTime(stint));
@@ -163,7 +168,7 @@ public class StintData extends Application{
      * @return
      */
     public String getDriverName(int stint) {
-        return this.stintData[stint][2];
+        return this.stintData[stint][DRIVER_NAME];
     }
 
     /**
@@ -172,7 +177,7 @@ public class StintData extends Application{
      * @param driverName　設定したいドライバー名
      */
     public void setDriverName(int stint,String driverName) {
-        this.stintData[stint][2] = driverName;
+        this.stintData[stint][DRIVER_NAME] = driverName;
     }
 
     /**
@@ -181,11 +186,11 @@ public class StintData extends Application{
      * @param kartNo
      */
     public void setKartNo(int stint, String kartNo) {
-        this.stintData[stint][3] = kartNo;
+        this.stintData[stint][KART_NO] = kartNo;
     }
 
     public String getKartNo(int stint){
-        return this.stintData[stint][3];
+        return this.stintData[stint][KART_NO];
     }
 
     public int getMaxStintCount() {
@@ -265,13 +270,13 @@ public class StintData extends Application{
     public void clearRaceData(int stint){
         for (int i = stint; i < maxStintCount; i++) {
             /**スティントの終了時間*/
-            stintData[i][0] = "00:00";
+            stintData[i][END_TIME] = "00:00";
             /**走行時間*/
-            stintData[i][1] = "0";
+            stintData[i][RUNNING_TIME] = "0";
             /**ドライバー名*/
-            stintData[i][2] = "-";
+            stintData[i][DRIVER_NAME] = "-";
             /**号車*/
-            stintData[i][3] = "0";
+            stintData[i][KART_NO] = "0";
         }
     }
 
@@ -283,7 +288,7 @@ public class StintData extends Application{
     public int getCntStintPerDriver(String driverName){
         int cntStintPerDriver = 0;
         for (int i = 0; i < stintData.length; i++) {
-            if(stintData[i][2].equals(driverName)){
+            if(stintData[i][DRIVER_NAME].equals(driverName)){
                 cntStintPerDriver++;
             }
         }
@@ -293,8 +298,8 @@ public class StintData extends Application{
     public int getDrivingTimeOfDriver(String driverName){
         int totalRunTime = 0;
         for (int i = 0; i < stintData.length; i++) {
-            if(stintData[i][2].equals(driverName)){
-                totalRunTime += Integer.parseInt(stintData[i][1]);
+            if(stintData[i][DRIVER_NAME].equals(driverName)){
+                totalRunTime += Integer.parseInt(stintData[i][RUNNING_TIME]);
             }
         }
         Log.d(TAG,"totalRunTime=" + totalRunTime);
@@ -307,12 +312,12 @@ public class StintData extends Application{
     public void refreshEndTime(){
         for (int i = 0; i < allStint; i++) {
             if (i == 0){
-                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][1])));
+                setEndTime(i,timeCalc.calcPlusTime(startTime,Integer.parseInt(stintData[i][RUNNING_TIME])));
             }else{
                 if (i == allStint-1){
                     setEndTime(i,getRaceEndTime());
                 }else{
-                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][1])));
+                    setEndTime(i,timeCalc.calcPlusTime(getEndTime(i-0),Integer.valueOf(stintData[i][RUNNING_TIME])));
                 }
             }
         }
