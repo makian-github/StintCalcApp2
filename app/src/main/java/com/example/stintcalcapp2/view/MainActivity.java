@@ -163,9 +163,11 @@ public class MainActivity extends AppCompatActivity {
 
         reCalcRefreshDisplay();
 
+        /**setタブ*/
         setBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkboxController.setAllCheckBox(stintLayouts,stintData,false);
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
@@ -182,9 +184,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**RaceDataタブ*/
         setRaceDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkboxController.setAllCheckBox(stintLayouts,stintData,false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
@@ -193,10 +197,11 @@ public class MainActivity extends AppCompatActivity {
                 tabBtnStateChange(setRaceDataBtn);
             }
         });
-
+        /** Nowタブ*/
         nowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkboxController.setAllCheckBox(stintLayouts,stintData,false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.GONE);
@@ -206,10 +211,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /** Showタブ*/
+        /** stintタブ*/
         showStintBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkboxController.setAllCheckBox(stintLayouts,stintData,false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
@@ -429,25 +435,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //チェックボックスのコントロール
+        //チェックボックスのコントロール=====================================================
+        /**
+         * すべてのチェックボックスをTrueにする
+         */
         allCheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < stintData.getAllStint(); i++) {
-                    stintLayouts[i].setFlagCheckBox(true);
-                }
+                checkboxController.setAllCheckBox(stintLayouts,stintData,true);
             }
         });
 
+        /**
+         * すべてのチェックボックスをFalseにする
+         */
         allUncheckBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < stintData.getAllStint(); i++) {
-                    stintLayouts[i].setFlagCheckBox(false);
-                }
+                checkboxController.setAllCheckBox(stintLayouts,stintData,false);
             }
         });
 
+        /**
+         * すべてのチェックボックスについて、現在の状況から反転する
+         */
         reverseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

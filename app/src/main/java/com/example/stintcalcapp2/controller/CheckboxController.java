@@ -72,4 +72,10 @@ public class CheckboxController {
         }
         return checkedBoxNos;
     }
+
+    public void setAllCheckBox(StintLayout[] stintLayouts, StintData stintData, boolean setbool){
+        for (int i = 0; i < stintData.getAllStint(); i++) {
+            stintLayouts[i].setFlagCheckBox(setbool);
+        }
+    }
 }
