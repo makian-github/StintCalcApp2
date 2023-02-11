@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int RACE_DATA_TAB_NUM = 1;
     private static final int NOW_TAB_NUM = 2;
     private static final int STINT_TAB_NUM = 3;
+    private static final int CHECKBOX_NOT_SELECTED = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,15 +240,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), InputForm.class);
 
-                for (int i = 0; i < 40; i++) {
-                    Log.i(TAG,"CheckBox[" + i + "]=" + stintLayouts[i].getFlagCheckBox().isChecked());
+                int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts,stintData);
+
+                if (firstCheckBoxNum!=CHECKBOX_NOT_SELECTED){
+                    intent.putExtra("Stint", checkboxController.firstCheckBox(stintLayouts,stintData));//第一引数key、第二引数渡したい値
+                    startActivity(intent);
+                } else{
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("Error");
+                    dialog.setMessageStr("設定したいStintのチェックボックスにチェックを入れてください");
+                    dialog.show(getSupportFragmentManager(), "");
                 }
-
-                intent.putExtra("Stint", checkboxController.firstCheckBox(stintLayouts,stintData));//第一引数key、第二引数渡したい値
-
-                Log.v(TAG,"Stint:" + checkboxController.firstCheckBox(stintLayouts,stintData) + ",stintData:" + stintData + "raceData:" + stintData );
-
-                startActivity(intent);
             }
         });
 

@@ -35,7 +35,7 @@ public class CheckboxController {
      */
     public int firstCheckBox(StintLayout[] stintLayouts, StintData stintData){
         Log.v(TAG,"raceData.getStint=" + stintData.getAllStint());
-        int firstChkBox = 0;
+        int firstChkBox = 99;
         for (int i = 0; i <= stintData.getAllStint(); i++) {
             Log.v(TAG,"[" + i + "]" + stintLayouts[i].getFlagCheckBox().isChecked());
             if (stintLayouts[i].getFlagCheckBox().isChecked()){

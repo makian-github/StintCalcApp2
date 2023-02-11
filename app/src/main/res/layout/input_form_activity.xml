@@ -13,13 +13,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:textAlignment="center"
-            android:textSize="50dp"
-            android:text="00:00"
-            android:id="@+id/startTimeText"/>
         <Button
             android:layout_width="150dp"
             android:layout_height="50dp"
@@ -27,12 +20,27 @@
             android:text="@string/startTime"
             android:textAllCaps="false"/>
 
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            android:text="00:00"
+            android:id="@+id/startTimeText"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/endTimeSetLayout">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:onClick="showTimePickerDialog1"
+            android:text="@string/endTime"
+            android:textAllCaps="false"/>
 
         <TextView
             android:layout_width="250dp"
@@ -42,13 +50,27 @@
             android:text="00:00"
             android:id="@+id/endTimeText"/>
 
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:onClick="showTimePickerDialog1"
-            android:text="@string/endTime"
-            android:textAllCaps="false"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:text="@string/runTimeText"
+            android:textAlignment="center"
+            android:textSize="50dp" />
+
+        <TextView
+            android:id="@+id/runningTime"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:text="00:00"
+            android:textAlignment="center"
+            android:textSize="50dp" />
     </LinearLayout>
 
     <LinearLayout
