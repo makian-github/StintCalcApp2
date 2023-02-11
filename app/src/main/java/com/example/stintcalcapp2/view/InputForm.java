@@ -44,12 +44,16 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private static int START_TIME_NUM = 999;
     private TimeCalc timeCalc;
 
+    private String driverNames[];
+
     private static final String TAG = "InputForm";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_form_activity);
+
+        driverNames = getResources().getStringArray(R.array.driverList);
 
         stintData = (StintData) this.getApplication();
 
@@ -86,8 +90,30 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             endTimeText.setText(stintData.getEndTime(stintNum));
 
             //この画面を表示した際に、設定された値を取得して表示する
-            //todo Stringで名前がかえって来るが、数字で返すように修正
-            //driverSpinner.setSelection(Integer.parseInt(stintData.getDriverName(stintNum)));
+            int driverNo = 0;
+            String driverName = stintData.getDriverName(stintNum);
+            if (driverName.equals("中断")) {
+                driverNo = 1;
+            }else if(driverName.equals("秋間")){
+                driverNo = 2;
+            }else if(driverName.equals("豊口")) {
+                driverNo = 3;
+            }else if(driverName.equals("吉戒")) {
+                driverNo = 4;
+            }else if(driverName.equals("ルーク")) {
+                driverNo = 5;
+            }else if(driverName.equals("横田")) {
+                driverNo = 6;
+            }else if(driverName.equals("坪井")){
+                driverNo = 7;
+            }else if(driverName.equals("新田")) {
+                driverNo = 8;
+            }else if(driverName.equals("X")) {
+                driverNo = 9;
+            }else{
+                driverNo = 0;
+            }
+            driverSpinner.setSelection(driverNo);
             kartNoSpinner.setSelection(Integer.parseInt(stintData.getKartNo(stintNum)));
         }
 
