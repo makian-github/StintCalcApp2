@@ -294,7 +294,8 @@
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="@dimen/line_margin"
-                android:text="@string/tab_set" />
+                android:text="@string/tab_set"
+                android:textAllCaps="false"/>
 
             <Button
                 android:id="@+id/setRaceDataBtn"
@@ -315,6 +316,7 @@
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="@dimen/line_margin"
+                android:textAllCaps="false"
                 android:text="@string/tab_now_run_time" />
 
             <Button
@@ -322,6 +324,7 @@
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10px"
+                android:textAllCaps="false"
                 android:text="@string/tab_stint" />
 
         </LinearLayout>
@@ -953,6 +956,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
+            <Button
+                android:id="@+id/allCheckBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10dp"
+                android:text="@string/all_check_text"
+                android:textSize="15px"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/allUncheckBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10dp"
+                android:text="@string/all_uncheck_text"
+                android:textSize="15px"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/reverseBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10dp"
+                android:text="@string/check_revers_text"
+                android:textSize="15px"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

@@ -24,18 +24,18 @@
     <string name="refresh">refresh</string>
     <string name="uniformity">均等割り</string>
     <string name="check_item_text">選択項目にセット</string>
-    <string name="all_check_text">All Check</string>
-    <string name="all_uncheck_text">All Uncheck</string>
-    <string name="check_revers_text">rev Check</string>
+    <string name="all_check_text">全Stintにチェックを入れる</string>
+    <string name="all_uncheck_text">全Stintからチェックを外す</string>
+    <string name="check_revers_text">現在のチェックを逆にする</string>
     <string name="save_text">Save</string>
     <string name="read_text">Read</string>
     <string name="no_text">"No text !"</string>
     <string name="saved">Saved</string>
     <string name="read_error">Read file error !</string>
     <string name="read_comp">Read Completed !</string>
-    <string name="tab_now_run_time">now</string>
-    <string name="tab_stint">stint</string>
-    <string name="tab_set">set</string>
+    <string name="tab_now_run_time">Now</string>
+    <string name="tab_stint">Stint</string>
+    <string name="tab_set">Set</string>
     <string name="tab_data">RaceData</string>
     <string name="tab_title">表示する項目を選択</string>
     <string name="stintsText">Stint数=</string>

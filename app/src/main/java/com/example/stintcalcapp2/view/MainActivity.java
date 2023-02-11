@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
     private Button breakeSetBtn;
     private Button nonDriverSetBtn;
 
+    private Button allCheckBtn;
+    private Button allUncheckBtn;
+    private Button reverseBtn;
+
     //ドライバーID
     private final int ID_AKIMA = 0;
     private final int ID_TOYOGUCHI = 1;
@@ -245,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                         if (i == stintData.getAllStint() - 1) {
                             //最終Stintはレーススタート時間にレース時間を足したもの
                             stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
-                            stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getEndTime(i),stintData.getRaceEndTime()));
+                            stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getRaceEndTime()));
                         } else if (i == 0) {
                             //1Stint目はレーススタート時間に均等割りした時間を足す
                             stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getPerStintTime()));
@@ -349,6 +353,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_AKIMA);
+                setRuntimeSum();
             }
         });
 
@@ -356,6 +361,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_TOYOGUCHI);
+                setRuntimeSum();
             }
         });
 
@@ -363,6 +369,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_YOSHIKAI);
+                setRuntimeSum();
             }
         });
 
@@ -370,6 +377,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_LUKE);
+                setRuntimeSum();
             }
         });
 
@@ -377,6 +385,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_YOKOTA);
+                setRuntimeSum();
             }
         });
 
@@ -384,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_TUBOI);
+                setRuntimeSum();
             }
         });
 
@@ -391,6 +401,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_NITTA);
+                setRuntimeSum();
             }
         });
 
@@ -398,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_X);
+                setRuntimeSum();
             }
         });
 
@@ -405,6 +417,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_BREAKE);
+                setRuntimeSum();
             }
         });
 
@@ -412,9 +425,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_NULL);
+                setRuntimeSum();
             }
         });
 
+        //チェックボックスのコントロール
+        allCheckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    stintLayouts[i].setFlagCheckBox(true);
+                }
+            }
+        });
+
+        allUncheckBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    stintLayouts[i].setFlagCheckBox(false);
+                }
+            }
+        });
+
+        reverseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    stintLayouts[i].setFlagCheckBox(!stintLayouts[i].getFlagCheckBox().isChecked());
+                }
+            }
+        });
 
 
         //Debug=================================================================================================
@@ -768,6 +809,9 @@ public class MainActivity extends AppCompatActivity {
         xSetBtn = findViewById(R.id.xSetBtn);
         breakeSetBtn = findViewById(R.id.breakSetBtn);
         nonDriverSetBtn = findViewById(R.id.nonDriverSetBtn);
+        allCheckBtn = findViewById(R.id.allCheckBtn);
+        allUncheckBtn = findViewById(R.id.allUncheckBtn);
+        reverseBtn = findViewById(R.id.reverseBtn);
 
 
         view = new View[50];
