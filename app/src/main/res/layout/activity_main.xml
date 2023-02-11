@@ -613,11 +613,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameAkima"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/akimaSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="秋間"
+                    />
                 <TextView
                     android:id="@+id/driver0SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -642,11 +645,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameToyoguchi"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/toyoguchiSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="豊口"
+                    />
                 <TextView
                     android:id="@+id/driver1SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -671,11 +677,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameYoshikai"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/yoshikaiSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="吉戒"
+                    />
                 <TextView
                     android:id="@+id/driver2SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -700,11 +709,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameLuke"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/lukeSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="ルーク"
+                    />
                 <TextView
                     android:id="@+id/driver3SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -729,11 +741,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameYokota"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/yokotaSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="横田"
+                    />
                 <TextView
                     android:id="@+id/driver4SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -758,11 +773,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameTuboi"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/tuboiSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="坪井"
+                    />
                 <TextView
                     android:id="@+id/driver5SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -787,11 +805,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameNitta"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/nittaSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="新田"
+                    />
                 <TextView
                     android:id="@+id/driver6SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -816,11 +837,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameX"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/xSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="X"
+                    />
                 <TextView
                     android:id="@+id/driver7SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -845,11 +869,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameNone"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/nonDriverSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="-"
+                    />
                 <TextView
                     android:id="@+id/driver8SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -874,11 +901,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="@dimen/driver_textView_width"
-                    android:layout_height="wrap_content"
-                    android:text="@string/driverNameInterruption"
-                    android:textAlignment="center"/>
+                <Button
+                    android:id="@+id/breakSetBtn"
+                    android:layout_width="@dimen/driver_btn_width"
+                    android:layout_height="@dimen/driver_btn_height"
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="5dp"
+                    android:text="中断"
+                    />
                 <TextView
                     android:id="@+id/driver9SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"

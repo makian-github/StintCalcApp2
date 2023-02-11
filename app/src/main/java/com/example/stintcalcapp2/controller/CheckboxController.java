@@ -9,6 +9,8 @@ public class CheckboxController {
 
     private static final  String TAG = "CheckboxController";
 
+
+
     /**
      * チェックボックスがついている最後のチェックボックスを返す
      * @return チェックのついている最後のチェックボックスの番号
@@ -57,5 +59,17 @@ public class CheckboxController {
             }
         }
         return checkedBoxesCnt;
+    }
+
+    public boolean[] getCheckBoxStates(StintLayout[] stintLayouts) {
+        boolean[] checkedBoxNos = new boolean[stintLayouts.length];
+        for (int i = 0; i < stintLayouts.length; i++) {
+            if (stintLayouts[i].getFlagCheckBox().isChecked()) {
+                checkedBoxNos[i] = true;
+            } else {
+                checkedBoxNos[i] = false;
+            }
+        }
+        return checkedBoxNos;
     }
 }

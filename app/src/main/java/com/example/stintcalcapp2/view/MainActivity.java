@@ -2,7 +2,6 @@ package com.example.stintcalcapp2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.CheckboxController;
@@ -22,8 +20,6 @@ import com.example.stintcalcapp2.layout.StintLayout;
 import com.example.stintcalcapp2.model.StintData;
 
 public class MainActivity extends AppCompatActivity {
-
-    private Context mContext;
 
     private StintLayout stintLayouts[];
     private View view[];
@@ -60,6 +56,29 @@ public class MainActivity extends AppCompatActivity {
     private TextView maxRunTimeTextView;
     private TextView[] stintCntTextView;
 
+    private Button akimaSetBtn;
+    private Button toyoguchiSetBtn;
+    private Button yoshikaiDriverSetBtn;
+    private Button lukeSetBtn;
+    private Button yokotaSetBtn;
+    private Button tuboiSetBtn;
+    private Button nittaSetBtn;
+    private Button xSetBtn;
+    private Button breakeSetBtn;
+    private Button nonDriverSetBtn;
+
+    //ドライバーID
+    private final int ID_AKIMA = 0;
+    private final int ID_TOYOGUCHI = 1;
+    private final int ID_YOSHIKAI = 2;
+    private final int ID_LUKE = 3;
+    private final int ID_YOKOTA = 4;
+    private final int ID_TUBOI = 5;
+    private final int ID_NITTA = 6;
+    private final int ID_X = 7;
+    private final int ID_BREAKE = 98;
+    private final int ID_NULL = 99;
+
     //Tab Layout
     private LinearLayout raceDataLayout;
     private LinearLayout setStintData;
@@ -79,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
         setContentView(R.layout.activity_main);
     }
 
@@ -139,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        refreshDisplay();
+        reCalcRefreshDisplay();
 
         setBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG,"onClick stintData.setRunningTime runningTime:" + stintData.getRunningTime(i));
                     }
                 }
-                refreshDisplay();
+                reCalcRefreshDisplay();
             }
         });
 
@@ -252,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setUniformityRunningTime();
-                refreshDisplay();
+                reCalcRefreshDisplay();
             }
         });
 
@@ -286,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                refreshDisplay();
+                reCalcRefreshDisplay();
             }
         });
 
@@ -321,9 +339,83 @@ public class MainActivity extends AppCompatActivity {
                         //Todo エラーを表示
                     }
                 }
-                refreshDisplay();
+                reCalcRefreshDisplay();
             }
         });
+
+
+        //Stintタブ=============================================================================================
+        akimaSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_AKIMA);
+            }
+        });
+
+        toyoguchiSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_TOYOGUCHI);
+            }
+        });
+
+        yoshikaiDriverSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_YOSHIKAI);
+            }
+        });
+
+        lukeSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_LUKE);
+            }
+        });
+
+        yokotaSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_YOKOTA);
+            }
+        });
+
+        tuboiSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_TUBOI);
+            }
+        });
+
+        nittaSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_NITTA);
+            }
+        });
+
+        xSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_X);
+            }
+        });
+
+        breakeSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_BREAKE);
+            }
+        });
+
+        nonDriverSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setDriver(ID_NULL);
+            }
+        });
+
+
 
         //Debug=================================================================================================
         debugBtn.setOnClickListener(new View.OnClickListener() {
@@ -394,10 +486,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * stintData,raceDataから取得した情報をもとに表示を更新
+     * stintData,raceDataから再計算を行い表示を更新
      */
-    private void refreshDisplay(){
-        Log.v(TAG,"in refreshDisplay()");
+    private void reCalcRefreshDisplay(){
+        Log.v(TAG,"in reCalcRefreshDisplay()");
         for (int i = 0; i < stintLayouts.length; i++) {
             //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
             Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
@@ -428,7 +520,34 @@ public class MainActivity extends AppCompatActivity {
         }
 
         stintData.clearRaceData(stintData.getAllStint());
-        Log.v(TAG,"out refreshDisplay()");
+        Log.v(TAG,"out reCalcRefreshDisplay()");
+    }
+
+    private void refreshDisplay(){
+        Log.d(TAG,"in refreshDisplay");
+        for (int i = 0; i < stintLayouts.length; i++) {
+            //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
+            Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
+            stintLayouts[i].setStartTimeText(stintData.getStintStartTime(i));
+            stintLayouts[i].setEndTimeText(stintData.getEndTime(i));
+            stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(Integer.parseInt(stintData.getRunningTime(i))));
+            stintLayouts[i].setDriverText(stintData.getDriverName(i));
+            stintLayouts[i].setKartText(stintData.getKartNo(i));
+        }
+        //RaceDataタブ
+        startTimeSetText.setText(stintData.getStartTime());
+
+        //Stint数以降を非表示にする
+        for (int i = 0; i < stintData.getMaxStintCount(); i++) {
+            if (i < stintData.getAllStint()){
+                stintLayouts[i].setFlagValid(true);
+            }else {
+                stintLayouts[i].setFlagValid(false);
+            }
+        }
+
+        stintData.clearRaceData(stintData.getAllStint());
+        Log.d(TAG,"out refreshDisplay");
     }
 
     /**
@@ -550,6 +669,57 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setDriver(int driverId){
+        boolean checkBoxs[] = checkboxController.getCheckBoxStates(stintLayouts);
+        for (int i = 0; i < stintData.getAllStint(); i++) {
+            if(checkBoxs[i]){
+                switch (driverId){
+                    case ID_AKIMA:
+                        stintData.setDriverName(i,"秋間");
+                        break;
+                    case ID_TOYOGUCHI:
+                        stintData.setDriverName(i,"豊口");
+                        break;
+                    case ID_YOSHIKAI:
+                        stintData.setDriverName(i,"吉戒");
+                        break;
+                    case ID_LUKE:
+                        stintData.setDriverName(i,"ルーク");
+                        break;
+                    case ID_YOKOTA:
+                        stintData.setDriverName(i,"横田");
+                        break;
+                    case ID_TUBOI:
+                        stintData.setDriverName(i,"坪井");
+                        break;
+                    case ID_NITTA:
+                        stintData.setDriverName(i,"新田");
+                        break;
+                    case ID_X:
+                        stintData.setDriverName(i,"X");
+                        break;
+                    case ID_NULL:
+                        stintData.setDriverName(i,"-");
+                        break;
+                    case ID_BREAKE:
+                        //Todo そのうち対応する。たぶん下のコードはうまくいっていない
+//                        if (!stintData.getDriverName(i).equals("中断")){
+//                            //ドライバーを繰り下げする
+//                            shiftList(i);
+//                            stintData.setDriver(i,"中断");
+//                            //中断後のStintを均等割りする
+//                            String uniformityStartTime = stintData.getRaceData()[i+1][1];
+//                            String uniformityEndTime = timeCalc.calcPlusTime(stintData.getRaceData()[0][1],raceTime);
+//                            uniformitySet(uniformityStartTime,uniformityEndTime,i+1);
+//                        }
+                        break;
+                }
+
+            }
+        }
+        refreshDisplay();
+    }
+
 
     /**
      * Stint毎にLayoutを定義していて量が多いため
@@ -586,6 +756,19 @@ public class MainActivity extends AppCompatActivity {
         startTimeSetBtn = findViewById(R.id.startTimeSetBtn);
         startTimeSetText = findViewById(R.id.startTimeSetText);
         confirmBtn = findViewById(R.id.confirmBtn);
+
+        //Stintタブ内の項目
+        akimaSetBtn = findViewById(R.id.akimaSetBtn);
+        toyoguchiSetBtn = findViewById(R.id.toyoguchiSetBtn);
+        yoshikaiDriverSetBtn = findViewById(R.id.yoshikaiSetBtn);
+        lukeSetBtn = findViewById(R.id.lukeSetBtn);
+        yokotaSetBtn = findViewById(R.id.yokotaSetBtn);
+        tuboiSetBtn = findViewById(R.id.tuboiSetBtn);
+        nittaSetBtn = findViewById(R.id.nittaSetBtn);
+        xSetBtn = findViewById(R.id.xSetBtn);
+        breakeSetBtn = findViewById(R.id.breakSetBtn);
+        nonDriverSetBtn = findViewById(R.id.nonDriverSetBtn);
+
 
         view = new View[50];
         stintLayouts = new StintLayout[50];
