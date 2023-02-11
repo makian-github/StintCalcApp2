@@ -50,6 +50,7 @@
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
     <string name="confirmBtn">↑の値で設定する</string>
+    <string name="coefString">最大走行時間の％設定</string>
 
 
     <string name="driverNameNone">-</string>

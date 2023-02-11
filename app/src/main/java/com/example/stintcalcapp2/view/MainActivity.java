@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.stintcalcapp2.R;
@@ -46,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
     private Button startTimeSetBtn;
     private TextView startTimeSetText;
     private Button confirmBtn;
+    private Switch coefSwitch;
+
+    private final double COEF_110_PERCENT = 1.1;
+    private final double COEF_120_PERCENT = 1.2;
 
     private StintData stintData;
     private TimeCalc timeCalc;
@@ -349,6 +354,15 @@ public class MainActivity extends AppCompatActivity {
                         //Todo エラーを表示
                     }
                 }
+
+                if(coefSwitch.isChecked()){
+                    Log.d(TAG,"COEF = 110");
+                    stintData.setCoef(COEF_110_PERCENT);
+                } else {
+                    Log.d(TAG,"COEF = 120");
+                    stintData.setCoef(COEF_120_PERCENT);
+                }
+
                 reCalcRefreshDisplay();
             }
         });
@@ -644,8 +658,8 @@ public class MainActivity extends AppCompatActivity {
      * @return 均等割り＊COEF(120%ルール)の値を返す
      */
     private int maxRunTime(int driverCnt){
-        Log.d("maxRunTime","raceTime = " + stintData.getRaceTime() + ",COEF = " + stintData.COEF + ",driverCnt = " + driverCnt);
-        double maxTimeD = stintData.getRaceTime()/driverCnt*stintData.COEF;
+        Log.d("maxRunTime","raceTime = " + stintData.getRaceTime() + ",COEF = " + stintData.getCoef() + ",driverCnt = " + driverCnt);
+        double maxTimeD = stintData.getRaceTime()/driverCnt*stintData.getCoef();
         Log.d("maxRunTime","maxTimeD(double) = " + maxTimeD);
         int maxTimeI = (int)maxTimeD;
         Log.d("maxRunTime","maxTimeI(int) = " + maxTimeI);
@@ -808,6 +822,7 @@ public class MainActivity extends AppCompatActivity {
         startTimeSetBtn = findViewById(R.id.startTimeSetBtn);
         startTimeSetText = findViewById(R.id.startTimeSetText);
         confirmBtn = findViewById(R.id.confirmBtn);
+        coefSwitch = findViewById(R.id.coefSwitch);
 
         //Stintタブ内の項目
         akimaSetBtn = findViewById(R.id.akimaSetBtn);

@@ -34,7 +34,7 @@ public class StintData extends Application{
     public static final int KART_NO = 3;
 
     //120%ルール用の係数
-    public final double COEF = 1.2;
+    private double coef = 1.2;
 
     /**
      * [スティント数][データ数]
@@ -74,6 +74,22 @@ public class StintData extends Application{
 
     public void setStintData(String[][] stintData) {
         this.stintData = stintData;
+    }
+
+    /**
+     * 最長走行時間ルール(120%ルール)の設定値を取得
+     * @return
+     */
+    public double getCoef() {
+        return coef;
+    }
+
+    /**
+     * 最長走行時間ルール(120%ルール)の設定値を何％にするかの設定
+     * @param coef
+     */
+    public void setCoef(double coef) {
+        this.coef = coef;
     }
 
     /**
