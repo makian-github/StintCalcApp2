@@ -14,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.stintcalcapp2.R;
+import com.example.stintcalcapp2.controller.AsyncFunctionCallback;
 import com.example.stintcalcapp2.controller.CheckboxController;
 import com.example.stintcalcapp2.controller.TimeCalc;
 import com.example.stintcalcapp2.layout.InfoDialog;
@@ -249,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
                     InfoDialog dialog = new InfoDialog();
                     dialog.setTitleStr("Error");
                     dialog.setMessageStr("設定したいStintのチェックボックスにチェックを入れてください");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
                     dialog.show(getSupportFragmentManager(), "");
                 }
             }
@@ -258,28 +260,24 @@ public class MainActivity extends AppCompatActivity {
         perStintSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (stintData.getPerStintTime() != 0) {
-                    for (int i = 0; i < stintData.getAllStint(); i++) {
-                        if (i == stintData.getAllStint() - 1) {
-                            //最終Stintはレーススタート時間にレース時間を足したもの
-                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
-                            stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getRaceEndTime()));
-                        } else if (i == 0) {
-                            //1Stint目はレーススタート時間に均等割りした時間を足す
-                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getPerStintTime()));
-                            stintData.setRunningTime(i,stintData.getPerStintTime());
-                        } else {
-                            //上記以外は、前走者の走行終了時間に均等割りした時間を足す
-                            stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getEndTime(i - 1), stintData.getPerStintTime()));
-                            stintData.setRunningTime(i,stintData.getPerStintTime());
+                Log.d(TAG,"in 均等割りボタン");
+                InfoDialog dialog = new InfoDialog();
+                dialog.setTitleStr("確認");
+                dialog.setMessageStr("現在の設定値を上書きしますがよろしいですか？");
+                dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
+                AsyncFunctionCallback callback = new AsyncFunctionCallback() {
+                    // コールバック処理の定義
+                    @Override
+                    public void onAsyncFunctionFinished(boolean isSucceed) {
+                        Log.d(TAG,"isSucceed = " + isSucceed);
+                        if (isSucceed){
+                            setEvenlyDividedStint();
                         }
-                        //Log.d(TAG,"onClick stintData.getStintStartTime(" + i + ") = " + stintData.getStintStartTime(i));
-                        //Log.d(TAG,"onClick stintData.getEndTime(" + i + ") = " + stintData.getEndTime(i));
-                        //stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getStintStartTime(i), stintData.getEndTime(i)));
-                        Log.d(TAG,"onClick stintData.setRunningTime runningTime:" + stintData.getRunningTime(i));
                     }
-                }
-                reCalcRefreshDisplay();
+                };
+                dialog.setAsyncFunctionCallback(callback);
+                dialog.show(getSupportFragmentManager(), "");
+                Log.d(TAG,"out 均等割りボタン");
             }
         });
 
@@ -287,8 +285,24 @@ public class MainActivity extends AppCompatActivity {
         checkPerStintSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setUniformityRunningTime();
-                reCalcRefreshDisplay();
+                InfoDialog dialog = new InfoDialog();
+                dialog.setTitleStr("確認");
+                dialog.setMessageStr("現在の設定値を上書きしますがよろしいですか？");
+                dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
+                AsyncFunctionCallback callback = new AsyncFunctionCallback() {
+                    // コールバック処理の定義
+                    @Override
+                    public void onAsyncFunctionFinished(boolean isSucceed) {
+                        Log.d(TAG,"isSucceed = " + isSucceed);
+                        if (isSucceed){
+                            setUniformityRunningTime();
+                            reCalcRefreshDisplay();
+                        }
+                    }
+                };
+                dialog.setAsyncFunctionCallback(callback);
+                dialog.show(getSupportFragmentManager(), "");
+                Log.d(TAG,"out 均等割りボタン");
             }
         });
 
@@ -301,7 +315,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG,"setMinEditText.getText() is Null");
                     }else{
                         flagItemSetMin(Integer.valueOf(setMinEditText.getText().toString()));
-                        Log.d(TAG,"setMinEditText.getText() is Null");
                     }
                 }catch (Exception e){
                     Log.e(TAG,"Exception = " + e);
@@ -726,14 +739,17 @@ public class MainActivity extends AppCompatActivity {
         if (flagCount > 1) {
             dialog.setTitleStr("Error");
             dialog.setMessageStr("チェックが複数に入っていたので、" + effectiveCheckBox + 1 + "Stint目のみ更新しました。");
+            dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
             dialog.show(getSupportFragmentManager(), "");
         } else if (flagCount == 0) {
             dialog.setTitleStr("Error");
             dialog.setMessageStr("チェックが入っていません");
+            dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
             dialog.show(getSupportFragmentManager(), "");
         } else {
             dialog.setTitleStr("Success");
             dialog.setMessageStr(effectiveCheckBox + 1 + "Stint目の走行時間を更新しました。");
+            dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
             dialog.show(getSupportFragmentManager(), "");
         }
     }
@@ -789,6 +805,33 @@ public class MainActivity extends AppCompatActivity {
         refreshDisplay();
     }
 
+    /**
+     * レース時間・Stint数から全体を均等割りした値を設定する
+     */
+    public void setEvenlyDividedStint(){
+        if (stintData.getPerStintTime() != 0) {
+            for (int i = 0; i < stintData.getAllStint(); i++) {
+                if (i == stintData.getAllStint() - 1) {
+                    //最終Stintはレーススタート時間にレース時間を足したもの
+                    stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
+                    stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getRaceEndTime()));
+                } else if (i == 0) {
+                    //1Stint目はレーススタート時間に均等割りした時間を足す
+                    stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getPerStintTime()));
+                    stintData.setRunningTime(i,stintData.getPerStintTime());
+                } else {
+                    //上記以外は、前走者の走行終了時間に均等割りした時間を足す
+                    stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getEndTime(i - 1), stintData.getPerStintTime()));
+                    stintData.setRunningTime(i,stintData.getPerStintTime());
+                }
+                //Log.d(TAG,"onClick stintData.getStintStartTime(" + i + ") = " + stintData.getStintStartTime(i));
+                //Log.d(TAG,"onClick stintData.getEndTime(" + i + ") = " + stintData.getEndTime(i));
+                //stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getStintStartTime(i), stintData.getEndTime(i)));
+                Log.d(TAG,"onClick stintData.setRunningTime runningTime:" + stintData.getRunningTime(i));
+            }
+        }
+        reCalcRefreshDisplay();
+    }
 
     /**
      * Stint毎にLayoutを定義していて量が多いため

@@ -3,132 +3,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#def"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
     <LinearLayout
+        android:layout_width="1000px"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="left">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:onClick="showTimePickerDialog"
+                android:text="@string/startTime"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/startTimeText"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:text="00:00"
+                android:textAlignment="center"
+                android:textSize="50dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/endTimeSetLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:onClick="showTimePickerDialog1"
+                android:text="@string/endTime"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/endTimeText"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:text="00:00"
+                android:textAlignment="center"
+                android:textSize="50dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="@string/runTimeText"
+                android:textAlignment="center"
+                android:textSize="50dp" />
+
+            <TextView
+                android:id="@+id/runningTime"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:text="00:00"
+                android:textAlignment="center"
+                android:textSize="50dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/driverSetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:onClick="showTimePickerDialog"
-            android:text="@string/startTime"
-            android:textAllCaps="false"/>
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:textAlignment="center"
-            android:textSize="50dp"
-            android:text="00:00"
-            android:id="@+id/startTimeText"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/endTimeSetLayout">
-
-        <Button
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:onClick="showTimePickerDialog1"
-            android:text="@string/endTime"
-            android:textAllCaps="false"/>
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:textAlignment="center"
-            android:textSize="50dp"
-            android:text="00:00"
-            android:id="@+id/endTimeText"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:text="@string/runTimeText"
-            android:textAlignment="center"
-            android:textSize="50dp" />
-
-        <TextView
-            android:id="@+id/runningTime"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:text="00:00"
-            android:textAlignment="center"
-            android:textSize="50dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/driverSetLayout">
 
         <Spinner
             android:id="@+id/driverSpinner"
             android:layout_width="250dp"
             android:layout_height="70dp"
-            android:textAlignment="center"
-            android:textSize="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:entries="@array/driverList"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dialog"
+            android:textAlignment="center"
+            android:textSize="50dp" />
 
         <Button
+            android:id="@+id/driverSetBtn"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="@string/driverBtn"
             android:textAllCaps="false"
-            android:visibility="gone"
-            android:id="@+id/driverSetBtn"/>
+            android:visibility="gone" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/kartNoSetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/kartNoSetLayout">
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/kartNoSpinner"
             android:layout_width="250dp"
             android:layout_height="70dp"
-            android:textAlignment="center"
-            android:textSize="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:entries="@array/kartNoList"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dialog"
+            android:textAlignment="center"
+            android:textSize="50dp" />
 
         <Button
+            android:id="@+id/kartNoSetBtn"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="@string/KartNoText"
             android:textAllCaps="false"
-            android:visibility="gone"
-            android:id="@+id/kartNoSetBtn"/>
+            android:visibility="gone" />
 
     </LinearLayout>
-
 
 
     <FrameLayout
