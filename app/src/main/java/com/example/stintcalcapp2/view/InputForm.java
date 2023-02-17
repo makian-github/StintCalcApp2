@@ -143,28 +143,29 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Log.v(TAG,"in onTimeSet()");
-        String str = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
+        String setTime = String.format(Locale.US, "%02d:%02d", hourOfDay, minute);
         if (Button == 0){
-            startTimeText.setText( str );
+            startTimeText.setText( setTime );
             if (stintNum == 0){//1Stint目の場合
-                stintData.setStartTime(str);
+                stintData.setStartTime(setTime);
             }else{
                 //前のStintの終了時間(=このStintの開始時間)をセットする
-                stintData.setEndTime(stintNum-1,str);
+                stintData.setEndTime(stintNum-1,setTime);
             }
 
         }else if(Button == 2){
-            startTimeText.setText( str );
-            stintData.setStartTime( str );
+            diffTime = timeCalc.calcDiffMin(stintData.getStartTime(),setTime);
+            startTimeText.setText( setTime );
+            stintData.setStartTime( setTime );
 //            //TODO
 //            //スタート時間をセット
 //            //上記値をもとに他の時間をずらす処理を考える
-//            startTimeText.setText( str );
+//            startTimeText.setText( setTime );
 //
-//            Log.v("InputForm","str:" + str);
+//            Log.v("InputForm","setTime:" + setTime);
 //            Log.v("InputForm","StintData.getRaceData()[0][1]:" + stintData.getRaceData()[0][1].toString());
 //
-//            int diffMin = timeCalc.calcDiffMin(stintData.getRaceData()[0][1].toString(),str);
+//            int diffMin = timeCalc.calcDiffMin(stintData.getRaceData()[0][1].toString(),setTime);
 //
 //            //int diffMin = 15;
 //
@@ -179,8 +180,8 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 //                Log.v("InputForm","["+i+"] start:"+timeCalc.calcPlusTime(stintData.getRaceData()[i][1].toString(),diffMin) + ",end:" + timeCalc.calcPlusTime(stintData.getRaceData()[i][2].toString(),diffMin));
 //            }
         }else{
-            endTimeText.setText( str );
-            stintData.setEndTime(stintNum,str);
+            endTimeText.setText( setTime );
+            stintData.setEndTime(stintNum,setTime);
         }
 
         //開始時間設定の場合はRunningTimeの設定は不要であるため
@@ -243,9 +244,12 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
-        Log.v("InputForm","onKeyDown. stintNum=" + stintNum);
+        Log.v("InputForm","onKeyDown. stintNum=" + stintNum + ",diffTime=" + diffTime);
         if (stintNum == START_TIME_NUM) {
-            for (int i = 0; i < stintData.getAllStint(); i++) {
+            if (0 != diffTime) {
+                for (int i = 0; i < stintData.getAllStint(); i++) {
+                    stintData.setEndTime(i,timeCalc.calcPlusTime(stintData.getEndTime(i),diffTime));
+                }
             }
             Log.v("InputForm","StartTimeSet. stintNum=999");
         }else{
