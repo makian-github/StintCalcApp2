@@ -23,7 +23,7 @@ import com.example.stintcalcapp2.controller.AsyncFunctionCallback;
  * ・DialogTypeがTWO_BUTTON_DIALOGの場合は、
  * 　setAsyncFunctionCallback(AsyncFunctionCallback asyncFunctionCallback)を必ず使用すること
  */
-public class InfoDialog extends DialogFragment{
+public class InfoDialog extends DialogFragment {
 
     private final String TAG = "InfoDialog";
 
@@ -89,7 +89,7 @@ public class InfoDialog extends DialogFragment{
         CharSequence positive = positiveStr;
         CharSequence negative = negativeStr;
 
-        switch (getDialogType()){
+        switch (getDialogType()) {
             case ONE_BUTTON_DIALOG:
                 builder.setTitle(title)
                         .setMessage(message)
@@ -104,8 +104,8 @@ public class InfoDialog extends DialogFragment{
                             public void onClick(DialogInterface dialog, int id) {
                                 try {
                                     getAsyncFunctionCallback().onAsyncFunctionFinished(true);
-                                }catch (Exception e){
-                                    Log.d(TAG,"Exception e = " + e);
+                                } catch (Exception e) {
+                                    Log.d(TAG, "Exception e = " + e);
                                 }
                             }
                         })
@@ -114,8 +114,8 @@ public class InfoDialog extends DialogFragment{
                             public void onClick(DialogInterface dialog, int which) {
                                 try {
                                     getAsyncFunctionCallback().onAsyncFunctionFinished(false);
-                                }catch (Exception e){
-                                    Log.d(TAG,"Exception e = " + e);
+                                } catch (Exception e) {
+                                    Log.d(TAG, "Exception e = " + e);
                                 }
                             }
                         });

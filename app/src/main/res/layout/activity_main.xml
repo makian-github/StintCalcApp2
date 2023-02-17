@@ -295,7 +295,7 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="@dimen/line_margin"
                 android:text="@string/tab_set"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/setRaceDataBtn"
@@ -316,16 +316,16 @@
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="@dimen/line_margin"
-                android:textAllCaps="false"
-                android:text="@string/tab_now_run_time" />
+                android:text="@string/tab_now_run_time"
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/showStintBtn"
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10px"
-                android:textAllCaps="false"
-                android:text="@string/tab_stint" />
+                android:text="@string/tab_stint"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -333,8 +333,8 @@
             android:layout_width="match_parent"
             android:layout_height="5px"
             android:background="@color/black" />
-<!-- ================================================== -->
-<!--    RaceDataタブ    -->
+        <!-- ================================================== -->
+        <!--    RaceDataタブ    -->
         <LinearLayout
             android:id="@+id/raceDataLayout"
             android:layout_width="match_parent"
@@ -391,9 +391,9 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="10px"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -402,9 +402,9 @@
 
                 <TextView
                     android:id="@+id/startTimeSetText"
-                    android:layout_marginLeft="10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
                     android:text="@string/def_time" />
 
                 <Button
@@ -412,28 +412,27 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text="@string/setString"
-                    />
+                    android:text="@string/setString" />
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="15px"
-                android:layout_marginLeft="10px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="15px"
                 android:text="@string/coefString" />
 
             <LinearLayout
-                android:layout_marginBottom="10px"
-                android:layout_marginLeft="30px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginBottom="10px"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="120%"/>
+                    android:text="120%" />
 
                 <Switch
                     android:id="@+id/coefSwitch"
@@ -443,7 +442,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="110%"/>
+                    android:text="110%" />
 
             </LinearLayout>
 
@@ -452,13 +451,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10px"
-                android:text="@string/confirmBtn"
-                />
+                android:text="@string/confirmBtn" />
 
         </LinearLayout>
 
-<!-- ================================================== -->
-<!--    SETタブ    -->
+        <!-- ================================================== -->
+        <!--    SETタブ    -->
         <LinearLayout
             android:id="@+id/setStintData"
             android:layout_width="match_parent"
@@ -473,15 +471,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/stintSetText"
-                    android:textSize="15px"/>
+                    android:textSize="15px" />
+
                 <Button
-                    android:layout_marginTop="10px"
                     android:id="@+id/openStintSetting"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text=">>"
-                    />
+                    android:layout_marginTop="10px"
+                    android:text=">>" />
 
             </LinearLayout>
 
@@ -498,17 +496,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/perStintSetText"
-                    android:textSize="18px"
-                    />
+                    android:textSize="18px" />
+
                 <Button
-                    android:layout_marginTop="10px"
                     android:id="@+id/perStintSetBtn"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text=">>"
-                    />
+                    android:layout_marginTop="10px"
+                    android:text=">>" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -546,15 +544,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/checkPerStintSetText"
-                    android:textSize="16px"/>
+                    android:textSize="16px" />
+
                 <Button
-                    android:layout_marginTop="10px"
                     android:id="@+id/checkPerStintSetBtn"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text=">>"
-                    />
+                    android:layout_marginTop="10px"
+                    android:text=">>" />
             </LinearLayout>
 
             <View
@@ -570,16 +568,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setMinText"
-                    android:textSize="16px"/>
+                    android:textSize="16px" />
+
                 <Button
-                    android:layout_marginTop="10px"
                     android:id="@+id/setMinBtn"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text=">>"
-                    />
+                    android:layout_marginTop="10px"
+                    android:text=">>" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -608,23 +607,23 @@
             </LinearLayout>
 
             <TextView
-                android:layout_marginTop="15px"
-                android:layout_marginLeft="0px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="0px"
+                android:layout_marginTop="15px"
                 android:text="@string/setMinText_recalc" />
 
             <LinearLayout
-                android:layout_marginBottom="10px"
-                android:layout_marginLeft="30px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginBottom="10px"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/setMinText_recalc_yes"/>
+                    android:text="@string/setMinText_recalc_yes" />
 
                 <Switch
                     android:id="@+id/recalcSwitch"
@@ -634,10 +633,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/setMinText_recalc_no"/>
+                    android:text="@string/setMinText_recalc_no" />
 
             </LinearLayout>
-
 
 
             <View
@@ -650,34 +648,33 @@
                 android:layout_height="80px">
 
                 <Button
-                    android:layout_marginTop="10px"
                     android:id="@+id/debugBtn"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text="D1"
-                    />
-                <Button
                     android:layout_marginTop="10px"
+                    android:text="D1" />
+
+                <Button
                     android:id="@+id/debugBtn2"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text="D2"
-                    />
-                <Button
                     android:layout_marginTop="10px"
+                    android:text="D2" />
+
+                <Button
                     android:id="@+id/debugBtn3"
                     android:layout_width="80px"
                     android:layout_height="@dimen/btn_height"
                     android:layout_marginLeft="10px"
-                    android:text="D3"
-                    />
+                    android:layout_marginTop="10px"
+                    android:text="D3" />
             </LinearLayout>
 
         </LinearLayout>
-<!-- ================================================== -->
-<!--    STINTタブ    -->
+        <!-- ================================================== -->
+        <!--    STINTタブ    -->
         <LinearLayout
             android:id="@+id/showStintData"
             android:layout_width="match_parent"
@@ -694,8 +691,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="秋間"
-                    />
+                    android:text="秋間" />
+
                 <TextView
                     android:id="@+id/driver0SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -712,10 +709,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -726,8 +725,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="豊口"
-                    />
+                    android:text="豊口" />
+
                 <TextView
                     android:id="@+id/driver1SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -744,10 +743,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -758,8 +759,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="吉戒"
-                    />
+                    android:text="吉戒" />
+
                 <TextView
                     android:id="@+id/driver2SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -776,10 +777,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -790,8 +793,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="ルーク"
-                    />
+                    android:text="ルーク" />
+
                 <TextView
                     android:id="@+id/driver3SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -808,10 +811,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -822,8 +827,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="横田"
-                    />
+                    android:text="横田" />
+
                 <TextView
                     android:id="@+id/driver4SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -840,10 +845,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -854,8 +861,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="坪井"
-                    />
+                    android:text="坪井" />
+
                 <TextView
                     android:id="@+id/driver5SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -872,10 +879,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -886,8 +895,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="新田"
-                    />
+                    android:text="新田" />
+
                 <TextView
                     android:id="@+id/driver6SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -904,10 +913,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -918,8 +929,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="X"
-                    />
+                    android:text="X" />
+
                 <TextView
                     android:id="@+id/driver7SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -936,10 +947,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -950,8 +963,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="-"
-                    />
+                    android:text="-" />
+
                 <TextView
                     android:id="@+id/driver8SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -968,10 +981,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -982,8 +997,8 @@
                     android:layout_height="@dimen/driver_btn_height"
                     android:layout_gravity="top"
                     android:layout_marginLeft="5dp"
-                    android:text="中断"
-                    />
+                    android:text="中断" />
+
                 <TextView
                     android:id="@+id/driver9SumTime"
                     android:layout_width="@dimen/driverBtn_width_set"
@@ -1000,10 +1015,12 @@
                     android:text="00 stint" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/black" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
@@ -1024,6 +1041,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/red" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
@@ -1035,8 +1053,8 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10dp"
                 android:text="@string/all_check_text"
-                android:textSize="15px"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="15px" />
 
             <Button
                 android:id="@+id/allUncheckBtn"
@@ -1044,8 +1062,8 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10dp"
                 android:text="@string/all_uncheck_text"
-                android:textSize="15px"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="15px" />
 
             <Button
                 android:id="@+id/reverseBtn"
@@ -1053,8 +1071,8 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10dp"
                 android:text="@string/check_revers_text"
-                android:textSize="15px"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="15px" />
 
         </LinearLayout>
 

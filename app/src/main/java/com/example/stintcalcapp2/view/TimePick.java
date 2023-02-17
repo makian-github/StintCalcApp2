@@ -2,19 +2,21 @@ package com.example.stintcalcapp2.view;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TimePicker;
+
 import java.util.Calendar;
 
 public class TimePick extends DialogFragment implements
-        TimePickerDialog.OnTimeSetListener{
+        TimePickerDialog.OnTimeSetListener {
 
-    public static TimePick newInstance(String str){
+    public static TimePick newInstance(String str) {
         // Fragemnt01 インスタンス生成
-        TimePick timePick = new TimePick ();
+        TimePick timePick = new TimePick();
         // Bundle にパラメータを設定
         Bundle barg = new Bundle();
         barg.putString("Message", str);
@@ -41,7 +43,7 @@ public class TimePick extends DialogFragment implements
         Log.d("TAG", "onCreateDialog: minute = " + minute);
 
         return new TimePickerDialog(getActivity(),
-                (InputForm)getActivity(), hour, minute, true);
+                (InputForm) getActivity(), hour, minute, true);
     }
 
     @Override

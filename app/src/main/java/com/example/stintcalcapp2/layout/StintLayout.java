@@ -23,14 +23,15 @@ public class StintLayout extends AppCompatActivity {
     private static String TAG = "stintLayout";
 
     /**
-     *StintLayout.
-     *Layout Template.<br>
-     *[LayoutAbout]<br>
-     *[CheckBox] [Stint] [StartTime] [EndTime] [Runtime] [driverName] [KartNo]
+     * StintLayout.
+     * Layout Template.<br>
+     * [LayoutAbout]<br>
+     * [CheckBox] [Stint] [StartTime] [EndTime] [Runtime] [driverName] [KartNo]
+     *
      * @param view
      */
     public StintLayout(View view) {
-        Log.i(TAG,"const IN");
+        Log.i(TAG, "const IN");
         this.view = view;
         FlagCheckBox = view.findViewById(R.id.checkbox);
         stintTextView = view.findViewById(R.id.stint);
@@ -39,7 +40,7 @@ public class StintLayout extends AppCompatActivity {
         runTimeTextView = view.findViewById(R.id.runTime);
         driverTextView = view.findViewById(R.id.driver);
         kartTextView = view.findViewById(R.id.kartNo);
-        Log.i(TAG,"const OUT");
+        Log.i(TAG, "const OUT");
     }
 
     public void setFlagCheckBox(Boolean flag) {
@@ -76,12 +77,13 @@ public class StintLayout extends AppCompatActivity {
 
     /**
      * 引数で渡されたbooleanをもとに対象のチェックボックスの表示非表示を設定する
+     *
      * @param valid
      */
-    public void setFlagValid(boolean valid){
-        if (valid){
+    public void setFlagValid(boolean valid) {
+        if (valid) {
             FlagCheckBox.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             FlagCheckBox.setVisibility(View.INVISIBLE);
         }
 
@@ -89,9 +91,10 @@ public class StintLayout extends AppCompatActivity {
 
     /**
      * Stintのチェックボックスの状態を返す
+     *
      * @return チェックボックスの状態
      */
-    public boolean isCheckedBox(){
+    public boolean isCheckedBox() {
         boolean isChecked = false;
         isChecked = FlagCheckBox.isChecked();
         return isChecked;
