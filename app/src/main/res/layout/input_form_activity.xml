@@ -24,7 +24,8 @@
                 android:layout_height="50dp"
                 android:onClick="showTimePickerDialog"
                 android:text="@string/startTime"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/startTimeText"
@@ -48,7 +49,9 @@
                 android:layout_height="50dp"
                 android:onClick="showTimePickerDialog1"
                 android:text="@string/endTime"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                />
 
             <TextView
                 android:id="@+id/endTimeText"
@@ -67,6 +70,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/runStr"
                 android:layout_width="wrap_content"
                 android:layout_height="70dp"
                 android:text="@string/runTimeText"

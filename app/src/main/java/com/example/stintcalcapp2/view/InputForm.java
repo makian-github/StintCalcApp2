@@ -28,6 +28,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private StintData stintData;
     private TextView startTimeText;
     private TextView endTimeText;
+    private TextView runStr;
     private TextView runningTimeText;
     private EditText driverNameText;
     private Spinner driverSpinner;
@@ -65,6 +66,8 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 
         startTimeText = findViewById(R.id.startTimeText);
         endTimeText = findViewById(R.id.endTimeText);
+
+        runStr = findViewById(R.id.runStr);
         runningTimeText = findViewById(R.id.runningTime);
 
         Intent intent = getIntent();
@@ -76,6 +79,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         //開始時間設定の場合
         if (stintNum == START_TIME_NUM){
             endTimeSetLayout.setVisibility(View.GONE);
+            runStr.setVisibility(View.GONE);
             runningTimeText.setVisibility(View.GONE);
             driverSetLayout.setVisibility(View.GONE);
             kartNoSetLayout.setVisibility(View.GONE);
@@ -88,7 +92,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             }
             endTimeText.setText(stintData.getEndTime(stintNum));
 
-            runningTimeText.setText(stintData.getRunningTime(stintNum));
+            runningTimeText.setText(timeCalc.timeFormatExtraction(Integer.parseInt(stintData.getRunningTime(stintNum))));
 
             //この画面を表示した際に、設定された値を取得して表示する
             int driverNo = 0;
