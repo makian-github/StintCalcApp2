@@ -16,12 +16,9 @@ import android.widget.TimePicker;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.TimeCalc;
-import com.example.stintcalcapp2.model.RaceData;
 import com.example.stintcalcapp2.model.StintData;
 
 import java.util.Locale;
@@ -31,7 +28,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private StintData stintData;
     private TextView startTimeText;
     private TextView endTimeText;
-    private TextView runningTime;
+    private TextView runningTimeText;
     private EditText driverNameText;
     private Spinner driverSpinner;
     private Button driverSetBtn;
@@ -44,6 +41,8 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private LinearLayout kartNoSetLayout;
     private static int START_TIME_NUM = 999;
     private TimeCalc timeCalc;
+
+    private int diffTime = 0;
 
     private static final String TAG = "InputForm";
 
@@ -66,7 +65,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 
         startTimeText = findViewById(R.id.startTimeText);
         endTimeText = findViewById(R.id.endTimeText);
-        runningTime = findViewById(R.id.runningTime);
+        runningTimeText = findViewById(R.id.runningTime);
 
         Intent intent = getIntent();
         stintNum = intent.getIntExtra("Stint",0);//設定したkeyで取り出す
@@ -74,9 +73,10 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         timeCalc = new TimeCalc();
 
 
+        //開始時間設定の場合
         if (stintNum == START_TIME_NUM){
             endTimeSetLayout.setVisibility(View.GONE);
-            runningTime.setVisibility(View.GONE);
+            runningTimeText.setVisibility(View.GONE);
             driverSetLayout.setVisibility(View.GONE);
             kartNoSetLayout.setVisibility(View.GONE);
             startTimeText.setText(stintData.getStartTime());
@@ -88,7 +88,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             }
             endTimeText.setText(stintData.getEndTime(stintNum));
 
-            setRunningTimeText();
+            runningTimeText.setText(stintData.getRunningTime(stintNum));
 
             //この画面を表示した際に、設定された値を取得して表示する
             int driverNo = 0;
@@ -152,6 +152,7 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
                 //前のStintの終了時間(=このStintの開始時間)をセットする
                 stintData.setEndTime(stintNum-1,str);
             }
+
         }else if(Button == 2){
             startTimeText.setText( str );
             stintData.setStartTime( str );
@@ -182,7 +183,13 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             stintData.setEndTime(stintNum,str);
         }
 
-        setRunningTimeText();
+        //開始時間設定の場合はRunningTimeの設定は不要であるため
+        if (stintNum != START_TIME_NUM){
+            int runningTime = timeCalc.calcDiffMin(startTimeText.getText().toString(),endTimeText.getText().toString());
+            stintData.setRunningTime(stintNum, runningTime);
+            runningTimeText.setText(timeCalc.timeFormatExtraction(Integer.parseInt(stintData.getRunningTime(stintNum))));
+        }
+
         Log.v(TAG,"out onTimeSet()");
     }
 
@@ -228,12 +235,6 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         Log.v(TAG,"out showTimePickerDialog1()");
     }
 
-    private void setRunningTimeText(){
-        runningTime.setText(timeCalc.timeFormatExtraction(
-                timeCalc.calcDiffMin(startTimeText.getText().toString(),endTimeText.getText().toString()))
-        );
-    }
-
     /**
      * バックキーが押された際にプルダウンメニューから選択した値を設定する処理を追加
      * @param keyCode
@@ -243,7 +244,9 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
         Log.v("InputForm","onKeyDown. stintNum=" + stintNum);
-        if (stintNum == 999) {
+        if (stintNum == START_TIME_NUM) {
+            for (int i = 0; i < stintData.getAllStint(); i++) {
+            }
             Log.v("InputForm","StartTimeSet. stintNum=999");
         }else{
             stintData.setDriverName(stintNum, (String) driverSpinner.getSelectedItem());

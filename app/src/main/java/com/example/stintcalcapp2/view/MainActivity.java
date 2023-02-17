@@ -137,9 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         defineLayout();
 
-        //Todo
-        testData();
-
         tabBtnStateChange(setBtn);
 
         Log.v(TAG,"displayTab=" + displayTab);
@@ -168,7 +165,8 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
 
-        reCalcRefreshDisplay();
+        //reCalcRefreshDisplay();
+        refreshDisplay();
 
         /**setタブ*/
         setBtn.setOnClickListener(new View.OnClickListener() {
@@ -296,7 +294,8 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG,"isSucceed = " + isSucceed);
                         if (isSucceed){
                             setUniformityRunningTime();
-                            reCalcRefreshDisplay();
+                            //reCalcRefreshDisplay();
+                            refreshDisplay();
                         }
                     }
                 };
@@ -335,7 +334,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                reCalcRefreshDisplay();
+//                reCalcRefreshDisplay();
+                refreshDisplay();
             }
         });
 
@@ -379,7 +379,8 @@ public class MainActivity extends AppCompatActivity {
                     stintData.setCoef(COEF_120_PERCENT);
                 }
 
-                reCalcRefreshDisplay();
+                //reCalcRefreshDisplay();
+                refreshDisplay();
             }
         });
 
@@ -521,7 +522,8 @@ public class MainActivity extends AppCompatActivity {
         debugBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Todo
+                testData();
             }
         });
     }
@@ -567,43 +569,43 @@ public class MainActivity extends AppCompatActivity {
         btnInactive(btn);
     }
 
-    /**
-     * stintData,raceDataから再計算を行い表示を更新
-     */
-    private void reCalcRefreshDisplay(){
-        Log.v(TAG,"in reCalcRefreshDisplay()");
-        for (int i = 0; i < stintLayouts.length; i++) {
-            //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
-            Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
-            if (i == 0){ //最初のStintはレーススタート時間と走行時間を設定する
-                stintLayouts[i].setStartTimeText(stintData.getStartTime());
-                stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
-            }else if(i==stintData.getAllStint()){ //最終Stintの場合は自身の走行終了時間を設定する
-                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
-            }else{ //上記以外の場合は、スタート時間に前走者の走行終了時間を設定と、自身の走行終了時間を設定する
-                stintLayouts[i].setStartTimeText(stintData.getEndTime(i-1));
-                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
-            }
-            stintLayouts[i].setEndTimeText(stintData.getEndTime(i));
-            stintLayouts[i].setDriverText(stintData.getDriverName(i));
-            stintLayouts[i].setKartText(stintData.getKartNo(i));
-        }
-
-        //RaceDataタブ
-        startTimeSetText.setText(stintData.getStartTime());
-
-        //Stint数以降を非表示にする
-        for (int i = 0; i < stintData.getMaxStintCount(); i++) {
-            if (i < stintData.getAllStint()){
-                stintLayouts[i].setFlagValid(true);
-            }else {
-                stintLayouts[i].setFlagValid(false);
-            }
-        }
-
-        stintData.clearRaceData(stintData.getAllStint());
-        Log.v(TAG,"out reCalcRefreshDisplay()");
-    }
+//    /**
+//     * stintData,raceDataから再計算を行い表示を更新
+//     */
+//    private void reCalcRefreshDisplay(){
+//        Log.v(TAG,"in reCalcRefreshDisplay()");
+//        for (int i = 0; i < stintLayouts.length; i++) {
+//            //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
+//            Log.v(TAG,"endTime[" + i + "]:" + stintData.getEndTime(i));
+//            if (i == 0){ //最初のStintはレーススタート時間と走行時間を設定する
+//                stintLayouts[i].setStartTimeText(stintData.getStartTime());
+//                stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
+//            }else if(i==stintData.getAllStint()){ //最終Stintの場合は自身の走行終了時間を設定する
+//                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
+//            }else{ //上記以外の場合は、スタート時間に前走者の走行終了時間を設定と、自身の走行終了時間を設定する
+//                stintLayouts[i].setStartTimeText(stintData.getEndTime(i-1));
+//                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i-1),stintData.getEndTime(i))));
+//            }
+//            stintLayouts[i].setEndTimeText(stintData.getEndTime(i));
+//            stintLayouts[i].setDriverText(stintData.getDriverName(i));
+//            stintLayouts[i].setKartText(stintData.getKartNo(i));
+//        }
+//
+//        //RaceDataタブ
+//        startTimeSetText.setText(stintData.getStartTime());
+//
+//        //Stint数以降を非表示にする
+//        for (int i = 0; i < stintData.getMaxStintCount(); i++) {
+//            if (i < stintData.getAllStint()){
+//                stintLayouts[i].setFlagValid(true);
+//            }else {
+//                stintLayouts[i].setFlagValid(false);
+//            }
+//        }
+//
+//        stintData.clearRaceData(stintData.getAllStint());
+//        Log.v(TAG,"out reCalcRefreshDisplay()");
+//    }
 
     private void refreshDisplay(){
         Log.d(TAG,"in refreshDisplay");
@@ -653,14 +655,17 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = stint; i < stintData.getAllStint(); i++) {
                 if (i == stintData.getAllStint() - 1) {
-                    //最終Stintはレーススタート時間にレース時間を足したもの
-                    stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), stintData.getRaceTime()));
+                    //最終Stintはレース終了時間
+                    stintData.setEndTime(i, stintData.getRaceEndTime());
+                    stintData.setRunningTime(i,timeCalc.calcDiffMin(stintData.getStintStartTime(i),stintData.getRaceEndTime()));
                 } else if (i == 0) {
                     //1Stint目はレーススタート時間に均等割りした時間を足す
                     stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getStartTime(), perStintTime));
+                    stintData.setRunningTime(i,perStintTime);
                 } else {
                     //上記以外は、前走者の走行終了時間に均等割りした時間を足す
                     stintData.setEndTime(i, timeCalc.calcPlusTime(stintData.getEndTime(i - 1), perStintTime));
+                    stintData.setRunningTime(i,perStintTime);
                 }
             }
         }catch (Exception e){
@@ -830,7 +835,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG,"onClick stintData.setRunningTime runningTime:" + stintData.getRunningTime(i));
             }
         }
-        reCalcRefreshDisplay();
+        refreshDisplay();
+//        reCalcRefreshDisplay();
     }
 
     /**
