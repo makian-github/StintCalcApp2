@@ -46,6 +46,9 @@
     <string name="checkPerStintSetText">チェックが入っている項目\nから先を均等割りする</string>
     <string name="setMinText">チェックが入っている項目\nに↓の走行時間を設定する</string>
     <string name="setMinText_driveTime_text">走行時間＝</string>
+    <string name="setMinText_recalc">設定したStint以降について\n均等割りをする</string>
+    <string name="setMinText_recalc_yes">Yes</string>
+    <string name="setMinText_recalc_no">No</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
