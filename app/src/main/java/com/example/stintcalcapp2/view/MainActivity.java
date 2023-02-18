@@ -585,12 +585,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void btnInactive(Button btn) {
         btn.setBackgroundColor(android.R.color.darker_gray);
-        btn.setTextColor(R.color.black);
+        btn.setTextColor(Color.BLACK);
     }
 
     private void btnActive(Button btn) {
         btn.setBackgroundColor(R.color.purple_700);
-        btn.setTextColor(R.color.white);
+        btn.setTextColor(Color.WHITE);
     }
 
     private void tabBtnStateChange(Button btn) {
@@ -655,6 +655,11 @@ public class MainActivity extends AppCompatActivity {
         //RaceDataタブ
         startTimeSetText.setText(stintData.getStartTime());
 
+        //StintタブのStint数を更新
+        for (int i = 0; i < STINTDATA_CNT; i++) {
+            stintCntTextView[i].setText(stintData.getStintCount()[i] + "stint");
+        }
+
         //Stint数以降を非表示にする
         for (int i = 0; i < stintData.getMaxStintCount(); i++) {
             if (i < stintData.getAllStint()) {
@@ -663,7 +668,6 @@ public class MainActivity extends AppCompatActivity {
                 stintLayouts[i].setFlagValid(false);
             }
         }
-
         stintData.clearRaceData(stintData.getAllStint());
         Log.d(TAG, "out refreshDisplay");
     }

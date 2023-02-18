@@ -26,5 +26,19 @@ public class ConstantsData {
     public static final String DRIVER_NAME_TUBOI ="坪井";
     public static final String DRIVER_NAME_NITTA ="新田";
     public static final String DRIVER_NAME_X ="X";
+    public static final int DRIVER_ID_AKIMA =0;
+    public static final int DRIVER_ID_TOYOGUCHI =1;
+    public static final int DRIVER_ID_YOSHIKAI =2;
+    public static final int DRIVER_ID_LUKE =3;
+    public static final int DRIVER_ID_YOKOTA =4;
+    public static final int DRIVER_ID_TUBOI =5;
+    public static final int DRIVER_ID_NITTA =6;
+    public static final int DRIVER_ID_X =7;
+    public static final int DRIVER_ID_NONE =8;
+    public static final int DRIVER_ID_INTERRUPTION =9;
+    /**
+     * Stintタブに表示している項目数
+     */
+    public static final int STINTDATA_CNT = 10;
 
 }

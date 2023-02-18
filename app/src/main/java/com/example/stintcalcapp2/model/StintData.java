@@ -21,6 +21,7 @@ public class StintData extends Application {
     private int pauseCnt = 0;
     private int kartNo = 0;
     private String driverNames[] = {"", "", "", "", "", "", ""};
+    private int stintCounts[] = {0,0,0,0,0,0,0,0,0,0};
 
     private int raceTime = 0;
     private int allStint = 0;
@@ -343,5 +344,65 @@ public class StintData extends Application {
                 }
             }
         }
+    }
+
+    /**
+     * 各ドライバーのStint数を返却
+     * @return Stint数をまとめた配列
+     * [0] = 秋間
+     * [1] = 豊口
+     * [2] = 吉戒
+     * [3] = ルーク
+     * [4] = 横田
+     * [5] = 坪井
+     * [6] = 新田
+     * [7] = X
+     * [8] = -
+     * [9] = 中断
+     */
+    public int[] getStintCount(){
+        for (int i = 0; i <stintCounts.length; i++) {
+            stintCounts[i] = 0;
+        }
+
+        for (int i = 0; i < allStint; i++) {
+            switch (getDriverName(i)){
+                case DRIVER_NAME_AKIMA:
+                    stintCounts[DRIVER_ID_AKIMA]++;
+                    break;
+                case DRIVER_NAME_TOYOGUCHI:
+                    stintCounts[DRIVER_ID_TOYOGUCHI]++;
+                    break;
+                case DRIVER_NAME_YOSHIKAI:
+                    stintCounts[DRIVER_ID_YOSHIKAI]++;
+                    break;
+                case DRIVER_NAME_LUKE:
+                    stintCounts[DRIVER_ID_LUKE]++;
+                    break;
+                case DRIVER_NAME_YOKOTA:
+                    stintCounts[DRIVER_ID_YOKOTA]++;
+                    break;
+                case DRIVER_NAME_TUBOI:
+                    stintCounts[DRIVER_ID_TUBOI]++;
+                    break;
+                case DRIVER_NAME_NITTA:
+                    stintCounts[DRIVER_ID_NITTA]++;
+                    break;
+                case DRIVER_NAME_X:
+                    stintCounts[DRIVER_ID_X]++;
+                    break;
+                case DRIVER_NAME_NONE:
+                    stintCounts[DRIVER_ID_NONE]++;
+                    break;
+                case DRIVER_NAME_INTERRUPTION:
+                    stintCounts[DRIVER_ID_INTERRUPTION]++;
+                    break;
+            }
+        }
+
+
+
+
+        return stintCounts;
     }
 }
