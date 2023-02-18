@@ -21,6 +21,8 @@ import com.example.stintcalcapp2.R;
 import com.example.stintcalcapp2.controller.TimeCalc;
 import com.example.stintcalcapp2.model.StintData;
 
+import static com.example.stintcalcapp2.model.ConstantsData.*;
+
 import java.util.Locale;
 
 public class InputForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -40,7 +42,6 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private LinearLayout endTimeSetLayout;
     private LinearLayout driverSetLayout;
     private LinearLayout kartNoSetLayout;
-    private static int START_TIME_NUM = 999;
     private TimeCalc timeCalc;
 
     private int diffTime = 0;
@@ -97,23 +98,23 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             //この画面を表示した際に、設定された値を取得して表示する
             int driverNo = 0;
             String driverName = stintData.getDriverName(stintNum);
-            if (driverName.equals("中断")) {
+            if (driverName.equals(DRIVER_NAME_INTERRUPTION)) {
                 driverNo = 1;
-            } else if (driverName.equals("秋間")) {
+            } else if (driverName.equals(DRIVER_NAME_AKIMA)) {
                 driverNo = 2;
-            } else if (driverName.equals("豊口")) {
+            } else if (driverName.equals(DRIVER_NAME_TOYOGUCHI)) {
                 driverNo = 3;
-            } else if (driverName.equals("吉戒")) {
+            } else if (driverName.equals(DRIVER_NAME_YOSHIKAI)) {
                 driverNo = 4;
-            } else if (driverName.equals("ルーク")) {
+            } else if (driverName.equals(DRIVER_NAME_LUKE)) {
                 driverNo = 5;
-            } else if (driverName.equals("横田")) {
+            } else if (driverName.equals(DRIVER_NAME_YOKOTA)) {
                 driverNo = 6;
-            } else if (driverName.equals("坪井")) {
+            } else if (driverName.equals(DRIVER_NAME_TUBOI)) {
                 driverNo = 7;
-            } else if (driverName.equals("新田")) {
+            } else if (driverName.equals(DRIVER_NAME_NITTA)) {
                 driverNo = 8;
-            } else if (driverName.equals("X")) {
+            } else if (driverName.equals(DRIVER_NAME_X)) {
                 driverNo = 9;
             } else {
                 driverNo = 0;

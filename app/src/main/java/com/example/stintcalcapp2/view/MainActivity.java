@@ -21,6 +21,8 @@ import com.example.stintcalcapp2.layout.InfoDialog;
 import com.example.stintcalcapp2.layout.StintLayout;
 import com.example.stintcalcapp2.model.StintData;
 
+import static com.example.stintcalcapp2.model.ConstantsData.*;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,11 +106,7 @@ public class MainActivity extends AppCompatActivity {
     //レース時間と全Stintから均等割りした時間
     private int perStintTime = 0;
 
-    private static final int SET_TAB_NUM = 0;
-    private static final int RACE_DATA_TAB_NUM = 1;
-    private static final int NOW_TAB_NUM = 2;
-    private static final int STINT_TAB_NUM = 3;
-    private static final int CHECKBOX_NOT_SELECTED = 99;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -349,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplication(), InputForm.class);
-                intent.putExtra("Stint", 999);
+                intent.putExtra("Stint", START_TIME_NUM);
                 startActivity(intent);
             }
         });
@@ -544,19 +542,19 @@ public class MainActivity extends AppCompatActivity {
                     int rundomNo = rand.nextInt(4);
                     switch (rundomNo) {
                         case 0:
-                            stintData.setDriverName(i, "秋間");
+                            stintData.setDriverName(i, DRIVER_NAME_AKIMA);
                             break;
                         case 1:
-                            stintData.setDriverName(i, "豊口");
+                            stintData.setDriverName(i, DRIVER_NAME_TOYOGUCHI);
                             break;
                         case 2:
-                            stintData.setDriverName(i, "吉戒");
+                            stintData.setDriverName(i, DRIVER_NAME_YOSHIKAI);
                             break;
                         case 3:
-                            stintData.setDriverName(i, "ルーク");
+                            stintData.setDriverName(i, DRIVER_NAME_LUKE);
                             break;
                         default:
-                            stintData.setDriverName(i, "-");
+                            stintData.setDriverName(i, DRIVER_NAME_NONE);
                     }
                 }
                 refreshDisplay();
@@ -566,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setUniformityRunningTime() {
-        for (int i = stintData.STINT_UPPER_LIMIT - 1; i >= 0; i--) {
+        for (int i = STINT_UPPER_LIMIT - 1; i >= 0; i--) {
             if (stintLayouts[i].getFlagCheckBox().isChecked()) {
                 String uniformityStartTime = "";
                 if (0 == i) {
@@ -728,16 +726,16 @@ public class MainActivity extends AppCompatActivity {
     private void setRuntimeSum() {
         int[] runTime = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        runTime[0] = stintData.getDrivingTimeOfDriver("秋間");
-        runTime[1] = stintData.getDrivingTimeOfDriver("豊口");
-        runTime[2] = stintData.getDrivingTimeOfDriver("吉戒");
-        runTime[3] = stintData.getDrivingTimeOfDriver("ルーク");
-        runTime[4] = stintData.getDrivingTimeOfDriver("横田");
-        runTime[5] = stintData.getDrivingTimeOfDriver("坪井");
-        runTime[6] = stintData.getDrivingTimeOfDriver("新田");
-        runTime[7] = stintData.getDrivingTimeOfDriver("X");
-        runTime[9] = stintData.getDrivingTimeOfDriver("-");
-        runTime[9] = stintData.getDrivingTimeOfDriver("中断");
+        runTime[0] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_AKIMA);
+        runTime[1] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TOYOGUCHI);
+        runTime[2] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOSHIKAI);
+        runTime[3] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_LUKE);
+        runTime[4] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOKOTA);
+        runTime[5] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TUBOI);
+        runTime[6] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NITTA);
+        runTime[7] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_X);
+        runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NONE);
+        runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_INTERRUPTION);
 
         //走行時間が１分以上のドライバーの数を計算
         int driverCnt = 0;
@@ -804,31 +802,31 @@ public class MainActivity extends AppCompatActivity {
             if (checkBoxs[i]) {
                 switch (driverId) {
                     case ID_AKIMA:
-                        stintData.setDriverName(i, "秋間");
+                        stintData.setDriverName(i, DRIVER_NAME_AKIMA);
                         break;
                     case ID_TOYOGUCHI:
-                        stintData.setDriverName(i, "豊口");
+                        stintData.setDriverName(i, DRIVER_NAME_TOYOGUCHI);
                         break;
                     case ID_YOSHIKAI:
-                        stintData.setDriverName(i, "吉戒");
+                        stintData.setDriverName(i, DRIVER_NAME_YOSHIKAI);
                         break;
                     case ID_LUKE:
-                        stintData.setDriverName(i, "ルーク");
+                        stintData.setDriverName(i, DRIVER_NAME_LUKE);
                         break;
                     case ID_YOKOTA:
-                        stintData.setDriverName(i, "横田");
+                        stintData.setDriverName(i, DRIVER_NAME_YOKOTA);
                         break;
                     case ID_TUBOI:
-                        stintData.setDriverName(i, "坪井");
+                        stintData.setDriverName(i, DRIVER_NAME_TUBOI);
                         break;
                     case ID_NITTA:
-                        stintData.setDriverName(i, "新田");
+                        stintData.setDriverName(i, DRIVER_NAME_NITTA);
                         break;
                     case ID_X:
-                        stintData.setDriverName(i, "X");
+                        stintData.setDriverName(i, DRIVER_NAME_X);
                         break;
                     case ID_NULL:
-                        stintData.setDriverName(i, "-");
+                        stintData.setDriverName(i, DRIVER_NAME_NONE);
                         break;
                     case ID_BREAKE:
                         //Todo そのうち対応する。たぶん下のコードはうまくいっていない
@@ -988,7 +986,7 @@ public class MainActivity extends AppCompatActivity {
         view[49] = findViewById(R.id.stint_layout49);
 
 
-        for (int i = 0; i < stintData.STINT_UPPER_LIMIT; i++) {
+        for (int i = 0; i < STINT_UPPER_LIMIT; i++) {
             stintLayouts[i] = new StintLayout(view[i]);
             Log.i(TAG, "i = " + i + ", i+1:" + Integer.toString(i + 1));
             stintLayouts[i].setStintText(Integer.toString(i + 1));

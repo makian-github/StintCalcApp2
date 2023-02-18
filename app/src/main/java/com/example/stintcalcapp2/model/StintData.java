@@ -5,6 +5,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.stintcalcapp2.controller.TimeCalc;
+import static com.example.stintcalcapp2.model.ConstantsData.*;
 
 import static android.content.ContentValues.TAG;
 
@@ -25,13 +26,6 @@ public class StintData extends Application {
     private int allStint = 0;
     private String startTime = "00:00";
     private String raceEndTime = "00:00";
-
-    public static final int STINT_UPPER_LIMIT = 50;
-
-    public static final int END_TIME = 0;
-    public static final int RUNNING_TIME = 1;
-    public static final int DRIVER_NAME = 2;
-    public static final int KART_NO = 3;
 
     //120%ルール用の係数
     private double coef = 1.2;
