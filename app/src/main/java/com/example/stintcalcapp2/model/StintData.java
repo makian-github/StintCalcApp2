@@ -31,6 +31,12 @@ public class StintData extends Application {
     //120%ルール用の係数
     private double coef = 1.2;
 
+    //1Stint当たりの最低走行時間(予備実装)
+    private int minimumRunningTime = MINIMUM_RUNNING_TIME_DEF;
+    //1Stint当たりの最長走行時間
+    private int upperRunningTime = UPPER_RUNNING_TIME_DEF;
+
+
     /**
      * [スティント数][データ数]
      * データ0 = スティントの終了時間
@@ -88,6 +94,22 @@ public class StintData extends Application {
      */
     public void setCoef(double coef) {
         this.coef = coef;
+    }
+
+    public int getMinimumRunningTime() {
+        return minimumRunningTime;
+    }
+
+    public void setMinimumRunningTime(int minimumRunningTime) {
+        this.minimumRunningTime = minimumRunningTime;
+    }
+
+    public int getUpperRunningTime() {
+        return upperRunningTime;
+    }
+
+    public void setUpperRunningTime(int upperRunningTime) {
+        this.upperRunningTime = upperRunningTime;
     }
 
     /**

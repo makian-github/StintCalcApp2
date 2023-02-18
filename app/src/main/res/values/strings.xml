@@ -54,6 +54,8 @@
     <string name="setString">設定</string>
     <string name="confirmBtn">↑の値で設定する</string>
     <string name="coefString">最大走行時間の％設定</string>
+    <string name="upperRunTimeText">1Stint辺りの最大走行時間</string>
+    <string name="minimumRunTimeText">1Stint辺りの最小走行時間</string>
 
 
     <string name="driverNameNone">-</string>

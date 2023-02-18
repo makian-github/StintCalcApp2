@@ -1,11 +1,14 @@
 package com.example.stintcalcapp2.layout;
 
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import static com.example.stintcalcapp2.model.ConstantsData.*;
 
 import com.example.stintcalcapp2.R;
 
@@ -98,5 +101,19 @@ public class StintLayout extends AppCompatActivity {
         boolean isChecked = false;
         isChecked = FlagCheckBox.isChecked();
         return isChecked;
+    }
+
+    /**
+     * 走行時間の文字の色を変更。引数で0を渡した場合は黒字、1を渡した場合は赤字にする
+     *
+     * @param color
+     */
+    public void setRuntimeTextColor(int color){
+        if (color == COLOR_BLACK){
+            runTimeTextView.setTextColor(Color.BLACK);
+        }else{
+            runTimeTextView.setTextColor(Color.RED);
+        }
+
     }
 }

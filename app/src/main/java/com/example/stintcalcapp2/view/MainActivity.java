@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView startTimeSetText;
     private Button confirmBtn;
     private Switch coefSwitch;
+    private EditText upperTimeEditText;
+    private EditText minimumTimeEditText;
 
     private final double COEF_110_PERCENT = 1.1;
     private final double COEF_120_PERCENT = 1.2;
@@ -355,6 +357,7 @@ public class MainActivity extends AppCompatActivity {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG,"in ConfirmBtn");
                 if (null != raceTimeEditText.getText()) {
                     try {
                         stintData.setRaceTime(Integer.parseInt(raceTimeEditText.getText().toString()));
@@ -374,6 +377,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
+                if (null != upperTimeEditText.getText()) {
+                    try {
+                        stintData.setUpperRunningTime(Integer.parseInt(upperTimeEditText.getText().toString()));
+                    }catch (Exception e){
+                        e.getStackTrace();
+                        stintData.setUpperRunningTime(UPPER_RUNNING_TIME_DEF);
+                    }
+                }
+
+                if (null != minimumTimeEditText.getText()) {
+                    try {
+                        stintData.setMinimumRunningTime(Integer.parseInt(minimumTimeEditText.getText().toString()));
+                    }catch (Exception e){
+                        e.getStackTrace();
+                        stintData.setMinimumRunningTime(MINIMUM_RUNNING_TIME_DEF);
+                    }
+                }
+
                 if (coefSwitch.isChecked()) {
                     Log.d(TAG, "COEF = 110");
                     stintData.setCoef(COEF_110_PERCENT);
@@ -384,6 +405,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //reCalcRefreshDisplay();
                 refreshDisplay();
+                Log.d(TAG,"out ConfirmBtn");
             }
         });
 
@@ -660,6 +682,9 @@ public class MainActivity extends AppCompatActivity {
             stintCntTextView[i].setText(stintData.getStintCount()[i] + "stint");
         }
 
+        //RunningTimeの色を変更する
+        setRunningTimeColor();
+
         //Stint数以降を非表示にする
         for (int i = 0; i < stintData.getMaxStintCount(); i++) {
             if (i < stintData.getAllStint()) {
@@ -881,6 +906,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 各Stintの走行時間が最長or最短走行時間内かを確認して、文字色を変更する
+     */
+    private void setRunningTimeColor() {
+        for (int i = 0; i < stintData.getAllStint(); i++) {
+            if (Integer.parseInt(stintData.getRunningTime(i)) > stintData.getUpperRunningTime()) {
+                stintLayouts[i].setRuntimeTextColor(COLOR_RED);
+            }else if(stintData.getMinimumRunningTime() > Integer.parseInt(stintData.getRunningTime(i))){
+                stintLayouts[i].setRuntimeTextColor(COLOR_RED);
+            } else {
+                stintLayouts[i].setRuntimeTextColor(COLOR_BLACK);
+            }
+        }
+    }
+
+    /**
      * Stint毎にLayoutを定義していて量が多いため
      * メソッドを分けて実装
      */
@@ -918,6 +958,8 @@ public class MainActivity extends AppCompatActivity {
         startTimeSetText = findViewById(R.id.startTimeSetText);
         confirmBtn = findViewById(R.id.confirmBtn);
         coefSwitch = findViewById(R.id.coefSwitch);
+        upperTimeEditText = findViewById(R.id.upperTimeEditText);
+        minimumTimeEditText = findViewById(R.id.minimumTimeEditText);
 
         //Stintタブ内の項目
         akimaSetBtn = findViewById(R.id.akimaSetBtn);

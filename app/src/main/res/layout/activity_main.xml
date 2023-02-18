@@ -339,6 +339,7 @@
             android:id="@+id/raceDataLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
             android:orientation="vertical">
 
             <LinearLayout
@@ -392,6 +393,58 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15px"
+                    android:text="@string/upperRunTimeText" />
+
+                <EditText
+                    android:id="@+id/upperTimeEditText"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text="40"
+                    android:textAlignment="viewEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minute" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15px"
+                    android:text="@string/minimumRunTimeText" />
+
+                <EditText
+                    android:id="@+id/minimumTimeEditText"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textAlignment="viewEnd" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/minute" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10px">
 
@@ -418,7 +471,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
                 android:layout_marginTop="15px"
                 android:text="@string/coefString" />
 

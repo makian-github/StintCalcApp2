@@ -11,6 +11,12 @@ public class ConstantsData {
 
     public static final int START_TIME_NUM = 999;
 
+    public static final int UPPER_RUNNING_TIME_DEF = 40;
+    public static final int MINIMUM_RUNNING_TIME_DEF = 0;
+
+    public static final int COLOR_BLACK = 0;
+    public static final int COLOR_RED = 1;
+
     public static final int END_TIME = 0;
     public static final int RUNNING_TIME = 1;
     public static final int DRIVER_NAME = 2;
