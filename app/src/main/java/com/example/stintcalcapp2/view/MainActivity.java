@@ -141,32 +141,42 @@ public class MainActivity extends AppCompatActivity {
 
         defineLayout();
 
-        tabBtnStateChange(setBtn);
+//        setStintData.setVisibility(View.VISIBLE);
+//        raceDataLayout.setVisibility(View.GONE);
+//        showStintData.setVisibility(View.GONE);
 
-        Log.v(TAG, "displayTab=" + displayTab);
-
-        setStintData.setVisibility(View.VISIBLE);
-        raceDataLayout.setVisibility(View.GONE);
-        showStintData.setVisibility(View.GONE);
-
-//        if (displayTab == RACE_DATA_TAB_NUM){
-//
-//        }
-//
-//        switch (displayTab){
-//            case SET_TAB_NUM:
-//                setStintData.setVisibility(View.VISIBLE);
-//                raceDataLayout.setVisibility(View.GONE);
-//            case RACE_DATA_TAB_NUM:
-//                setStintData.setVisibility(View.GONE);
-//                raceDataLayout.setVisibility(View.VISIBLE);
-//            case NOW_TAB_NUM:
-//                setStintData.setVisibility(View.GONE);
-//                raceDataLayout.setVisibility(View.GONE);
-//            case STINT_TAB_NUM:
-//                setStintData.setVisibility(View.GONE);
-//                raceDataLayout.setVisibility(View.GONE);
-//        }
+        switch (displayTab){
+            case SET_TAB_NUM:
+                setStintData.setVisibility(View.VISIBLE);
+                raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.GONE);
+                tabBtnStateChange(setBtn);
+                break;
+            case RACE_DATA_TAB_NUM:
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.VISIBLE);
+                showStintData.setVisibility(View.GONE);
+                tabBtnStateChange(setRaceDataBtn);
+                break;
+            case NOW_TAB_NUM:
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.GONE);
+                tabBtnStateChange(nowBtn);
+                break;
+            case STINT_TAB_NUM:
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.VISIBLE);
+                tabBtnStateChange(showStintBtn);
+                break;
+            default:
+                setStintData.setVisibility(View.VISIBLE);
+                raceDataLayout.setVisibility(View.VISIBLE);
+                setStintData.setVisibility(View.VISIBLE);
+                showStintData.setVisibility(View.VISIBLE);
+                tabBtnStateChange(setBtn);
+        }
 
 
         reCalcRefreshDisplay();
