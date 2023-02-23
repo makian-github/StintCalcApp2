@@ -16,6 +16,8 @@ public class ConstantsData {
 
     public static final int COLOR_BLACK = 0;
     public static final int COLOR_RED = 1;
+    public static final int COLOR_BLUE = 2;
+
 
     public static final int END_TIME = 0;
     public static final int RUNNING_TIME = 1;

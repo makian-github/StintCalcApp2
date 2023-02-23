@@ -108,12 +108,13 @@ public class StintLayout extends AppCompatActivity {
      *
      * @param color
      */
-    public void setRuntimeTextColor(int color){
-        if (color == COLOR_BLACK){
+    public void setRuntimeTextColor(int color) {
+        if (color == COLOR_BLACK) {
             runTimeTextView.setTextColor(Color.BLACK);
-        }else{
+        } else if (color == COLOR_BLUE) {
+            runTimeTextView.setTextColor(Color.BLUE);
+        } else {
             runTimeTextView.setTextColor(Color.RED);
         }
-
     }
 }

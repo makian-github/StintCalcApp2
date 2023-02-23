@@ -924,7 +924,7 @@ public class MainActivity extends AppCompatActivity {
             if (Integer.parseInt(stintData.getRunningTime(i)) > stintData.getUpperRunningTime()) {
                 stintLayouts[i].setRuntimeTextColor(COLOR_RED);
             }else if(stintData.getMinimumRunningTime() > Integer.parseInt(stintData.getRunningTime(i))){
-                stintLayouts[i].setRuntimeTextColor(COLOR_RED);
+                stintLayouts[i].setRuntimeTextColor(COLOR_BLUE);
             } else {
                 stintLayouts[i].setRuntimeTextColor(COLOR_BLACK);
             }
