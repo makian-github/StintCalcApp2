@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#def"
     android:orientation="vertical"
+    android:paddingLeft="10dp"
     tools:context=".MainActivity">
 
 
@@ -20,11 +21,12 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/setStartTimeBtn"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:onClick="showTimePickerDialog"
-                android:text="@string/startTime"
+                android:text="@string/startTimeSetStr"
                 android:textAllCaps="false" />
 
             <TextView
@@ -35,7 +37,20 @@
                 android:textAlignment="center"
                 android:textSize="50dp" />
 
+            <Button
+                android:id="@+id/startNowTimeBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="@string/setNowTime"
+                android:textAllCaps="false"/>
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
 
         <LinearLayout
             android:id="@+id/endTimeSetLayout"
@@ -49,7 +64,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:onClick="showTimePickerDialog1"
-                android:text="@string/endTime"
+                android:text="@string/endTimeSetStr"
                 android:textAllCaps="false" />
 
             <TextView
@@ -60,12 +75,26 @@
                 android:textAlignment="center"
                 android:textSize="50dp" />
 
+            <Button
+                android:id="@+id/endNowTimeBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:text="@string/setNowTime"
+                android:textAllCaps="false"/>
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:paddingBottom="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -74,7 +103,8 @@
                 android:layout_height="70dp"
                 android:text="@string/runTimeText"
                 android:textAlignment="center"
-                android:textSize="50dp" />
+                android:paddingRight="80dp"
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/runningTime"
@@ -87,11 +117,24 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/black" />
+
     <LinearLayout
+        android:paddingTop="10dp"
         android:id="@+id/driverSetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="@string/driverNameStr"
+            android:textAlignment="center"
+            android:textSize="30dp" />
 
         <Spinner
             android:id="@+id/driverSpinner"
@@ -115,11 +158,25 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/black" />
+
     <LinearLayout
+        android:paddingTop="10dp"
         android:id="@+id/kartNoSetLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="@string/kartNoStr"
+            android:textAlignment="center"
+            android:paddingRight="120dp"
+            android:textSize="30dp" />
 
         <Spinner
             android:id="@+id/kartNoSpinner"
@@ -142,6 +199,11 @@
             android:visibility="gone" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/black" />
 
 
     <FrameLayout

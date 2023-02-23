@@ -640,12 +640,13 @@ public class MainActivity extends AppCompatActivity {
      */
     private void reCalcRefreshDisplay() {
         Log.v(TAG, "in reCalcRefreshDisplay()");
-        for (int i = 0; i < stintLayouts.length; i++) {
+        for (int i = 0; i < stintData.getAllStint(); i++) {
             //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
             Log.v(TAG, "endTime[" + i + "]:" + stintData.getEndTime(i));
             if (i == 0) { //最初のStintはレーススタート時間と走行時間を設定する
                 stintLayouts[i].setStartTimeText(stintData.getStartTime());
-                stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
+                //stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
+                stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getStartTime(), stintData.getEndTime(i))));
             } else if (i == stintData.getAllStint()) { //最終Stintの場合は自身の走行終了時間を設定する
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i - 1), stintData.getEndTime(i))));
             } else { //上記以外の場合は、スタート時間に前走者の走行終了時間を設定と、自身の走行終了時間を設定する

@@ -23,6 +23,9 @@ import com.example.stintcalcapp2.model.StintData;
 
 import static com.example.stintcalcapp2.model.ConstantsData.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 public class InputForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -43,6 +46,10 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private LinearLayout driverSetLayout;
     private LinearLayout kartNoSetLayout;
     private TimeCalc timeCalc;
+
+    private Button setStartTimeBtn;
+    private Button startNowTimeBtn;
+    private Button endNowTimeBtn;
 
     private int diffTime = 0;
 
@@ -71,11 +78,14 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
         runStr = findViewById(R.id.runStr);
         runningTimeText = findViewById(R.id.runningTime);
 
+        setStartTimeBtn = findViewById(R.id.setStartTimeBtn);
+        startNowTimeBtn = findViewById(R.id.startNowTimeBtn);
+        endNowTimeBtn = findViewById(R.id.endNowTimeBtn);
+
         Intent intent = getIntent();
         stintNum = intent.getIntExtra("Stint", 0);//設定したkeyで取り出す
 
         timeCalc = new TimeCalc();
-
 
         //開始時間設定の場合
         if (stintNum == START_TIME_NUM) {
@@ -90,6 +100,9 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
                 startTimeText.setText(stintData.getEndTime(stintNum - 1));
             } else {
                 startTimeText.setText(stintData.getStartTime());
+                //stint0の場合は変更できないようにボタンを選択不可状態にする
+                setStartTimeBtn.setEnabled(false);
+                startNowTimeBtn.setEnabled(false);
             }
             endTimeText.setText(stintData.getEndTime(stintNum));
 
@@ -143,6 +156,40 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             }
         });
 
+        startNowTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateFormat df = new SimpleDateFormat("HH:mm");
+                Date date = new Date(System.currentTimeMillis());
+                String setTime = df.format(date);
+
+                startTimeText.setText(setTime);
+                if (stintNum == 0 || stintNum == START_TIME_NUM) {//1Stint目の場合
+                    stintData.setStartTime(setTime);
+                } else {
+                    //前のStintの終了時間(=このStintの開始時間)をセットする
+                    stintData.setEndTime(stintNum - 1, setTime);
+                }
+                runningTimeSet(stintNum);
+
+            }
+        });
+
+        endNowTimeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateFormat df = new SimpleDateFormat("HH:mm");
+                Date date = new Date(System.currentTimeMillis());
+                String setTime = df.format(date);
+
+                endTimeText.setText(setTime);
+                stintData.setEndTime(stintNum, setTime);
+                runningTimeSet(stintNum);
+
+
+            }
+        });
+
     }
 
     @Override
@@ -189,14 +236,21 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             stintData.setEndTime(stintNum, setTime);
         }
 
-        //開始時間設定の場合はRunningTimeの設定は不要であるため
+        runningTimeSet(stintNum);
+
+        Log.v(TAG, "out onTimeSet()");
+    }
+
+    /**
+     * 走行時間を設定する。ただし、開始時間設定の場合は設定不要のため何も処理を行わない。
+     * @param stintNum 設定するStint
+     */
+    private void runningTimeSet(int stintNum){
         if (stintNum != START_TIME_NUM) {
             int runningTime = timeCalc.calcDiffMin(startTimeText.getText().toString(), endTimeText.getText().toString());
             stintData.setRunningTime(stintNum, runningTime);
             runningTimeText.setText(timeCalc.timeFormatExtraction(Integer.parseInt(stintData.getRunningTime(stintNum))));
         }
-
-        Log.v(TAG, "out onTimeSet()");
     }
 
     public void showTimePickerDialog(View v) {

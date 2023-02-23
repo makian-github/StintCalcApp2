@@ -57,6 +57,12 @@
     <string name="upperRunTimeText">1Stint辺りの最大走行時間</string>
     <string name="minimumRunTimeText">1Stint辺りの最小走行時間</string>
 
+    <!-- InputForm画面-->
+    <string name="setNowTime">現在時刻を設定</string>
+    <string name="driverNameStr">ドライバー名</string>
+    <string name="kartNoStr">号車</string>
+    <string name="startTimeSetStr">走行開始時間</string>
+    <string name="endTimeSetStr">走行終了時間</string>
 
     <string name="driverNameNone">-</string>
     <string name="driverNameInterruption">中断</string>
