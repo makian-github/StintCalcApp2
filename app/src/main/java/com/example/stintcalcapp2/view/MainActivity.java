@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private Button debugBtn;
     private Button debugBtn2;
     private Button debugBtn3;
+    private int debugBtnCount = 0;
+    private final int DEBUG_COUNT = 3;
+    private boolean debugMode = false;
 
     /*RaceDataタブ*/
     private EditText raceTimeEditText;
@@ -539,57 +542,104 @@ public class MainActivity extends AppCompatActivity {
         debugBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "======DebugLOG Start======");
-                for (int i = 0; i < stintData.getAllStint(); i++) {
-                    Log.d(TAG,
-                            "stint:" + i
-                                    + ",開始時間：" + stintData.getStintStartTime(i)
-                                    + ",終了時間；" + stintData.getEndTime(i)
-                                    + ",走行時間：" + stintData.getRunningTime(i)
-                                    + ",ドライバー：" + stintData.getDriverName(i)
-                                    + ",KartNo：" + stintData.getKartNo(i));
-                }
-                Log.d(TAG, "======DebugLOG End======");
+                if (debugBtnCount < DEBUG_COUNT) {
+                    debugBtnCount++;
+                } else {
+                    if (debugMode) {
+                        Log.d(TAG, "======DebugLOG Start======");
+                        for (int i = 0; i < stintData.getAllStint(); i++) {
+                            Log.d(TAG,
+                                    "stint:" + i
+                                            + ",開始時間：" + stintData.getStintStartTime(i)
+                                            + ",終了時間；" + stintData.getEndTime(i)
+                                            + ",走行時間：" + stintData.getRunningTime(i)
+                                            + ",ドライバー：" + stintData.getDriverName(i)
+                                            + ",KartNo：" + stintData.getKartNo(i));
+                        }
+                        Log.d(TAG, "======DebugLOG End======");
 
+                        InfoDialog dialog = new InfoDialog();
+                        dialog.setTitleStr("Debug");
+                        dialog.setMessageStr("ログを出力しました");
+                        dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                        dialog.show(getSupportFragmentManager(), "");
+                    } else {
+                        InfoDialog dialog = new InfoDialog();
+                        dialog.setTitleStr("デバッグ確認");
+                        dialog.setMessageStr("デバッグモードを有効にしますか？");
+                        dialog.setDialogType(InfoDialog.TWO_BUTTON_DIALOG);
+                        AsyncFunctionCallback callback = new AsyncFunctionCallback() {
+                            // コールバック処理の定義
+                            @Override
+                            public void onAsyncFunctionFinished(boolean isSucceed) {
+                                Log.d(TAG, "isSucceed = " + isSucceed);
+                                if (isSucceed) {
+                                    debugMode = true;
+                                }else{
+                                    debugBtnCount = 0;
+                                }
+                            }
+                        };
+                        dialog.setAsyncFunctionCallback(callback);
+                        dialog.show(getSupportFragmentManager(), "");
+                    }
+                }
             }
         });
 
         debugBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo
-                testData();
+                if (debugMode) {
+                    //Todo
+                    testData();
+
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("Debug");
+                    dialog.setMessageStr("RaceDataに仮の値を入力しました。");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                    dialog.show(getSupportFragmentManager(), "");
+                }
             }
         });
 
         debugBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo
-                //均等割り
-                setEvenlyDividedStint();
-                //ドライバー名をランダムで設定
-                for (int i = 0; i < stintData.getAllStint(); i++) {
-                    Random rand = new Random();
-                    int rundomNo = rand.nextInt(4);
-                    switch (rundomNo) {
-                        case 0:
-                            stintData.setDriverName(i, DRIVER_NAME_AKIMA);
-                            break;
-                        case 1:
-                            stintData.setDriverName(i, DRIVER_NAME_TOYOGUCHI);
-                            break;
-                        case 2:
-                            stintData.setDriverName(i, DRIVER_NAME_YOSHIKAI);
-                            break;
-                        case 3:
-                            stintData.setDriverName(i, DRIVER_NAME_LUKE);
-                            break;
-                        default:
-                            stintData.setDriverName(i, DRIVER_NAME_NONE);
+                if (debugMode) {
+                    //Todo
+                    //均等割り
+                    setEvenlyDividedStint();
+                    //ドライバー名をランダムで設定
+                    for (int i = 0; i < stintData.getAllStint(); i++) {
+                        Random rand = new Random();
+                        int rundomNo = rand.nextInt(4);
+                        switch (rundomNo) {
+                            case 0:
+                                stintData.setDriverName(i, DRIVER_NAME_AKIMA);
+                                break;
+                            case 1:
+                                stintData.setDriverName(i, DRIVER_NAME_TOYOGUCHI);
+                                break;
+                            case 2:
+                                stintData.setDriverName(i, DRIVER_NAME_YOSHIKAI);
+                                break;
+                            case 3:
+                                stintData.setDriverName(i, DRIVER_NAME_LUKE);
+                                break;
+                            default:
+                                stintData.setDriverName(i, DRIVER_NAME_NONE);
+                        }
                     }
+                    refreshDisplay();
+
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("Debug");
+                    dialog.setMessageStr("ドライバー名をランダムで設定しました");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                    dialog.show(getSupportFragmentManager(), "");
+
                 }
-                refreshDisplay();
             }
         });
     }
