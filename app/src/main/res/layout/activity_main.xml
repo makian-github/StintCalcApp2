@@ -1074,6 +1074,7 @@
                 android:background="@color/black" />
 
             <LinearLayout
+                android:id="@+id/upperTimeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
@@ -1092,6 +1093,32 @@
                     android:text="00:00"
                     android:textAlignment="center"
                     android:textColor="@color/red" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/sumTime1px"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/sumTimeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="@dimen/driver_textView_width"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sumTimeString"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/sumTimeTextView"
+                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="00:00"
+                    android:textAlignment="center" />
             </LinearLayout>
 
             <View
@@ -1123,6 +1150,22 @@
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="10dp"
                 android:text="@string/check_revers_text"
+                android:textAllCaps="false"
+                android:textSize="15px" />
+
+            <TextView
+                android:id="@+id/nowTabExplanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nowTabExplanationString"
+                android:gravity="left" />
+
+            <Button
+                android:id="@+id/refreshBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="10dp"
+                android:text="@string/refreshText"
                 android:textAllCaps="false"
                 android:textSize="15px" />
 

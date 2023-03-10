@@ -351,6 +351,17 @@ public class StintData extends Application {
         return totalRunTime;
     }
 
+    public int getDrivingTimeOfDriver(String driverName,int stintCnt) {
+        int totalRunTime = 0;
+        for (int i = 0; i < stintCnt; i++) {
+            if (stintData[i][DRIVER_NAME].equals(driverName)) {
+                totalRunTime += Integer.parseInt(stintData[i][RUNNING_TIME]);
+            }
+        }
+        Log.d(TAG, "totalRunTime=" + totalRunTime);
+        return totalRunTime;
+    }
+
     /**
      * 走行時間をもとに走行終了時間を更新する
      */
@@ -382,12 +393,12 @@ public class StintData extends Application {
      * [8] = -
      * [9] = 中断
      */
-    public int[] getStintCount(){
+    public int[] getStintCount(int allStintCount){
         for (int i = 0; i <stintCounts.length; i++) {
             stintCounts[i] = 0;
         }
 
-        for (int i = 0; i < allStint; i++) {
+        for (int i = 0; i < allStintCount; i++) {
             switch (getDriverName(i)){
                 case DRIVER_NAME_AKIMA:
                     stintCounts[DRIVER_ID_AKIMA]++;

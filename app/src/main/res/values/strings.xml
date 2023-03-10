@@ -57,6 +57,11 @@
     <string name="upperRunTimeText">1Stint辺りの最大走行時間</string>
     <string name="minimumRunTimeText">1Stint辺りの最小走行時間</string>
 
+    <!--  Nowタブ  -->
+    <string name="nowTabExplanationString">チェックがついているStintまでの\n走行時間Stint数を表示する</string>
+    <string name="refreshText">表示を更新する</string>
+    <string name="sumTimeString">合計</string>
+
     <!-- InputForm画面-->
     <string name="setNowTime">現在時刻を設定</string>
     <string name="driverNameStr">ドライバー名</string>

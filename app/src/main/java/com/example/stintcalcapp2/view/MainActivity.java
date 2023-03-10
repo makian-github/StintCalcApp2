@@ -88,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
     private Button allUncheckBtn;
     private Button reverseBtn;
 
+    private LinearLayout upperTimeLayout;
+
+    //Nowタブ
+    private Button refreshBtn;
+    private View sumTime1px;
+    private LinearLayout sumTimeLayout;
+    private TextView sumTimeTextView;
+    private TextView nowTabExplanation;
+
     //ドライバーID
     private final int ID_AKIMA = 0;
     private final int ID_TOYOGUCHI = 1;
@@ -164,8 +173,9 @@ public class MainActivity extends AppCompatActivity {
             case NOW_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
-                showStintData.setVisibility(View.GONE);
+                showStintData.setVisibility(View.VISIBLE);
                 tabBtnStateChange(nowBtn);
+
                 break;
             case STINT_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
@@ -226,8 +236,30 @@ public class MainActivity extends AppCompatActivity {
                 checkboxController.setAllCheckBox(stintLayouts, stintData, false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
-                showStintData.setVisibility(View.GONE);
+                showStintData.setVisibility(View.VISIBLE);
                 displayTab = NOW_TAB_NUM;
+
+                allCheckBtn.setVisibility(View.GONE);
+                allUncheckBtn.setVisibility(View.GONE);
+                reverseBtn.setVisibility(View.GONE);
+
+                upperTimeLayout.setVisibility(View.GONE);
+
+                refreshBtn.setVisibility(View.VISIBLE);
+                sumTimeLayout.setVisibility(View.VISIBLE);
+                sumTime1px.setVisibility(View.GONE);
+                nowTabExplanation.setVisibility(View.VISIBLE);
+
+                akimaSetBtn.setEnabled(false);
+                toyoguchiSetBtn.setEnabled(false);
+                yoshikaiDriverSetBtn.setEnabled(false);
+                lukeSetBtn.setEnabled(false);
+                yokotaSetBtn.setEnabled(false);
+                tuboiSetBtn.setEnabled(false);
+                nittaSetBtn.setEnabled(false);
+                xSetBtn.setEnabled(false);
+                nonDriverSetBtn.setEnabled(false);
+                breakeSetBtn.setEnabled(false);
 
                 tabBtnStateChange(nowBtn);
             }
@@ -243,7 +275,29 @@ public class MainActivity extends AppCompatActivity {
                 showStintData.setVisibility(View.VISIBLE);
                 displayTab = STINT_TAB_NUM;
 
-                setRuntimeSum();
+                allCheckBtn.setVisibility(View.VISIBLE);
+                allUncheckBtn.setVisibility(View.VISIBLE);
+                reverseBtn.setVisibility(View.VISIBLE);
+
+                upperTimeLayout.setVisibility(View.VISIBLE);
+
+                refreshBtn.setVisibility(View.GONE);
+                sumTimeLayout.setVisibility(View.GONE);
+                sumTime1px.setVisibility(View.GONE);
+                nowTabExplanation.setVisibility(View.GONE);
+
+                akimaSetBtn.setEnabled(true);
+                toyoguchiSetBtn.setEnabled(true);
+                yoshikaiDriverSetBtn.setEnabled(true);
+                lukeSetBtn.setEnabled(true);
+                yokotaSetBtn.setEnabled(true);
+                tuboiSetBtn.setEnabled(true);
+                nittaSetBtn.setEnabled(true);
+                xSetBtn.setEnabled(true);
+                nonDriverSetBtn.setEnabled(true);
+                breakeSetBtn.setEnabled(true);
+
+                setRuntimeSum(0);
 
                 tabBtnStateChange(showStintBtn);
             }
@@ -428,7 +482,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_AKIMA);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -436,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_TOYOGUCHI);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -444,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_YOSHIKAI);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -452,7 +506,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_LUKE);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -460,7 +514,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_YOKOTA);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -468,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_TUBOI);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -476,7 +530,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_NITTA);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -484,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_X);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -492,7 +546,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_BREAKE);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -500,7 +554,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setDriver(ID_NULL);
-                setRuntimeSum();
+                setRuntimeSum(0);
             }
         });
 
@@ -533,6 +587,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 for (int i = 0; i < stintData.getAllStint(); i++) {
                     stintLayouts[i].setFlagCheckBox(!stintLayouts[i].getFlagCheckBox().isChecked());
+                }
+            }
+        });
+
+        //Nowタブ=================================================================================================
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int firstCheckBox = checkboxController.firstCheckBox(stintLayouts,stintData);
+                if (firstCheckBox != 99){
+                    int sumTime = setRuntimeSum(firstCheckBox+1);
+
+                    //Stint数を更新
+                    for (int i = 0; i < STINTDATA_CNT; i++) {
+                        stintCntTextView[i].setText(stintData.getStintCount(firstCheckBox+1)[i] + "stint");
+                    }
+
+                    sumTimeTextView.setText(sumTime + "min");
+
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("成功");
+                    dialog.setMessageStr(firstCheckBox + 1 + "Stint目までの走行時間で計算を行いました");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                    dialog.show(getSupportFragmentManager(), "");
+                }else {
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("Error");
+                    dialog.setMessageStr("チェックが入っていません");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                    dialog.show(getSupportFragmentManager(), "");
                 }
             }
         });
@@ -740,7 +824,7 @@ public class MainActivity extends AppCompatActivity {
 
         //StintタブのStint数を更新
         for (int i = 0; i < STINTDATA_CNT; i++) {
-            stintCntTextView[i].setText(stintData.getStintCount()[i] + "stint");
+            stintCntTextView[i].setText(stintData.getStintCount(stintData.getAllStint())[i] + "stint");
         }
 
         //RunningTimeの色を変更する
@@ -813,19 +897,38 @@ public class MainActivity extends AppCompatActivity {
         return maxTimeI;
     }
 
-    private void setRuntimeSum() {
+    /**
+     * 各ドライバーの走行時間を取得して表示。規定走行時間に応じて文字色変更。
+     * @param checkBoxNum 何Stint目までの走行時間を取得するかを設定。0の場合は全Stintで計算
+     * @return 合計走行時間
+     */
+    private int setRuntimeSum(int checkBoxNum) {
+        int sumTime = 0;
         int[] runTime = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        runTime[0] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_AKIMA);
-        runTime[1] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TOYOGUCHI);
-        runTime[2] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOSHIKAI);
-        runTime[3] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_LUKE);
-        runTime[4] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOKOTA);
-        runTime[5] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TUBOI);
-        runTime[6] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NITTA);
-        runTime[7] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_X);
-        runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NONE);
-        runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_INTERRUPTION);
+        if (checkBoxNum == 0) {
+            runTime[0] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_AKIMA);
+            runTime[1] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TOYOGUCHI);
+            runTime[2] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOSHIKAI);
+            runTime[3] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_LUKE);
+            runTime[4] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOKOTA);
+            runTime[5] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TUBOI);
+            runTime[6] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NITTA);
+            runTime[7] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_X);
+            runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NONE);
+            runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_INTERRUPTION);
+        }else{
+            runTime[0] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_AKIMA,checkBoxNum);
+            runTime[1] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TOYOGUCHI,checkBoxNum);
+            runTime[2] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOSHIKAI,checkBoxNum);
+            runTime[3] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_LUKE,checkBoxNum);
+            runTime[4] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_YOKOTA,checkBoxNum);
+            runTime[5] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_TUBOI,checkBoxNum);
+            runTime[6] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NITTA,checkBoxNum);
+            runTime[7] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_X,checkBoxNum);
+            runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_NONE,checkBoxNum);
+            runTime[9] = stintData.getDrivingTimeOfDriver(DRIVER_NAME_INTERRUPTION,checkBoxNum);
+        }
 
         //走行時間が１分以上のドライバーの数を計算
         int driverCnt = 0;
@@ -842,6 +945,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < runTime.length; i++) {
             //runSumTimeTextView[i].setText(timeCalc.timeFormatExtraction(runTime[i]));
             runSumTimeTextView[i].setText(runTime[i] + "min");
+            sumTime += runTime[i];
             if (runTime[i] >= maxRunTime(driverCnt)) {
                 runSumTimeTextView[i].setTextColor(Color.RED);
             } else {
@@ -849,6 +953,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         maxRunTimeTextView.setText(maxRunTime(driverCnt) + "min");
+
+        return sumTime;
     }
 
     /**
@@ -1036,7 +1142,14 @@ public class MainActivity extends AppCompatActivity {
         allCheckBtn = findViewById(R.id.allCheckBtn);
         allUncheckBtn = findViewById(R.id.allUncheckBtn);
         reverseBtn = findViewById(R.id.reverseBtn);
+        upperTimeLayout = findViewById(R.id.upperTimeLayout);
 
+        //Nowタブ内の項目
+        refreshBtn = findViewById(R.id.refreshBtn);
+        sumTime1px = findViewById(R.id.sumTime1px);
+        sumTimeLayout = findViewById(R.id.sumTimeLayout);
+        sumTimeTextView = findViewById(R.id.sumTimeTextView);
+        nowTabExplanation = findViewById(R.id.nowTabExplanation);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];
