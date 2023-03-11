@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     private TimeCalc timeCalc;
     private CheckboxController checkboxController;
 
+    private String beforeStartTime = "00:00";
+
     /*Stintタブ*/
     private TextView[] runSumTimeTextView;
     private TextView maxRunTimeTextView;
@@ -163,25 +165,40 @@ public class MainActivity extends AppCompatActivity {
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.GONE);
                 tabBtnStateChange(setBtn);
+                reCalcRefreshDisplay();
                 break;
             case RACE_DATA_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
                 tabBtnStateChange(setRaceDataBtn);
+                //レース開始時間が変化している場合、差分を全Stintプラスしてスライドする
+                int startTimeDiff = timeCalc.calcDiffMin(beforeStartTime,stintData.getStartTime());
+                Log.d(TAG,"beforeStartTime=" + beforeStartTime + ",stintData.getStartTime()=" + stintData.getStartTime() + ",startTimeDiff=" + startTimeDiff);
+                if (0 != startTimeDiff){
+                    for (int i = 0; i < stintData.getAllStint(); i++) {
+                        if (i == 0){
+                            stintData.setEndTime(i,timeCalc.calcPlusTime(stintData.getStartTime(),Integer.parseInt(stintData.getRunningTime(i))));
+                        } else {
+                            stintData.setEndTime(i,timeCalc.calcPlusTime(stintData.getStintStartTime(i),Integer.parseInt(stintData.getRunningTime(i))));
+                        }
+                    }
+                }
+                refreshDisplay();
                 break;
             case NOW_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
                 tabBtnStateChange(nowBtn);
-
+                reCalcRefreshDisplay();
                 break;
             case STINT_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
                 tabBtnStateChange(showStintBtn);
+                reCalcRefreshDisplay();
                 break;
             default:
                 setStintData.setVisibility(View.VISIBLE);
@@ -192,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        reCalcRefreshDisplay();
+        //reCalcRefreshDisplay();
         //refreshDisplay();
 
         /**setタブ*/
@@ -415,6 +432,8 @@ public class MainActivity extends AppCompatActivity {
         startTimeSetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                beforeStartTime = stintData.getStartTime();
+
                 Intent intent = new Intent(getApplication(), InputForm.class);
                 intent.putExtra("Stint", START_TIME_NUM);
                 startActivity(intent);
@@ -774,12 +793,12 @@ public class MainActivity extends AppCompatActivity {
      */
     private void reCalcRefreshDisplay() {
         Log.v(TAG, "in reCalcRefreshDisplay()");
+
         for (int i = 0; i < stintData.getAllStint(); i++) {
             //1Stint目はRaceData.javaで定義されていているスタート時間と比べる必要があるため別処理とする
             Log.v(TAG, "endTime[" + i + "]:" + stintData.getEndTime(i));
             if (i == 0) { //最初のStintはレーススタート時間と走行時間を設定する
                 stintLayouts[i].setStartTimeText(stintData.getStartTime());
-                //stintLayouts[i].setRunTimeText(stintData.getEndTime(i));
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getStartTime(), stintData.getEndTime(i))));
             } else if (i == stintData.getAllStint()) { //最終Stintの場合は自身の走行終了時間を設定する
                 stintLayouts[i].setRunTimeText(timeCalc.timeFormatExtraction(timeCalc.calcDiffMin(stintData.getEndTime(i - 1), stintData.getEndTime(i))));
