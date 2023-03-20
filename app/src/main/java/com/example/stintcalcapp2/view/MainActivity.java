@@ -23,6 +23,8 @@ import com.example.stintcalcapp2.model.StintData;
 
 import static com.example.stintcalcapp2.model.ConstantsData.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -216,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         setBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkboxController.setAllCheckBox(stintLayouts, stintData, false);
+                //checkboxController.setAllCheckBox(stintLayouts, stintData, false);
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         setRaceDataBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkboxController.setAllCheckBox(stintLayouts, stintData, false);
+                //checkboxController.setAllCheckBox(stintLayouts, stintData, false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
@@ -286,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         showStintBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkboxController.setAllCheckBox(stintLayouts, stintData, false);
+                //checkboxController.setAllCheckBox(stintLayouts, stintData, false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
@@ -905,15 +907,15 @@ public class MainActivity extends AppCompatActivity {
      * 規則上最長の走行時間を計算して返す
      *
      * @param driverCnt 参加ドライバー人数
-     * @return 均等割り＊COEF(120%ルール)の値を返す
+     * @return 均等割り＊COEF(=120%ルール)の値を返す
      */
-    private int maxRunTime(int driverCnt) {
+    private double maxRunTime(int driverCnt) {
         Log.d("maxRunTime", "raceTime = " + stintData.getRaceTime() + ",COEF = " + stintData.getCoef() + ",driverCnt = " + driverCnt);
-        double maxTimeD = stintData.getRaceTime() / driverCnt * stintData.getCoef();
-        Log.d("maxRunTime", "maxTimeD(double) = " + maxTimeD);
-        int maxTimeI = (int) maxTimeD;
-        Log.d("maxRunTime", "maxTimeI(int) = " + maxTimeI);
-        return maxTimeI;
+        double maxTimeD = ((double)stintData.getRaceTime() / (double)driverCnt) * stintData.getCoef();
+        BigDecimal bd = new BigDecimal(maxTimeD);
+        BigDecimal maxRuntime = bd.setScale(2, RoundingMode.DOWN);
+        Log.d("maxRunTime", "maxTimeD(double) = " + maxTimeD + ",小数第三位で切り捨て = " + maxRuntime.doubleValue());
+        return maxRuntime.doubleValue();
     }
 
     /**

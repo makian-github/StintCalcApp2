@@ -313,6 +313,9 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
             }
             Log.v("InputForm", "StartTimeSet. stintNum=999");
         } else {
+            for (int i = 0; i < stintData.getAllStint(); i++) {
+                stintData.setRunningTime(i, timeCalc.calcDiffMin(stintData.getStintStartTime(i), stintData.getEndTime(i)));
+            }
             stintData.setDriverName(stintNum, (String) driverSpinner.getSelectedItem());
             stintData.setKartNo(stintNum, (String) kartNoSpinner.getSelectedItem());
         }

@@ -1087,7 +1087,7 @@
 
                 <TextView
                     android:id="@+id/maxRunTimeTextView"
-                    android:layout_width="@dimen/driverBtn_width_set"
+                    android:layout_width="@dimen/maxRunTime_width"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:text="00:00"
