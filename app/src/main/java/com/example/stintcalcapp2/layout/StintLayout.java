@@ -117,4 +117,8 @@ public class StintLayout extends AppCompatActivity {
             runTimeTextView.setTextColor(Color.RED);
         }
     }
+
+    public View getStintTextView() {
+        return stintTextView;
+    }
 }

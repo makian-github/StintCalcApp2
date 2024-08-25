@@ -747,6 +747,179 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        stintLayouts[0].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                    intent.putExtra("Stint", 0);//第一引数key、第二引数渡したい値
+                    startActivity(intent);
+            }
+        });
+
+        stintLayouts[1].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 1);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[2].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 2);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[3].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 3);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[4].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 4);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[5].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 5);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[6].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 6);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[7].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 7);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[8].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 8);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[9].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 9);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[10].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 10);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[11].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 11);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[12].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 12);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[13].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 13);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[14].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 14);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[15].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 15);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[16].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 16);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[17].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 17);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
+        stintLayouts[18].getStintTextView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), InputForm.class);
+
+                intent.putExtra("Stint", 1);//第一引数key、第二引数渡したい値
+                startActivity(intent);
+            }
+        });
     }
 
 
