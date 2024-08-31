@@ -63,6 +63,7 @@
     <string name="sumTimeString">合計</string>
 
     <!-- InputForm画面-->
+    <string name="selectStintStr">Stint</string>
     <string name="setNowTime">現在時刻を設定</string>
     <string name="driverNameStr">ドライバー名</string>
     <string name="kartNoStr">号車</string>

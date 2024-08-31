@@ -31,6 +31,7 @@ import java.util.Locale;
 public class InputForm extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private StintData stintData;
+    private TextView selectStint;
     private TextView startTimeText;
     private TextView endTimeText;
     private TextView runStr;
@@ -39,9 +40,15 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
     private Spinner driverSpinner;
     private Button driverSetBtn;
     private Button kartNoSetBtn;
+    /**
+     * 0~5000を想定
+     * 1000～1049：StartTimeTextが押下された場合。下2桁はStint数
+     * 2000～2049：EndTimeTextが押下された場合。下2桁はStint数
+     */
     private int stintNum;
     private int Button;
     private Spinner kartNoSpinner;
+    private LinearLayout startTimeSetLayout;
     private LinearLayout endTimeSetLayout;
     private LinearLayout driverSetLayout;
     private LinearLayout kartNoSetLayout;
@@ -62,6 +69,9 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 
         stintData = (StintData) this.getApplication();
 
+        selectStint = findViewById(R.id.stintText);
+
+        startTimeSetLayout = findViewById(R.id.startTimeSetLayout);
         endTimeSetLayout = findViewById(R.id.endTimeSetLayout);
         driverSetLayout = findViewById(R.id.driverSetLayout);
         kartNoSetLayout = findViewById(R.id.kartNoSetLayout);
@@ -87,17 +97,48 @@ public class InputForm extends AppCompatActivity implements TimePickerDialog.OnT
 
         timeCalc = new TimeCalc();
 
+        Log.d(TAG, "stintNum = " + stintNum);
+
         //開始時間設定の場合
         if (stintNum == START_TIME_NUM) {
+            Log.d(TAG, "inputForm startNum");
             endTimeSetLayout.setVisibility(View.GONE);
             runStr.setVisibility(View.GONE);
             runningTimeText.setVisibility(View.GONE);
             driverSetLayout.setVisibility(View.GONE);
             kartNoSetLayout.setVisibility(View.GONE);
             startTimeText.setText(stintData.getStartTime());
+            selectStint.setText("1");
         } else {
             if (stintNum != 0) {
-                startTimeText.setText(stintData.getEndTime(stintNum - 1));
+                if ((stintNum - 1000) < 50 && 0 <= (stintNum - 1000)){
+                    Log.d(TAG, "inputForm 0<=stintNum<1050");
+                    endTimeSetLayout.setVisibility(View.GONE);
+                    runStr.setVisibility(View.VISIBLE);
+                    runningTimeText.setVisibility(View.VISIBLE);
+                    driverSetLayout.setVisibility(View.VISIBLE);
+                    kartNoSetLayout.setVisibility(View.GONE);
+                    stintNum = stintNum-1000;
+                    if(stintNum == 0){
+                        startTimeText.setText(stintData.getStartTime());
+                        setStartTimeBtn.setEnabled(false);
+                        startNowTimeBtn.setEnabled(false);
+                    }else {
+                        startTimeText.setText(stintData.getEndTime(stintNum - 1));
+                    }
+                }else if((stintNum - 2000) < 50 && 0 <= (stintNum - 2000)) {
+                    Log.d(TAG, "inputForm 1050<=stintNum<2050");
+                    endTimeSetLayout.setVisibility(View.VISIBLE);
+                    runStr.setVisibility(View.VISIBLE);
+                    runningTimeText.setVisibility(View.VISIBLE);
+                    driverSetLayout.setVisibility(View.VISIBLE);
+                    kartNoSetLayout.setVisibility(View.GONE);
+                    startTimeSetLayout.setVisibility(View.GONE);
+                    stintNum = stintNum-2000;
+                }else{
+                    startTimeText.setText(stintData.getEndTime(stintNum - 1));
+                }
+                selectStint.setText(String.valueOf(stintNum+1));
             } else {
                 startTimeText.setText(stintData.getStartTime());
                 //stint0の場合は変更できないようにボタンを選択不可状態にする

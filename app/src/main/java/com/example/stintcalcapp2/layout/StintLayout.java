@@ -121,4 +121,12 @@ public class StintLayout extends AppCompatActivity {
     public View getStintTextView() {
         return stintTextView;
     }
+
+    public View getStartTimeTextView(){
+        return startTimeTextView;
+    }
+
+    public View getEndTimeTextView(){
+        return endTimeTextView;
+    }
 }
