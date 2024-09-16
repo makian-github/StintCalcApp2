@@ -2085,8 +2085,12 @@ public class MainActivity extends AppCompatActivity {
             stintData.setLockStatus(stint,LOCK);
         }
         //この処理が入る場合は、ロック状態にできるユースケースのためステータスの更新・表示色の更新
-        stintData.setLockStatus(stint,LOCK);
-        stintLayouts[stint].setLock(LOCK);
+        //このボタンを押した際に、それ以前の項目についてもロック状態とする
+        for (int i = 0; i <= stint; i++) {
+            stintData.setLockStatus(i,LOCK);
+            stintLayouts[i].setLock(LOCK);
+        }
+
     }
 
     /**
