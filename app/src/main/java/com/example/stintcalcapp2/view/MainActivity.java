@@ -25,9 +25,16 @@ import static com.example.stintcalcapp2.model.ConstantsData.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final int FIRST_STINT = 0;
+    private final String NOT_LOCK = "0";
+    private final String LOCK = "1";
 
     private StintLayout stintLayouts[];
     private View view[];
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private Button setMinBtn;
     private EditText setMinEditText;
     private Switch recalcSwitch;
+    private Button endTimeSetBtn;
 
     //Debug
     private Button debugBtn;
@@ -427,6 +435,40 @@ public class MainActivity extends AppCompatActivity {
                     reCalcRefreshDisplay();
                 }
 
+            }
+        });
+
+        //チェックが入っている項目orロックされていない最後の項目に走行終了時間を設定する
+        endTimeSetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checkedStatus = true;
+
+                for (int i = stintData.getAllStint()-1; i >= 0; i--) {
+                    if (stintLayouts[i].getFlagCheckBox().isChecked()) {
+                        setEndTimeLogic(i);
+                        checkedStatus = true;
+                        break;
+                    }
+                    //不要なif分ではあるが明示的に残す
+                    if (i == stintData.getAllStint()-1) {
+                        checkedStatus = false;
+                    }
+                }
+
+                if (!checkedStatus) {
+                    for (int i = stintData.getAllStint()-1; i >= 0; i--) {
+                        if (stintData.getLockStatus(i).equals(LOCK)) {
+                            //最後のStintへ設定することはないため処理を行わない
+                            if (i != stintData.getAllStint()-1) {
+                                //ロックしているStintの次のStintを更新するためi+1のStintに足して処理を行う
+                                setEndTimeLogic(i + 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+                reCalcRefreshDisplay();
             }
         });
 
@@ -920,6 +962,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         stintLayouts[0].getStartTimeTextView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1299,6 +1342,358 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         */
+
+        view[0].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(0);
+                return false;
+            }
+        });
+        view[1].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(1);
+                return false;
+            }
+        });
+        view[2].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(2);
+                return false;
+            }
+        });
+        view[3].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(3);
+                return false;
+            }
+        });
+        view[4].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(4);
+                return false;
+            }
+        });
+        view[5].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(5);
+                return false;
+            }
+        });
+        view[6].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(6);
+                return false;
+            }
+        });
+        view[7].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(7);
+                return false;
+            }
+        });
+        view[8].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(8);
+                return false;
+            }
+        });
+        view[9].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(9);
+                return false;
+            }
+        });
+        view[10].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(10);
+                return false;
+            }
+        });
+        view[11].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(11);
+                return false;
+            }
+        });
+        view[12].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(12);
+                return false;
+            }
+        });
+        view[13].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(13);
+                return false;
+            }
+        });
+        view[14].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(14);
+                return false;
+            }
+        });
+        view[15].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(15);
+                return false;
+            }
+        });
+        view[16].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(16);
+                return false;
+            }
+        });
+        view[17].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(17);
+                return false;
+            }
+        });
+        view[18].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(18);
+                return false;
+            }
+        });
+        view[19].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(19);
+                return false;
+            }
+        });
+        view[20].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(20);
+                return false;
+            }
+        });
+        view[21].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(21);
+                return false;
+            }
+        });
+        view[22].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(22);
+                return false;
+            }
+        });
+        view[23].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(23);
+                return false;
+            }
+        });
+        view[24].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(24);
+                return false;
+            }
+        });
+        view[25].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(25);
+                return false;
+            }
+        });
+        view[26].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(26);
+                return false;
+            }
+        });
+        view[27].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(27);
+                return false;
+            }
+        });
+        view[28].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(28);
+                return false;
+            }
+        });
+        view[29].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(29);
+                return false;
+            }
+        });
+        view[30].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(30);
+                return false;
+            }
+        });
+        view[31].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(31);
+                return false;
+            }
+        });
+        view[32].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(32);
+                return false;
+            }
+        });
+        view[33].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(33);
+                return false;
+            }
+        });
+        view[34].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(34);
+                return false;
+            }
+        });
+        view[35].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(35);
+                return false;
+            }
+        });
+        view[36].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(36);
+                return false;
+            }
+        });
+        view[37].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(37);
+                return false;
+            }
+        });
+        view[38].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(38);
+                return false;
+            }
+        });
+        view[39].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(39);
+                return false;
+            }
+        });
+        view[40].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(40);
+                return false;
+            }
+        });
+        view[41].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(41);
+                return false;
+            }
+        });
+        view[42].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(42);
+                return false;
+            }
+        });
+        view[43].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(43);
+                return false;
+            }
+        });
+        view[44].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(44);
+                return false;
+            }
+        });
+        view[45].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(45);
+                return false;
+            }
+        });
+        view[46].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(46);
+                return false;
+            }
+        });
+        view[47].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(47);
+                return false;
+            }
+        });
+        view[48].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(48);
+                return false;
+            }
+        });
+        view[49].setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setLockStatus(49);
+                return false;
+            }
+        });
     }
 
 
@@ -1661,6 +2056,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 受け取ったStintのロック状況を確認して、ロック状況を反転させる
+     * @param stint 変更したいStint
+     */
+    private void setLockStatus(int stint) {
+        if(stintData.getLockStatus(stint).equals(NOT_LOCK)){
+            stintData.setLockStatus(stint,LOCK);
+            stintLayouts[stint].setLock(LOCK);
+        } else {
+            stintData.setLockStatus(stint,NOT_LOCK);
+            stintLayouts[stint].setLock(NOT_LOCK);
+        }
+    }
+
+    /**
+     * 受け取ったStintに現在時刻をセットするロジック
+     * @param stint
+     */
+    private void setEndTimeLogic (int stint) {
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        Date date = new Date(System.currentTimeMillis());
+        String setTime = df.format(date);
+
+        stintData.setEndTime(stint, setTime);
+        if (stint != FIRST_STINT) {
+            int runningTime = timeCalc.calcDiffMin(stintData.getEndTime(stint-1), setTime);
+            stintData.setRunningTime(stint, runningTime);
+            stintData.setLockStatus(stint,LOCK);
+        }
+        //この処理が入る場合は、ロック状態にできるユースケースのためステータスの更新・表示色の更新
+        stintData.setLockStatus(stint,LOCK);
+        stintLayouts[stint].setLock(LOCK);
+    }
+
+    /**
      * Stint毎にLayoutを定義していて量が多いため
      * メソッドを分けて実装
      */
@@ -1690,6 +2119,7 @@ public class MainActivity extends AppCompatActivity {
         setMinBtn = findViewById(R.id.setMinBtn);
         setMinEditText = findViewById(R.id.setMinEditText);
         recalcSwitch = findViewById(R.id.recalcSwitch);
+        endTimeSetBtn = findViewById(R.id.endTimeSetBtn);
 
         //RaceDataタブ内の項目
         raceTimeEditText = findViewById(R.id.raceTimeEditText);

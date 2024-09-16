@@ -27,6 +27,7 @@ public class StintData extends Application {
     private int allStint = 0;
     private String startTime = "00:00";
     private String raceEndTime = "00:00";
+    private String lockStatus = "0";
 
     //120%ルール用の係数
     private double coef = 1.2;
@@ -43,8 +44,9 @@ public class StintData extends Application {
      * データ1 = 走行時間
      * データ2 = ドライバー名
      * データ3 = 号車
+     * データ4 = ロック状況(0=アンロック状態・1=ロック状態)
      */
-    private String stintData[][] = new String[maxStintCount][4];
+    private String stintData[][] = new String[maxStintCount][5];
 
     @Override
     public void onCreate() {
@@ -58,6 +60,8 @@ public class StintData extends Application {
             stintData[i][DRIVER_NAME] = "-";
             /**号車*/
             stintData[i][KART_NO] = "0";
+            /**ロック状況*/
+            stintData[i][LOCK_STATUS] = "0";
         }
     }
 
@@ -67,6 +71,7 @@ public class StintData extends Application {
      * データ1 = 走行時間
      * データ2 = ドライバー名
      * データ3 = 号車
+     * データ4 = ロック状況(0=アンロック状態・1=ロック状態)
      *
      * @return
      */
@@ -294,6 +299,30 @@ public class StintData extends Application {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    /**
+     * 引数で受け取ったStintがロックされているのかを返す
+     * @param stint
+     * @return String 0=アンロック状態・1=ロック状態
+     */
+    public String getLockStatus(int stint) {
+        return stintData[stint][LOCK_STATUS];
+    }
+
+    /**
+     * Lock状況をセットする。(0=アンロック状態・1=ロック状態)
+     * @param stint 設定するStint
+     * @param lockStatus ロック状況を設定する値
+     */
+    public void setLockStatus(int stint, String lockStatus) {
+        if (lockStatus.equals("0") || lockStatus.equals("1")) {
+            stintData[stint][LOCK_STATUS] = lockStatus;
+
+        } else {
+            stintData[stint][LOCK_STATUS] = lockStatus;
+            Log.d(TAG, "Error : setLockStatus : lockStatus =" + lockStatus);
+        }
     }
 
     /**

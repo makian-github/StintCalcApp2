@@ -23,6 +23,7 @@ public class ConstantsData {
     public static final int RUNNING_TIME = 1;
     public static final int DRIVER_NAME = 2;
     public static final int KART_NO = 3;
+    public static final int LOCK_STATUS = 4;
 
     public static final String DRIVER_NAME_NONE ="-";
     public static final String DRIVER_NAME_INTERRUPTION ="中断";

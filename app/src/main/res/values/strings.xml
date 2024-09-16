@@ -49,6 +49,7 @@
     <string name="setMinText_recalc">設定したStint以降について\n均等割りをする</string>
     <string name="setMinText_recalc_yes">Yes</string>
     <string name="setMinText_recalc_no">No</string>
+    <string name="endTimeSetBtnText">現在時刻を走行終了時間に\nセットする</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
@@ -69,6 +70,7 @@
     <string name="kartNoStr">号車</string>
     <string name="startTimeSetStr">走行開始時間</string>
     <string name="endTimeSetStr">走行終了時間</string>
+    <string name="lockStatus">ロック状況</string>
 
     <string name="driverNameNone">-</string>
     <string name="driverNameInterruption">中断</string>
@@ -111,6 +113,11 @@
         <item>25</item>
         <item>26</item>
         <item>27</item>
+    </string-array>
+
+    <string-array name="lockStatusList">
+        <item>ロック中</item>
+        <item>アンロック中</item>
     </string-array>
 
     <string-array name="driverList">

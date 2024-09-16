@@ -697,6 +697,24 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
+                android:layout_height="100dp">
+
+                <Button
+                    android:id="@+id/endTimeSetBtn"
+                    android:layout_width="210dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
+                    android:text="@string/endTimeSetBtnText" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="80px">
 
                 <Button
@@ -723,6 +741,7 @@
                     android:layout_marginTop="10px"
                     android:text="D3" />
             </LinearLayout>
+
 
         </LinearLayout>
         <!-- ================================================== -->

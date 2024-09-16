@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +15,10 @@ import com.example.stintcalcapp2.R;
 
 public class StintLayout extends AppCompatActivity {
 
+    private final String NOT_LOCK = "0";
+    private final String LOCK = "1";
+
+    private LinearLayout stintLayout = null;
     private CheckBox FlagCheckBox = null;
     private TextView stintTextView = null;
     private TextView startTimeTextView = null;
@@ -36,6 +41,7 @@ public class StintLayout extends AppCompatActivity {
     public StintLayout(View view) {
         Log.i(TAG, "const IN");
         this.view = view;
+        stintLayout = view.findViewById(R.id.stint_layout);
         FlagCheckBox = view.findViewById(R.id.checkbox);
         stintTextView = view.findViewById(R.id.stint);
         startTimeTextView = view.findViewById(R.id.startTime);
@@ -128,5 +134,25 @@ public class StintLayout extends AppCompatActivity {
 
     public View getEndTimeTextView(){
         return endTimeTextView;
+    }
+
+    public View getStintLayout() {
+        return stintLayout;
+    }
+
+    public void setLock(String lockStatus){
+        if (lockStatus.equals(NOT_LOCK)){
+            stintTextView.setTextColor(Color.BLACK);
+            startTimeTextView.setTextColor(Color.BLACK);
+            endTimeTextView.setTextColor(Color.BLACK);
+            driverTextView.setTextColor(Color.BLACK);
+            kartTextView.setTextColor(Color.BLACK);
+        } else {
+            stintTextView.setTextColor(Color.BLUE);
+            startTimeTextView.setTextColor(Color.BLUE);
+            endTimeTextView.setTextColor(Color.BLUE);
+            driverTextView.setTextColor(Color.BLUE);
+            kartTextView.setTextColor(Color.BLUE);
+        }
     }
 }
