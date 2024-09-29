@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText setMinEditText;
     private Switch recalcSwitch;
     private Button endTimeSetBtn;
+    private TextView equalShareDeviationCheckedPointText;
+    private TextView equalShareDeviationLockedPointText;
+    private Button equalShareDeviationBtn;
 
     //Debug
     private Button debugBtn;
@@ -457,20 +460,77 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (!checkedStatus) {
-                    for (int i = stintData.getAllStint()-1; i >= 0; i--) {
-                        if (stintData.getLockStatus(i).equals(LOCK)) {
-                            //最後のStintへ設定することはないため処理を行わない
-                            if (i != stintData.getAllStint()-1) {
-                                //ロックしているStintの次のStintを更新するためi+1のStintに足して処理を行う
-                                setEndTimeLogic(i + 1);
-                                break;
-                            }
-                        }
+                    int lockedStint = getLockedStint();
+                    if (lockedStint != 99 && lockedStint != stintData.getAllStint()-1) {
+                        //ロックしているStintの次のStintを更新するため、ロックしているStintに1を足して処理を行う
+                                setEndTimeLogic(lockedStint + 1);
                     }
                 }
                 reCalcRefreshDisplay();
             }
         });
+
+        equalShareDeviationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts, stintData);
+                int perStintTime = stintData.getPerStintTime();
+
+                //チェックが入っている項目まで
+                if (firstCheckBoxNum != CHECKBOX_NOT_SELECTED) {
+                    Log.d(TAG, "equalShareDeviationBtn onClick: firstCheckBoxNum = " + firstCheckBoxNum);
+                    //(チェックが入っているStint+1)*perStintTimeで、均等割りした際の期待値を算出
+                    int expectedValue = (firstCheckBoxNum+1)*perStintTime;
+                    //チェックが入っているStintまでの合計走行時間を算出
+                    int sumRunTime = 0;
+                    for (int i = 0; i <= firstCheckBoxNum; i++) {
+                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+                    }
+                    Log.d(TAG, "equalShareDeviationBtn onClick: sumRunTime = " + sumRunTime);
+
+                    //「チェックが入っているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
+                    int expectedVsActualDelta = sumRunTime-expectedValue;
+
+                    equalShareDeviationCheckedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
+
+                    if (expectedVsActualDelta >= 0) {
+                        equalShareDeviationCheckedPointText.setTextColor(Color.BLACK);
+                    } else {
+                        equalShareDeviationCheckedPointText.setTextColor(Color.RED);
+                    }
+
+                } else {
+                    InfoDialog dialog = new InfoDialog();
+                    dialog.setTitleStr("Error");
+                    dialog.setMessageStr("チェックボックスにチェックを入れてください");
+                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+                    dialog.show(getSupportFragmentManager(), "");
+                }
+
+                //ロックされているStintまで
+                int lockedStint = getLockedStint();
+                if (lockedStint != 99){
+                    //(LockされているStint+1)*perStintTimeで、均等割りした際の期待値を算出
+                    int expectedValue = (lockedStint+1)*perStintTime;
+                    //チェックが入っているStintまでの合計走行時間を算出
+                    int sumRunTime = 0;
+                    for (int i = 0; i <= lockedStint; i++) {
+                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+                    }
+                    //「ロックされているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
+                    int expectedVsActualDelta = sumRunTime-expectedValue;
+
+                    equalShareDeviationLockedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
+
+                    if (expectedVsActualDelta >= 0) {
+                        equalShareDeviationLockedPointText.setTextColor(Color.BLACK);
+                    } else {
+                        equalShareDeviationLockedPointText.setTextColor(Color.RED);
+                    }
+                }
+            }
+        });
+
 
         /** RaceDataタブ */
         startTimeSetBtn.setOnClickListener(new View.OnClickListener() {
@@ -1696,7 +1756,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
     private void setUniformityRunningTime() {
         for (int i = STINT_UPPER_LIMIT - 1; i >= 0; i--) {
             if (stintLayouts[i].getFlagCheckBox().isChecked()) {
@@ -2093,6 +2152,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private int getLockedStint (){
+        int lockedStint = 99;
+        for (int i = stintData.getAllStint()-1; i >= 0; i--) {
+            if (stintData.getLockStatus(i).equals(LOCK)) {
+                    lockedStint = i;
+                    break;
+                }
+            }
+        return lockedStint;
+    }
+
     /**
      * Stint毎にLayoutを定義していて量が多いため
      * メソッドを分けて実装
@@ -2124,6 +2194,9 @@ public class MainActivity extends AppCompatActivity {
         setMinEditText = findViewById(R.id.setMinEditText);
         recalcSwitch = findViewById(R.id.recalcSwitch);
         endTimeSetBtn = findViewById(R.id.endTimeSetBtn);
+        equalShareDeviationCheckedPointText = findViewById(R.id.equalShareDeviationCheckedPointText);
+        equalShareDeviationLockedPointText = findViewById(R.id.equalShareDeviationLockedPointText);
+        equalShareDeviationBtn = findViewById(R.id.equalShareDeviationBtn);
 
         //RaceDataタブ内の項目
         raceTimeEditText = findViewById(R.id.raceTimeEditText);

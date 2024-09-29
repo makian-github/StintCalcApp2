@@ -39,6 +39,7 @@
     <string name="tab_data">RaceData</string>
     <string name="tab_title">表示する項目を選択</string>
     <string name="stintsText">Stint数=</string>
+    <string name="minText">min</string>
 
     <!--  SETタブ  -->
     <string name="stintSetText">チェックが入っている項目の\n設定画面を開く</string>
@@ -50,6 +51,13 @@
     <string name="setMinText_recalc_yes">Yes</string>
     <string name="setMinText_recalc_no">No</string>
     <string name="endTimeSetBtnText">現在時刻を走行終了時間に\nセットする</string>
+    <string name="equalShareDeviationDescriptionText">均等割りに対する差異</string>
+    <string name="upDateText">更新</string>
+    <string name="untilCheckedItemText">■チェック項目まで</string>
+    <string name="untilLockedItemText">■ロックされた項目まで</string>
+    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する差異：</string>
+    <string name="equalShareDeviationLockPointText">　・均等割りに対する差異：</string>
+    <string name="subsequentEqualizationText">　・均等割りしてすると1Stint辺り：</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
