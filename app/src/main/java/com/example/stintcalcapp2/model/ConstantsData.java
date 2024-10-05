@@ -4,7 +4,7 @@ public class ConstantsData {
     public static final int SET_TAB_NUM = 0;
     public static final int RACE_DATA_TAB_NUM = 1;
     public static final int NOW_TAB_NUM = 2;
-    public static final int STINT_TAB_NUM = 3;
+    public static final int STRATEGY_TAB_NUM = 3;
     public static final int CHECKBOX_NOT_SELECTED = 99;
 
     public static final int STINT_UPPER_LIMIT = 50;

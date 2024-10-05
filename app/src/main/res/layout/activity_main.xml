@@ -312,11 +312,11 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/nowBtn"
+                android:id="@+id/strategyBtn"
                 android:layout_width="@dimen/tab_btn_width"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="@dimen/line_margin"
-                android:text="@string/tab_now_run_time"
+                android:text="@string/tab_strategy"
                 android:textAllCaps="false" />
 
             <Button
@@ -711,97 +711,6 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/black" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/equalShareDeviationDescriptionText" />
-
-                <Button
-                    android:id="@+id/equalShareDeviationBtn"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginTop="10px"
-                    android:text="@string/upDateText" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/untilCheckedItemText" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/equalShareDeviationCheckedPointText" />
-                <TextView
-                    android:id="@+id/equalShareDeviationCheckedPointText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/subsequentEqualizationText" />
-                <TextView
-                    android:id="@+id/subSequentEqualizationCheckedPointText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/untilLockedItemText" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/equalShareDeviationLockPointText" />
-                <TextView
-                    android:id="@+id/equalShareDeviationLockedPointText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/subsequentEqualizationText" />
-                <TextView
-                    android:id="@+id/subSequentEqualizationLockedPointText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="10dp"
                 android:background="@color/black" />
 
             <LinearLayout
@@ -1279,6 +1188,177 @@
                 android:textAllCaps="false"
                 android:textSize="15px" />
 
+        </LinearLayout>
+
+        <!-- ================================================== -->
+        <!--    Strategyタブ    -->
+        <LinearLayout
+            android:id="@+id/strategyTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equalShareDeviationDescriptionText" />
+
+                <Button
+                    android:id="@+id/equalShareDeviationBtn"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
+                    android:text="@string/upDateText" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/untilCheckedItemText" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equalShareDeviationCheckedPointText" />
+                <TextView
+                    android:id="@+id/equalShareDeviationCheckedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subsequentEqualizationText" />
+                <TextView
+                    android:id="@+id/subSequentEqualizationCheckedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/untilLockedItemText" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/equalShareDeviationLockPointText" />
+                <TextView
+                    android:id="@+id/equalShareDeviationLockedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subsequentEqualizationText" />
+                <TextView
+                    android:id="@+id/subSequentEqualizationLockedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/black" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DiscardStintsText"
+                />
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DiscardStintsAllText"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheAllowableNumberOf5minuteDiscardStints" />
+                <TextView
+                    android:id="@+id/howMany5minStintAllText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheAllowableNumberOf10minuteDiscardStints" />
+                <TextView
+                    android:id="@+id/howMany10minStintAllText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DiscardStintsLockedPointText"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheAllowableNumberOf5minuteDiscardStints" />
+                <TextView
+                    android:id="@+id/howMany5minStintLockedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/TheAllowableNumberOf10minuteDiscardStints" />
+                <TextView
+                    android:id="@+id/howMany10minStintLockedPointText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

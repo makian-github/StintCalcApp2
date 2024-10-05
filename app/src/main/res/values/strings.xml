@@ -33,6 +33,7 @@
     <string name="saved">Saved</string>
     <string name="read_error">Read file error !</string>
     <string name="read_comp">Read Completed !</string>
+    <string name="tab_strategy">Strategy</string>
     <string name="tab_now_run_time">Now</string>
     <string name="tab_stint">Stint</string>
     <string name="tab_set">Set</string>
@@ -53,11 +54,6 @@
     <string name="endTimeSetBtnText">現在時刻を走行終了時間に\nセットする</string>
     <string name="equalShareDeviationDescriptionText">均等割りに対する差異</string>
     <string name="upDateText">更新</string>
-    <string name="untilCheckedItemText">■チェック項目まで</string>
-    <string name="untilLockedItemText">■ロックされた項目まで</string>
-    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する余裕：</string>
-    <string name="equalShareDeviationLockPointText">　・均等割りに対する余裕：</string>
-    <string name="subsequentEqualizationText">　・以降の1Stintの走行時間：</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
@@ -70,6 +66,18 @@
     <string name="nowTabExplanationString">チェックがついているStintまでの\n走行時間Stint数を表示する</string>
     <string name="refreshText">表示を更新する</string>
     <string name="sumTimeString">合計</string>
+
+    <!-- Strategyタブ -->
+    <string name="untilCheckedItemText">■チェック項目までで</string>
+    <string name="untilLockedItemText">■ロックされた項目までで</string>
+    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する余裕：</string>
+    <string name="equalShareDeviationLockPointText">　・均等割りに対する余裕：</string>
+    <string name="subsequentEqualizationText">　・以降の1Stintの走行時間：</string>
+    <string name="DiscardStintsText">■捨てStintの許容回数</string>
+    <string name="DiscardStintsAllText">・レース全体</string>
+    <string name="DiscardStintsLockedPointText">・ロックされている項目以降</string>
+    <string name="TheAllowableNumberOf5minuteDiscardStints">　-捨てStint(5分)の許容回数 ：</string>
+    <string name="TheAllowableNumberOf10minuteDiscardStints">　-捨てStint(10分)の許容回数：</string>
 
     <!-- InputForm画面-->
     <string name="selectStintStr">Stint</string>

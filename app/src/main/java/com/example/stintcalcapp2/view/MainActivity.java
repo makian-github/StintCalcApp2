@@ -35,12 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private final int FIRST_STINT = 0;
     private final String NOT_LOCK = "0";
     private final String LOCK = "1";
+    private final int NOTHING_LOCKED_STINT = 99;
 
     private StintLayout stintLayouts[];
     private View view[];
     private Button setBtn;
     private Button setRaceDataBtn;
-    private Button nowBtn;
+    private Button strategyBtn;
     private Button showStintBtn;
 
     /*Setタブ*/
@@ -112,7 +113,12 @@ public class MainActivity extends AppCompatActivity {
     private View sumTime1px;
     private LinearLayout sumTimeLayout;
     private TextView sumTimeTextView;
-    private TextView nowTabExplanation;
+    private TextView strategyTabExplanation;
+    private TextView howMany5minStintAllText;
+    private TextView howMany10minStintAllText;
+    private TextView howMany5minStintLockedPointText;
+    private TextView howMany10minStintLockedPointText;
+
 
     //ドライバーID
     private final int ID_AKIMA = 0;
@@ -130,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout raceDataLayout;
     private LinearLayout setStintData;
     private LinearLayout showStintData;
+    private LinearLayout strategyTab;
     private String TAG = "MainActivity";
 
     private int displayTab = 0;
@@ -146,8 +153,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testData() {
-        raceTimeEditText.setText("120");
-        allStintEditText.setText("12");
+        raceTimeEditText.setText("240");
+        allStintEditText.setText("10");
 //        stintData.setRaceTime(300);
 //        stintData.setAllStint(20);
 //        stintData.setStartTime("10:00");
@@ -179,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.VISIBLE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.GONE);
                 tabBtnStateChange(setBtn);
                 reCalcRefreshDisplay();
                 break;
@@ -186,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.GONE);
                 tabBtnStateChange(setRaceDataBtn);
                 //レース開始時間が変化している場合、差分を全Stintプラスしてスライドする
                 int startTimeDiff = timeCalc.calcDiffMin(beforeStartTime,stintData.getStartTime());
@@ -205,21 +214,23 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
-                tabBtnStateChange(nowBtn);
+                strategyTab.setVisibility(View.GONE);
+                tabBtnStateChange(strategyBtn);
                 reCalcRefreshDisplay();
                 break;
-            case STINT_TAB_NUM:
+            case STRATEGY_TAB_NUM:
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
-                showStintData.setVisibility(View.VISIBLE);
+                showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.VISIBLE);
                 tabBtnStateChange(showStintBtn);
                 reCalcRefreshDisplay();
                 break;
             default:
                 setStintData.setVisibility(View.VISIBLE);
                 raceDataLayout.setVisibility(View.VISIBLE);
-                setStintData.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.VISIBLE);
+                strategyTab.setVisibility(View.VISIBLE);
                 tabBtnStateChange(setBtn);
         }
 
@@ -235,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
                 raceDataLayout.setVisibility(View.GONE);
                 setStintData.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.GONE);
                 displayTab = SET_TAB_NUM;
 
                 tabBtnStateChange(setBtn);
@@ -256,15 +268,42 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.VISIBLE);
                 showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.GONE);
                 displayTab = RACE_DATA_TAB_NUM;
 
                 tabBtnStateChange(setRaceDataBtn);
             }
         });
-        /** Nowタブ*/
-        nowBtn.setOnClickListener(new View.OnClickListener() {
+        /** Strategyタブ*/
+        strategyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setStintData.setVisibility(View.GONE);
+                raceDataLayout.setVisibility(View.GONE);
+                showStintData.setVisibility(View.GONE);
+                strategyTab.setVisibility(View.VISIBLE);
+                displayTab = STRATEGY_TAB_NUM;
+
+                tabBtnStateChange(strategyBtn);
+
+                //レース全体での捨てStintの許容回数を計算して表示する
+                howMany5minStintAllText.setText(String.valueOf(calcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),5.0)) + "回");
+                howMany10minStintAllText.setText(String.valueOf(calcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),10.0)) + "回");
+
+                //ロックされているStint以降で何回捨てStintが許されるかを計算して表示する
+                int restStint = stintData.getAllStint()-getLockedStint()-1;
+                Log.d(TAG,"restStint:" + restStint);
+                if (restStint>0) {
+                    int sumRunTime = 0;
+                    for (int i = 0; i <= getLockedStint(); i++) {
+                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+                    }
+
+                    howMany5minStintLockedPointText.setText(String.valueOf(calcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 5.0)) + "回");
+                    howMany10minStintLockedPointText.setText(String.valueOf(calcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 10.0)) + "回");
+                }
+
+                /*
                 checkboxController.setAllCheckBox(stintLayouts, stintData, false);
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
@@ -280,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                 refreshBtn.setVisibility(View.VISIBLE);
                 sumTimeLayout.setVisibility(View.VISIBLE);
                 sumTime1px.setVisibility(View.GONE);
-                nowTabExplanation.setVisibility(View.VISIBLE);
+                strategyTabExplanation.setVisibility(View.VISIBLE);
 
                 akimaSetBtn.setEnabled(false);
                 toyoguchiSetBtn.setEnabled(false);
@@ -292,8 +331,7 @@ public class MainActivity extends AppCompatActivity {
                 xSetBtn.setEnabled(false);
                 nonDriverSetBtn.setEnabled(false);
                 breakeSetBtn.setEnabled(false);
-
-                tabBtnStateChange(nowBtn);
+                 */
             }
         });
 
@@ -305,7 +343,8 @@ public class MainActivity extends AppCompatActivity {
                 setStintData.setVisibility(View.GONE);
                 raceDataLayout.setVisibility(View.GONE);
                 showStintData.setVisibility(View.VISIBLE);
-                displayTab = STINT_TAB_NUM;
+                strategyTab.setVisibility(View.GONE);
+                displayTab = STRATEGY_TAB_NUM;
 
                 allCheckBtn.setVisibility(View.VISIBLE);
                 allUncheckBtn.setVisibility(View.VISIBLE);
@@ -316,7 +355,7 @@ public class MainActivity extends AppCompatActivity {
                 refreshBtn.setVisibility(View.GONE);
                 sumTimeLayout.setVisibility(View.GONE);
                 sumTime1px.setVisibility(View.GONE);
-                nowTabExplanation.setVisibility(View.GONE);
+                strategyTabExplanation.setVisibility(View.GONE);
 
                 akimaSetBtn.setEnabled(true);
                 toyoguchiSetBtn.setEnabled(true);
@@ -1817,7 +1856,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnActive(setBtn);
         btnActive(setRaceDataBtn);
-        btnActive(nowBtn);
+        btnActive(strategyBtn);
         btnActive(showStintBtn);
 
         btnInactive(btn);
@@ -2179,8 +2218,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Lockされている項目を下から検索して返却
+     * @return ロックされている項目。ロックされている項目がない場合はNOTHING_LOCKED_STINT(=99)を返却
+     */
     private int getLockedStint (){
-        int lockedStint = 99;
+        int lockedStint = NOTHING_LOCKED_STINT;
         for (int i = stintData.getAllStint()-1; i >= 0; i--) {
             if (stintData.getLockStatus(i).equals(LOCK)) {
                     lockedStint = i;
@@ -2188,6 +2231,22 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         return lockedStint;
+    }
+
+    /**
+     * 残りのStint数と捨てStintの走行時間から、何回捨てStintが許容されるかを計算する
+     * @param restStint 残りのStint数
+     * @param restRaceTime レースの残り時間
+     * @param minutes 捨てStintの走行時間*
+     * @return 与えられた捨てStintの走行時間(minutes)が何回許容できるかを返却
+     */
+    private double calcDiscardStints(int restStint, int restRaceTime, double minutes) {
+        //(レース時間-minutes*許容回数)/(Stint数-許容回数)が30分以下になれば、許容回数がわかるの式を整理して下記処理とする
+        double discardStintCount = ((30*restStint)-restRaceTime)/(30-minutes);
+
+        Log.d(TAG, "calcDiscardStints:"+ (30*restStint) + "," + stintData.getRaceTime() + "," + (30-minutes));
+
+        return discardStintCount;
     }
 
     /**
@@ -2205,11 +2264,12 @@ public class MainActivity extends AppCompatActivity {
         raceDataLayout = findViewById(R.id.raceDataLayout);
         setStintData = findViewById(R.id.setStintData);
         showStintData = findViewById(R.id.showStintData);
+        strategyTab = findViewById(R.id.strategyTab);
 
         //Tabボタン
         setBtn = findViewById(R.id.setBtn);
         setRaceDataBtn = findViewById(R.id.setRaceDataBtn);
-        nowBtn = findViewById(R.id.nowBtn);
+        strategyBtn = findViewById(R.id.strategyBtn);
         showStintBtn = findViewById(R.id.showStintBtn);
 
         //setタブ内のボタン
@@ -2259,7 +2319,11 @@ public class MainActivity extends AppCompatActivity {
         sumTime1px = findViewById(R.id.sumTime1px);
         sumTimeLayout = findViewById(R.id.sumTimeLayout);
         sumTimeTextView = findViewById(R.id.sumTimeTextView);
-        nowTabExplanation = findViewById(R.id.nowTabExplanation);
+        strategyTabExplanation = findViewById(R.id.nowTabExplanation);
+        howMany5minStintAllText = findViewById(R.id.howMany5minStintAllText);
+        howMany10minStintAllText = findViewById(R.id.howMany10minStintAllText);
+        howMany5minStintLockedPointText = findViewById(R.id.howMany5minStintLockedPointText);
+        howMany10minStintLockedPointText = findViewById(R.id.howMany10minStintLockedPointText);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];
