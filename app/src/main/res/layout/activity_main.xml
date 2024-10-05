@@ -758,7 +758,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/subsequentEqualizationText" />
                 <TextView
-                    android:id="@+id/subsequentEqualizationLockedPointText"
+                    android:id="@+id/subSequentEqualizationCheckedPointText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />
@@ -792,7 +792,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/subsequentEqualizationText" />
                 <TextView
-                    android:id="@+id/subsequentEqualizationLockedPointText"
+                    android:id="@+id/subSequentEqualizationLockedPointText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-" />

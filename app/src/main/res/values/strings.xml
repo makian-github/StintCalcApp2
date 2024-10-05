@@ -55,9 +55,9 @@
     <string name="upDateText">更新</string>
     <string name="untilCheckedItemText">■チェック項目まで</string>
     <string name="untilLockedItemText">■ロックされた項目まで</string>
-    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する差異：</string>
-    <string name="equalShareDeviationLockPointText">　・均等割りに対する差異：</string>
-    <string name="subsequentEqualizationText">　・均等割りしてすると1Stint辺り：</string>
+    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する余裕：</string>
+    <string name="equalShareDeviationLockPointText">　・均等割りに対する余裕：</string>
+    <string name="subsequentEqualizationText">　・以降の1Stintの走行時間：</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>

@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private Switch recalcSwitch;
     private Button endTimeSetBtn;
     private TextView equalShareDeviationCheckedPointText;
+    private TextView subSequentEqualizationCheckedPointText;
     private TextView equalShareDeviationLockedPointText;
+    private TextView subSequentEqualizationLockedPointText;
     private Button equalShareDeviationBtn;
 
     //Debug
@@ -499,6 +501,19 @@ public class MainActivity extends AppCompatActivity {
                         equalShareDeviationCheckedPointText.setTextColor(Color.RED);
                     }
 
+                    //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
+                    int remainingStint = stintData.getAllStint() - firstCheckBoxNum-1;
+                    int afterPointPerTime = Math.round((stintData.getRaceTime()-sumRunTime) / remainingStint);
+                    Log.d(TAG,"remainingStint = " + remainingStint + ", afterPointPerTime = "+ afterPointPerTime);
+
+                    subSequentEqualizationCheckedPointText.setText(afterPointPerTime + "min");
+                    if (afterPointPerTime < stintData.getUpperRunningTime()-5) {
+                        subSequentEqualizationCheckedPointText.setTextColor(Color.BLACK);
+                    } else {
+                        subSequentEqualizationCheckedPointText.setTextColor(Color.RED);
+                    }
+
+
                 } else {
                     InfoDialog dialog = new InfoDialog();
                     dialog.setTitleStr("Error");
@@ -526,6 +541,18 @@ public class MainActivity extends AppCompatActivity {
                         equalShareDeviationLockedPointText.setTextColor(Color.BLACK);
                     } else {
                         equalShareDeviationLockedPointText.setTextColor(Color.RED);
+                    }
+
+                    //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
+                    int remainingStint = stintData.getAllStint() - lockedStint-1;
+                    int afterPointPerTime = Math.round((stintData.getRaceTime()-sumRunTime) / remainingStint);
+                    Log.d(TAG,"remainingStint = " + remainingStint + ", afterPointPerTime = "+ afterPointPerTime);
+
+                    subSequentEqualizationLockedPointText.setText(afterPointPerTime + "min");
+                    if (afterPointPerTime < stintData.getUpperRunningTime()-5) {
+                        subSequentEqualizationLockedPointText.setTextColor(Color.BLACK);
+                    } else {
+                        subSequentEqualizationLockedPointText.setTextColor(Color.RED);
                     }
                 }
             }
@@ -2196,6 +2223,9 @@ public class MainActivity extends AppCompatActivity {
         endTimeSetBtn = findViewById(R.id.endTimeSetBtn);
         equalShareDeviationCheckedPointText = findViewById(R.id.equalShareDeviationCheckedPointText);
         equalShareDeviationLockedPointText = findViewById(R.id.equalShareDeviationLockedPointText);
+        subSequentEqualizationCheckedPointText = findViewById(R.id.subSequentEqualizationCheckedPointText);
+        subSequentEqualizationLockedPointText = findViewById(R.id.subSequentEqualizationLockedPointText);
+
         equalShareDeviationBtn = findViewById(R.id.equalShareDeviationBtn);
 
         //RaceDataタブ内の項目
