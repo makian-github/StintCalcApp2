@@ -2,11 +2,13 @@ package com.example.stintcalcapp2.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -31,6 +33,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private InputMethodManager inputMethodManager;
+    private LinearLayout mainLayout;
 
     private final int FIRST_STINT = 0;
     private final String NOT_LOCK = "0";
@@ -121,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView howMany10minStintLockedPointText;
     private TextView howMany5minStintCheckedPointText;
     private TextView howMany10minStintCheckedPointText;
+    private TextView perStintInStrategyTabText;
+    private EditText discardCheckedItemsEditText;
+    private TextView howMany5minStintVariableText;
+    private TextView howMany10minStintVariableText;
+    private TextView equalShareDeviationCheckedPointDiscardStintText;
 
 
     //ドライバーID
@@ -153,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //キーボード表示を制御するためのオブジェクト
+        inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        //画面全体のレイアウト
+        mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
     }
 
     private void testData() {
@@ -260,6 +274,9 @@ public class MainActivity extends AppCompatActivity {
                     perStintText.setText(String.valueOf(stintData.getPerStintTime()));
                 }
 
+                //Strategyタブで入力した値を走行時間のEditTextに入力した状態にする
+                setMinEditText.setText(discardCheckedItemsEditText.getText().toString());
+
             }
         });
 
@@ -289,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
                 tabBtnStateChange(strategyBtn);
 
+                calcAllowanceForEqualDistribution();
                 calcDiscardStints();
 
                 /*
@@ -502,86 +520,8 @@ public class MainActivity extends AppCompatActivity {
         equalShareDeviationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts, stintData);
-                int perStintTime = stintData.getPerStintTime();
-
-                //チェックが入っている項目まで
-                if (firstCheckBoxNum != CHECKBOX_NOT_SELECTED) {
-                    Log.d(TAG, "equalShareDeviationBtn onClick: firstCheckBoxNum = " + firstCheckBoxNum);
-                    //(チェックが入っているStint+1)*perStintTimeで、均等割りした際の期待値を算出
-                    int expectedValue = (firstCheckBoxNum+1)*perStintTime;
-                    //チェックが入っているStintまでの合計走行時間を算出
-                    int sumRunTime = 0;
-                    for (int i = 0; i <= firstCheckBoxNum; i++) {
-                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
-                    }
-                    Log.d(TAG, "equalShareDeviationBtn onClick: sumRunTime = " + sumRunTime);
-
-                    //「チェックが入っているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
-                    int expectedVsActualDelta = sumRunTime-expectedValue;
-
-                    equalShareDeviationCheckedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
-
-                    if (expectedVsActualDelta >= 0) {
-                        equalShareDeviationCheckedPointText.setTextColor(Color.BLACK);
-                    } else {
-                        equalShareDeviationCheckedPointText.setTextColor(Color.RED);
-                    }
-
-                    //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
-                    int remainingStint = stintData.getAllStint() - firstCheckBoxNum-1;
-                    int afterPointPerTime = Math.round((stintData.getRaceTime()-sumRunTime) / remainingStint);
-                    Log.d(TAG,"remainingStint = " + remainingStint + ", afterPointPerTime = "+ afterPointPerTime);
-
-                    subSequentEqualizationCheckedPointText.setText(afterPointPerTime + "min");
-                    if (afterPointPerTime < stintData.getUpperRunningTime()-5) {
-                        subSequentEqualizationCheckedPointText.setTextColor(Color.BLACK);
-                    } else {
-                        subSequentEqualizationCheckedPointText.setTextColor(Color.RED);
-                    }
-
-
-                } else {
-                    InfoDialog dialog = new InfoDialog();
-                    dialog.setTitleStr("Error");
-                    dialog.setMessageStr("チェックボックスにチェックを入れてください");
-                    dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
-                    dialog.show(getSupportFragmentManager(), "");
-                }
-
-                //ロックされているStintまで
-                int lockedStint = getLockedStint();
-                if (lockedStint != 99){
-                    //(LockされているStint+1)*perStintTimeで、均等割りした際の期待値を算出
-                    int expectedValue = (lockedStint+1)*perStintTime;
-                    //チェックが入っているStintまでの合計走行時間を算出
-                    int sumRunTime = 0;
-                    for (int i = 0; i <= lockedStint; i++) {
-                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
-                    }
-                    //「ロックされているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
-                    int expectedVsActualDelta = sumRunTime-expectedValue;
-
-                    equalShareDeviationLockedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
-
-                    if (expectedVsActualDelta >= 0) {
-                        equalShareDeviationLockedPointText.setTextColor(Color.BLACK);
-                    } else {
-                        equalShareDeviationLockedPointText.setTextColor(Color.RED);
-                    }
-
-                    //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
-                    int remainingStint = stintData.getAllStint() - lockedStint-1;
-                    int afterPointPerTime = Math.round((stintData.getRaceTime()-sumRunTime) / remainingStint);
-                    Log.d(TAG,"remainingStint = " + remainingStint + ", afterPointPerTime = "+ afterPointPerTime);
-
-                    subSequentEqualizationLockedPointText.setText(afterPointPerTime + "min");
-                    if (afterPointPerTime < stintData.getUpperRunningTime()-5) {
-                        subSequentEqualizationLockedPointText.setTextColor(Color.BLACK);
-                    } else {
-                        subSequentEqualizationLockedPointText.setTextColor(Color.RED);
-                    }
-                }
+                calcAllowanceForEqualDistribution();
+                calcDiscardStints();
             }
         });
 
@@ -772,6 +712,9 @@ public class MainActivity extends AppCompatActivity {
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                calcDiscardStints();
+
                 int firstCheckBox = checkboxController.firstCheckBox(stintLayouts,stintData);
                 if (firstCheckBox != 99){
                     int sumTime = setRuntimeSum(firstCheckBox+1);
@@ -1840,7 +1783,14 @@ public class MainActivity extends AppCompatActivity {
         btn.setTextColor(Color.WHITE);
     }
 
+    /**
+     * タブボタンの表示Colorの変更とキーボードをしまう処理
+     * @param btn
+     */
     private void tabBtnStateChange(Button btn) {
+
+        //キーボードを隠す
+        inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         btnActive(setBtn);
         btnActive(setRaceDataBtn);
@@ -2225,6 +2175,105 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 均等割りに対する余裕
+     */
+    private void calcAllowanceForEqualDistribution(){
+        int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts, stintData);
+        int perStintTime = stintData.getPerStintTime();
+
+        perStintInStrategyTabText.setText(Integer.toString(perStintTime));
+
+        //チェックが入っている項目まで
+        if (firstCheckBoxNum != CHECKBOX_NOT_SELECTED && firstCheckBoxNum != stintData.getAllStint()) {
+            Log.d(TAG, "equalShareDeviationBtn onClick: firstCheckBoxNum = " + firstCheckBoxNum);
+            //(チェックが入っているStint+1)*perStintTimeで、均等割りした際の期待値を算出
+            int expectedValue = (firstCheckBoxNum+1)*perStintTime;
+            //チェックが入っているStintまでの合計走行時間を算出
+            int sumRunTime = 0;
+            for (int i = 0; i <= firstCheckBoxNum; i++) {
+                if (i<50) {
+                    sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+                }
+            }
+            Log.d(TAG, "equalShareDeviationBtn onClick: sumRunTime = " + sumRunTime);
+
+            //「チェックが入っているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
+            int expectedVsActualDelta = sumRunTime-expectedValue;
+
+            equalShareDeviationCheckedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
+
+            if (expectedVsActualDelta >= 0) {
+                equalShareDeviationCheckedPointText.setTextColor(Color.BLACK);
+            } else {
+                equalShareDeviationCheckedPointText.setTextColor(Color.RED);
+            }
+
+            //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
+            int remainingStint = stintData.getAllStint() - firstCheckBoxNum-1;
+            if (remainingStint > 0) {
+                int afterPointPerTime = Math.round((stintData.getRaceTime() - sumRunTime) / remainingStint);
+                Log.d(TAG, "remainingStint = " + remainingStint + ", afterPointPerTime = " + afterPointPerTime);
+
+                subSequentEqualizationCheckedPointText.setText(afterPointPerTime + "min");
+                if (afterPointPerTime < stintData.getUpperRunningTime() - 5) {
+                    subSequentEqualizationCheckedPointText.setTextColor(Color.BLACK);
+                } else {
+                    subSequentEqualizationCheckedPointText.setTextColor(Color.RED);
+                }
+            }
+        } else {
+            equalShareDeviationCheckedPointText.setText("-min");
+            equalShareDeviationCheckedPointText.setTextColor(Color.BLACK);
+            subSequentEqualizationCheckedPointText.setText("-min");
+            subSequentEqualizationCheckedPointText.setTextColor(Color.BLACK);
+//            InfoDialog dialog = new InfoDialog();
+//            dialog.setTitleStr("Error");
+//            dialog.setMessageStr("チェックボックスにチェックを入れてください");
+//            dialog.setDialogType(InfoDialog.ONE_BUTTON_DIALOG);
+//            dialog.show(getSupportFragmentManager(), "");
+        }
+
+        //ロックされているStintまで
+        int lockedStint = getLockedStint();
+        if (lockedStint != 99 && lockedStint != stintData.getAllStint()){
+            //(LockされているStint+1)*perStintTimeで、均等割りした際の期待値を算出
+            int expectedValue = (lockedStint+1)*perStintTime;
+            //チェックが入っているStintまでの合計走行時間を算出
+            int sumRunTime = 0;
+            for (int i = 0; i <= lockedStint; i++) {
+                sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+            }
+            //「ロックされているStintまでの合計走行時間」ー「均等割りした際の期待値」で期待値に対してどのくらい余裕があるのかを算出
+            int expectedVsActualDelta = sumRunTime-expectedValue;
+
+            equalShareDeviationLockedPointText.setText(Integer.toString(expectedVsActualDelta) + "min");
+
+            if (expectedVsActualDelta >= 0) {
+                equalShareDeviationLockedPointText.setTextColor(Color.BLACK);
+            } else {
+                equalShareDeviationLockedPointText.setTextColor(Color.RED);
+            }
+
+            //チェックがはいっている項目以降を均等割りした際の走行時間を算出して表示
+            int remainingStint = stintData.getAllStint() - lockedStint-1;
+            int afterPointPerTime = Math.round((stintData.getRaceTime()-sumRunTime) / remainingStint);
+            Log.d(TAG,"remainingStint = " + remainingStint + ", afterPointPerTime = "+ afterPointPerTime);
+
+            subSequentEqualizationLockedPointText.setText(afterPointPerTime + "min");
+            if (afterPointPerTime < stintData.getUpperRunningTime()-5) {
+                subSequentEqualizationLockedPointText.setTextColor(Color.BLACK);
+            } else {
+                subSequentEqualizationLockedPointText.setTextColor(Color.RED);
+            }
+        } else {
+            equalShareDeviationLockedPointText.setText("-min");
+            equalShareDeviationLockedPointText.setTextColor(Color.BLACK);
+            subSequentEqualizationLockedPointText.setText("-min");
+            subSequentEqualizationLockedPointText.setTextColor(Color.BLACK);
+        }
+    }
+
+    /**
      * 残りのStint数と捨てStintの走行時間から、何回捨てStintが許容されるかを計算する
      * @param restStint 残りのStint数
      * @param restRaceTime レースの残り時間
@@ -2272,12 +2321,17 @@ public class MainActivity extends AppCompatActivity {
 
             setDiscardStintTextColor(howMany5minStintLockedPointText,fiveMinStintLock);
             setDiscardStintTextColor(howMany10minStintLockedPointText,tenMinStintLock);
+        } else {
+            howMany5minStintLockedPointText.setText("-回");
+            howMany10minStintLockedPointText.setText("-回");
+            howMany5minStintLockedPointText.setTextColor(Color.BLACK);
+            howMany10minStintLockedPointText.setTextColor(Color.BLACK);
         }
 
         //チェックされているStint以降で何回捨てStintが許されるかを計算して表示する
         int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts, stintData);
         int afterCheckedRestStint = stintData.getAllStint()-firstCheckBoxNum-1;
-        Log.d(TAG,"afterCheckedRestStint:" + afterCheckedRestStint);
+                Log.d(TAG,"afterCheckedRestStint:" + afterCheckedRestStint);
         if (afterCheckedRestStint>0) {
             int sumRunTime = 0;
             for (int i = 0; i <= firstCheckBoxNum; i++) {
@@ -2293,9 +2347,43 @@ public class MainActivity extends AppCompatActivity {
 
             setDiscardStintTextColor(howMany5minStintCheckedPointText,fiveMinStintCheck);
             setDiscardStintTextColor(howMany10minStintCheckedPointText,tenMinStintCheck);
+        } else {
+            howMany5minStintCheckedPointText.setText("-回");
+            howMany10minStintCheckedPointText.setText("-回");
+            howMany5minStintCheckedPointText.setTextColor(Color.BLACK);
+            howMany10minStintCheckedPointText.setTextColor(Color.BLACK);
         }
 
+        //チェックしている項目を捨てる場合、チェックされているStint以降で何回捨てStintが許されるかを計算して表示する
+        if (afterCheckedRestStint > 0) {
+            int sumRunTime = 0;
 
+            for (int i = 0; i <= firstCheckBoxNum; i++) {
+                if (firstCheckBoxNum == i) {
+                    sumRunTime += Integer.parseInt(discardCheckedItemsEditText.getText().toString());
+                } else {
+                    sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+                }
+            }
+
+            double fiveMinStintCheck = getCalcDiscardStints(afterCheckedRestStint,stintData.getRaceTime()-sumRunTime, 5.0);
+            double tenMinStintCheck = getCalcDiscardStints(afterCheckedRestStint,stintData.getRaceTime()-sumRunTime, 10.0);
+
+            howMany5minStintVariableText.setText(String.valueOf(fiveMinStintCheck) + "回");
+            howMany10minStintVariableText.setText(String.valueOf(tenMinStintCheck) + "回");
+
+            setDiscardStintTextColor(howMany5minStintVariableText,fiveMinStintCheck);
+            setDiscardStintTextColor(howMany10minStintVariableText,tenMinStintCheck);
+
+            int afterPointPerTimeForDiscardStint = Math.round((stintData.getRaceTime()-sumRunTime) / afterCheckedRestStint);
+            equalShareDeviationCheckedPointDiscardStintText.setText(String.valueOf(afterPointPerTimeForDiscardStint) + "min");
+
+        } else {
+            howMany5minStintVariableText.setText("-回");
+            howMany10minStintVariableText.setText("-回");
+            howMany5minStintVariableText.setTextColor(Color.BLACK);
+            howMany10minStintVariableText.setTextColor(Color.BLACK);
+        }
     }
 
     /**
@@ -2388,6 +2476,11 @@ public class MainActivity extends AppCompatActivity {
         howMany10minStintLockedPointText = findViewById(R.id.howMany10minStintLockedPointText);
         howMany5minStintCheckedPointText = findViewById(R.id.howMany5minStintCheckedPointText);
         howMany10minStintCheckedPointText = findViewById(R.id.howMany10minStintCheckedPointText);
+        perStintInStrategyTabText = findViewById(R.id.perStintInStrategyTabText);
+        discardCheckedItemsEditText = findViewById(R.id.discardCheckedItemsEditText);
+        howMany5minStintVariableText = findViewById(R.id.howMany5minStintVariableText);
+        howMany10minStintVariableText = findViewById(R.id.howMany10minStintVariableText);
+        equalShareDeviationCheckedPointDiscardStintText = findViewById(R.id.equalShareDeviationCheckedPointDiscardStintText);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];

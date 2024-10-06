@@ -52,8 +52,6 @@
     <string name="setMinText_recalc_yes">Yes</string>
     <string name="setMinText_recalc_no">No</string>
     <string name="endTimeSetBtnText">現在時刻を走行終了時間に\nセットする</string>
-    <string name="equalShareDeviationDescriptionText">均等割りに対する差異</string>
-    <string name="upDateText">更新</string>
 
     <!--  RaceDataタブ  -->
     <string name="setString">設定</string>
@@ -68,17 +66,25 @@
     <string name="sumTimeString">合計</string>
 
     <!-- Strategyタブ -->
-    <string name="untilCheckedItemText">■チェック項目までで</string>
-    <string name="untilLockedItemText">■ロックされた項目までで</string>
-    <string name="equalShareDeviationCheckedPointText">　・均等割りに対する余裕：</string>
-    <string name="equalShareDeviationLockPointText">　・均等割りに対する余裕：</string>
-    <string name="subsequentEqualizationText">　・以降の1Stintの走行時間：</string>
-    <string name="DiscardStintsText">■捨てStintの許容回数</string>
+    <string name="upDateText">更新</string>
+    <string name="equalShareDeviationDescriptionText">■均等割りに対する余裕</string>
+    <string name="perStintInStrategyTabTxt">・均等割り時 1Stint当たり＝</string>
+    <string name="untilCheckedItemText">・チェック項目までで</string>
+    <string name="untilLockedItemText">・ロックされた項目までで</string>
+    <string name="equalShareDeviationCheckedPointText">　- 均等割りに対する余裕：</string>
+    <string name="equalShareDeviationLockPointText">　- 均等割りに対する余裕：</string>
+    <string name="subsequentEqualizationText">　- 以降の1Stintの走行時間：</string>
+
+    <string name="DiscardStintsText">■捨てStintの許容回数※</string>
     <string name="DiscardStintsAllText">・レース全体</string>
     <string name="DiscardStintsCheckedPointText">・チェックされている項目以降</string>
     <string name="DiscardStintsLockedPointText">・ロックされている項目以降</string>
-    <string name="TheAllowableNumberOf5minuteDiscardStints">　-捨てStint(5分)の許容回数 ：</string>
-    <string name="TheAllowableNumberOf10minuteDiscardStints">　-捨てStint(10分)の許容回数：</string>
+    <string name="TheAllowableNumberOf5minuteDiscardStints">　- 捨てStint(5分)の許容回数 ：</string>
+    <string name="TheAllowableNumberOf10minuteDiscardStints">　- 捨てStint(10分)の許容回数：</string>
+
+    <string name="discardCheckedItemsTitleText">■チェック項目を捨てStintにする※</string>
+    <string name="discardCheckedItemsText">分で捨てた際 それ以降の許容回数</string>
+    <string name="discardStintsNote">※ 捨てStintを作った場合、\n　以降のStintの平均走行時間が\n　30分以上にならない回数を表示。\n　そのため、許容回数を上限まで使うと\n　以降は30分の走行時間が必須になる</string>
 
     <!-- InputForm画面-->
     <string name="selectStintStr">Stint</string>
