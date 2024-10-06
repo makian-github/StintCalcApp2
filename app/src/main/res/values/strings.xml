@@ -75,6 +75,7 @@
     <string name="subsequentEqualizationText">　・以降の1Stintの走行時間：</string>
     <string name="DiscardStintsText">■捨てStintの許容回数</string>
     <string name="DiscardStintsAllText">・レース全体</string>
+    <string name="DiscardStintsCheckedPointText">・チェックされている項目以降</string>
     <string name="DiscardStintsLockedPointText">・ロックされている項目以降</string>
     <string name="TheAllowableNumberOf5minuteDiscardStints">　-捨てStint(5分)の許容回数 ：</string>
     <string name="TheAllowableNumberOf10minuteDiscardStints">　-捨てStint(10分)の許容回数：</string>

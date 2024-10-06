@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private final String NOT_LOCK = "0";
     private final String LOCK = "1";
     private final int NOTHING_LOCKED_STINT = 99;
+    private final int DANGEROUS_DRIVING_TIME = 30;
 
     private StintLayout stintLayouts[];
     private View view[];
@@ -118,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView howMany10minStintAllText;
     private TextView howMany5minStintLockedPointText;
     private TextView howMany10minStintLockedPointText;
+    private TextView howMany5minStintCheckedPointText;
+    private TextView howMany10minStintCheckedPointText;
 
 
     //ドライバーID
@@ -286,22 +289,7 @@ public class MainActivity extends AppCompatActivity {
 
                 tabBtnStateChange(strategyBtn);
 
-                //レース全体での捨てStintの許容回数を計算して表示する
-                howMany5minStintAllText.setText(String.valueOf(calcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),5.0)) + "回");
-                howMany10minStintAllText.setText(String.valueOf(calcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),10.0)) + "回");
-
-                //ロックされているStint以降で何回捨てStintが許されるかを計算して表示する
-                int restStint = stintData.getAllStint()-getLockedStint()-1;
-                Log.d(TAG,"restStint:" + restStint);
-                if (restStint>0) {
-                    int sumRunTime = 0;
-                    for (int i = 0; i <= getLockedStint(); i++) {
-                        sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
-                    }
-
-                    howMany5minStintLockedPointText.setText(String.valueOf(calcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 5.0)) + "回");
-                    howMany10minStintLockedPointText.setText(String.valueOf(calcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 10.0)) + "回");
-                }
+                calcDiscardStints();
 
                 /*
                 checkboxController.setAllCheckBox(stintLayouts, stintData, false);
@@ -1898,6 +1886,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         stintData.clearRaceData(stintData.getAllStint());
+
+        calcDiscardStints();
         Log.v(TAG, "out reCalcRefreshDisplay()");
     }
 
@@ -1932,6 +1922,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         stintData.clearRaceData(stintData.getAllStint());
+        calcDiscardStints();
         Log.d(TAG, "out refreshDisplay");
     }
 
@@ -2240,13 +2231,84 @@ public class MainActivity extends AppCompatActivity {
      * @param minutes 捨てStintの走行時間*
      * @return 与えられた捨てStintの走行時間(minutes)が何回許容できるかを返却
      */
-    private double calcDiscardStints(int restStint, int restRaceTime, double minutes) {
+    private double getCalcDiscardStints(int restStint, int restRaceTime, double minutes) {
         //(レース時間-minutes*許容回数)/(Stint数-許容回数)が30分以下になれば、許容回数がわかるの式を整理して下記処理とする
-        double discardStintCount = ((30*restStint)-restRaceTime)/(30-minutes);
+        double discardStintCount = ((DANGEROUS_DRIVING_TIME*restStint)-restRaceTime)/(DANGEROUS_DRIVING_TIME-minutes);
 
-        Log.d(TAG, "calcDiscardStints:"+ (30*restStint) + "," + stintData.getRaceTime() + "," + (30-minutes));
+        Log.d(TAG, "calcDiscardStints:"+ (DANGEROUS_DRIVING_TIME*restStint) + "," + stintData.getRaceTime() + "," + (DANGEROUS_DRIVING_TIME-minutes));
 
         return discardStintCount;
+    }
+
+    /**
+     * 捨てStint計算処理
+     */
+    private void calcDiscardStints() {
+        //レース全体での捨てStintの許容回数を計算して表示する
+        double fiveMinStintAll = getCalcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),5.0);
+        double tenMinStintAll = getCalcDiscardStints(stintData.getAllStint(),stintData.getRaceTime(),10.0);
+
+        howMany5minStintAllText.setText(String.valueOf(fiveMinStintAll) + "回");
+        howMany10minStintAllText.setText(String.valueOf(tenMinStintAll) + "回");
+
+        setDiscardStintTextColor(howMany5minStintAllText,fiveMinStintAll);
+        setDiscardStintTextColor(howMany10minStintAllText,tenMinStintAll);
+
+        //ロックされているStint以降で何回捨てStintが許されるかを計算して表示する
+        int restStint = stintData.getAllStint()-getLockedStint()-1;
+        Log.d(TAG,"restStint:" + restStint);
+        if (restStint>0) {
+            int sumRunTime = 0;
+            for (int i = 0; i <= getLockedStint(); i++) {
+                sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+            }
+
+
+            double fiveMinStintLock = getCalcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 5.0);
+            double tenMinStintLock = getCalcDiscardStints(restStint,stintData.getRaceTime()-sumRunTime, 10.0);
+
+            howMany5minStintLockedPointText.setText(String.valueOf(fiveMinStintLock) + "回");
+            howMany10minStintLockedPointText.setText(String.valueOf(tenMinStintLock) + "回");
+
+            setDiscardStintTextColor(howMany5minStintLockedPointText,fiveMinStintLock);
+            setDiscardStintTextColor(howMany10minStintLockedPointText,tenMinStintLock);
+        }
+
+        //チェックされているStint以降で何回捨てStintが許されるかを計算して表示する
+        int firstCheckBoxNum = checkboxController.firstCheckBox(stintLayouts, stintData);
+        int afterCheckedRestStint = stintData.getAllStint()-firstCheckBoxNum-1;
+        Log.d(TAG,"afterCheckedRestStint:" + afterCheckedRestStint);
+        if (afterCheckedRestStint>0) {
+            int sumRunTime = 0;
+            for (int i = 0; i <= firstCheckBoxNum; i++) {
+                sumRunTime += Integer.parseInt(stintData.getRunningTime(i));
+            }
+
+
+            double fiveMinStintCheck = getCalcDiscardStints(afterCheckedRestStint,stintData.getRaceTime()-sumRunTime, 5.0);
+            double tenMinStintCheck = getCalcDiscardStints(afterCheckedRestStint,stintData.getRaceTime()-sumRunTime, 10.0);
+
+            howMany5minStintCheckedPointText.setText(String.valueOf(fiveMinStintCheck) + "回");
+            howMany10minStintCheckedPointText.setText(String.valueOf(tenMinStintCheck) + "回");
+
+            setDiscardStintTextColor(howMany5minStintCheckedPointText,fiveMinStintCheck);
+            setDiscardStintTextColor(howMany10minStintCheckedPointText,tenMinStintCheck);
+        }
+
+
+    }
+
+    /**
+     * 捨てStint回数を表示するTextの色を変更する
+     * @param textView 変更したいTextView
+     * @param calcResult 捨てStintの計算結果
+     */
+    private void setDiscardStintTextColor(TextView textView, double calcResult){
+        if (calcResult < 1) {
+            textView.setTextColor(Color.RED);
+        } else {
+            textView.setTextColor(Color.BLACK);
+        }
     }
 
     /**
@@ -2324,6 +2386,8 @@ public class MainActivity extends AppCompatActivity {
         howMany10minStintAllText = findViewById(R.id.howMany10minStintAllText);
         howMany5minStintLockedPointText = findViewById(R.id.howMany5minStintLockedPointText);
         howMany10minStintLockedPointText = findViewById(R.id.howMany10minStintLockedPointText);
+        howMany5minStintCheckedPointText = findViewById(R.id.howMany5minStintCheckedPointText);
+        howMany10minStintCheckedPointText = findViewById(R.id.howMany10minStintCheckedPointText);
 
         view = new View[50];
         stintLayouts = new StintLayout[50];
